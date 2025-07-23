@@ -1,3 +1,5 @@
 data/cifar-100-python.tar.gz
 data/cifar-100-python/train
 data/cifar-100-python/
+imagenet100_subset/
+nc_workspace/
