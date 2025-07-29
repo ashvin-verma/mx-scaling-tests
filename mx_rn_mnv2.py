@@ -9,15 +9,16 @@ from torchvision import transforms, datasets, models
 from torch.utils.data import DataLoader
 from ignite.engine import create_supervised_evaluator
 from ignite.metrics import TopKCategoricalAccuracy, Loss, Metric
+import os
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ─── 1. Get the global 1 000-class JSON ───────────────────────
 idx_file = Path("imagenet_class_index.json")
-if not idx_file.exists():
-    urllib.request.urlretrieve(
-        "https://raw.githubusercontent.com/pytorch/hub/master/imagenet_class_index.json",
-        idx_file)
+# if not idx_file.exists():
+#     urllib.request.urlretrieve(
+#         "https://raw.githubusercontent.com/pytorch/hub/master/imagenet_class_index.json",
+#         idx_file)
 class_idx = json.load(idx_file.open())            # "0": ["n01440764","tench"]
 wnid2idx1000 = {v[0]: int(k) for k, v in class_idx.items()}
 
