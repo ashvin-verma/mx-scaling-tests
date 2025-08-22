@@ -173,7 +173,7 @@ models_fp32 = {
          AutoTokenizer.from_pretrained("Qwen/Qwen1.5-0.5B", trust_remote_code=True))
 
 }
-plot_exponent_hist(models_fp32, device="cpu")
+# plot_exponent_hist(models_fp32, device="cpu")
 
 for dataset in ["wikitext", "code"]:
     print(f"\n\n======= EVALUATING ON {dataset.upper()} =======")
