@@ -7,6 +7,18 @@ from ignite.engine import create_supervised_evaluator
 from ignite.metrics import TopKCategoricalAccuracy, Loss, Metric
 from neural_compressor import PostTrainingQuantConfig, quantization
 
+# Helper function to safely move models to device, handling meta tensors
+def safe_model_to_device(model, device):
+    """Safely move model to device, handling meta tensors properly."""
+    try:
+        return model.to(device)
+    except NotImplementedError as e:
+        if "Cannot copy out of meta tensor" in str(e):
+            # Model has meta tensors, use to_empty instead
+            return model.to_empty(device=device)
+        else:
+            raise e
+
 # ────────────────────────────────────────────────────────────
 # 1. Download global ImageNet class map
 idx_file = Path("imagenet_class_index.json")
@@ -161,7 +173,7 @@ metrics = {
 }
 
 def eval_model(model, tag=""):
-    model = model.to(device).eval()
+    model = safe_model_to_device(model, device).eval()
     evaluator = create_supervised_evaluator(model, metrics, device=device,
                                             output_transform=output_transform)
     state = evaluator.run(val_loader)
