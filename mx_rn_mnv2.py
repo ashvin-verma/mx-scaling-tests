@@ -11,6 +11,18 @@ from ignite.engine import create_supervised_evaluator
 from ignite.metrics import TopKCategoricalAccuracy, Loss, Metric
 import os
 
+# Helper function to safely move models to device, handling meta tensors
+def safe_model_to_device(model, device):
+    """Safely move model to device, handling meta tensors properly."""
+    try:
+        return model.to(device)
+    except NotImplementedError as e:
+        if "Cannot copy out of meta tensor" in str(e):
+            # Model has meta tensors, use to_empty instead
+            return model.to_empty(device=device)
+        else:
+            raise e
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ─── 1. Get the global 1 000-class JSON ───────────────────────
@@ -81,7 +93,7 @@ metrics = {
 }
 
 def eval_and_print(name, model):
-    model = model.to(device).eval()
+    model = safe_model_to_device(model, device).eval()
     evaluator = create_supervised_evaluator(
         model, metrics, device=device, output_transform=output_tf)
     s = evaluator.run(val_loader).metrics

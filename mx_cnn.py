@@ -15,6 +15,18 @@ from quark.torch.quantization.config.type import Dtype
 from quark.torch.quantization.config.config import Config
 from quark.torch.quantization.observer.observer import PerBlockMXObserver
 
+# Helper function to safely move models to device, handling meta tensors
+def safe_model_to_device(model, device):
+    """Safely move model to device, handling meta tensors properly."""
+    try:
+        return model.to(device)
+    except NotImplementedError as e:
+        if "Cannot copy out of meta tensor" in str(e):
+            # Model has meta tensors, use to_empty instead
+            return model.to_empty(device=device)
+        else:
+            raise e
+
 # ─── Step 2: Download ImageNet-100 subset ───────────────────────
 idx_file = Path("imagenet_class_index.json")
 if not idx_file.exists():
@@ -76,7 +88,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # ─── Step 6: Define eval runner ─────────────────────────────────
 def eval_model(model, tag=""):
-    model = model.to(device).eval()
+    model = safe_model_to_device(model, device).eval()
     evaluator = create_supervised_evaluator(model, metrics, device=device,
                                             output_transform=output_transform)
     state = evaluator.run(val_loader)
@@ -93,7 +105,7 @@ for name,mdl in models_fp32.items():
 
 # ─── Step 8: Intel INC MXQuant (MXINT8 or MXFP8) ───────────────
 for name,mdl in models_fp32.items():
-    m = mdl.to(device).eval()
+    m = safe_model_to_device(mdl, device).eval()
     inc_cfg = MXQuantConfig(weight_dtype="mxint8", act_dtype="mxint8")
     q = prepare(m, quant_config=inc_cfg, calib_dataloader=val_loader)
     q = convert(q)
@@ -109,7 +121,7 @@ for name,mdl in models_fp32.items():
                              observer_cls=PerBlockMXObserver, 
                              qscheme=None, ch_axis=0, is_dynamic=True)
     cfg = Config(global_quant_config=spec)
-    q = mdl.to(device).eval()
+    q = safe_model_to_device(mdl, device).eval()
     from quark.torch.quantization import quantizer
     qmodel = quantizer.quantize(model=q, config=cfg, calib_dataloader=val_loader)
     eval_model(qmodel, tag=f"{name} (Quark-MXFP8)")

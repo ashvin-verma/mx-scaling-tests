@@ -14,6 +14,18 @@ from mx.specs import finalize_mx_specs
 from transformers import logging
 logging.set_verbosity_error()
 
+# Helper function to safely move models to device, handling meta tensors
+def safe_model_to_device(model, device):
+    """Safely move model to device, handling meta tensors properly."""
+    try:
+        return model.to(device)
+    except NotImplementedError as e:
+        if "Cannot copy out of meta tensor" in str(e):
+            # Model has meta tensors, use to_empty instead
+            return model.to_empty(device=device)
+        else:
+            raise e
+
 
 # ==================== Device ====================
 device = torch.device("cuda")
@@ -88,7 +100,7 @@ def run_eval(model_dict, tag):
         torch.cuda.empty_cache()
         torch.cuda.reset_peak_memory_stats()
 
-        model.to(device)
+        safe_model_to_device(model, device)
         loader = make_loader(tok)
         res = eval_model(model, tok, loader)
         pretty(name, tag, res)

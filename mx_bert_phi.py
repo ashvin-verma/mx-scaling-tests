@@ -17,6 +17,18 @@ from mx.specs import finalize_mx_specs
 from transformers import logging
 logging.set_verbosity_error()
 
+# Helper function to safely move models to device, handling meta tensors
+def safe_model_to_device(model, device):
+    """Safely move model to device, handling meta tensors properly."""
+    try:
+        return model.to(device)
+    except NotImplementedError as e:
+        if "Cannot copy out of meta tensor" in str(e):
+            # Model has meta tensors, use to_empty instead
+            return model.to_empty(device=device)
+        else:
+            raise e
+
 
 # ==================== Device ====================
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -61,7 +73,7 @@ def plot_exponent_hist(model_dict, device="cpu"):
     """
     for name, (model, _) in model_dict.items():
         # 1) Move model to CPU and eval
-        model.to(device).eval()
+        safe_model_to_device(model, device).eval()
 
         # 2) Gather all exponent bits
         exponents = []
@@ -135,7 +147,7 @@ def run_eval(model_dict, tag, data):
 
         # model = torch.nn.DataParallel(model, device_ids=[0])  
 
-        model.to(device)
+        safe_model_to_device(model, device)
         loader = make_loader(tok, data)
         res = eval_model(model, tok, loader)
         pretty(name, tag, res)

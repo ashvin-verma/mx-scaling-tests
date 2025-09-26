@@ -9,6 +9,18 @@ from ignite.engine import create_supervised_evaluator
 from ignite.metrics import TopKCategoricalAccuracy, Loss, Metric
 from PIL import Image
 
+# Helper function to safely move models to device, handling meta tensors
+def safe_model_to_device(model, device):
+    """Safely move model to device, handling meta tensors properly."""
+    try:
+        return model.to(device)
+    except NotImplementedError as e:
+        if "Cannot copy out of meta tensor" in str(e):
+            # Model has meta tensors, use to_empty instead
+            return model.to_empty(device=device)
+        else:
+            raise e
+
 
 # ----------------------------------------------------------------------------------------------------------------
 # 1) Download ImageNet class-index JSON if missing
@@ -120,8 +132,8 @@ def eval_and_print(models_dict, tag=""):
 # 6) Run FP32 evaluation
 # ----------------------------------------------------------------------------------------------------------------
 models_fp32 = {
-    "AlexNet":  models.alexnet(pretrained=True).to(device).eval(),
-    "ResNet50": models.resnet50(pretrained=True).to(device).eval(),
+    "AlexNet":  safe_model_to_device(models.alexnet(pretrained=True), device).eval(),
+    "ResNet50": safe_model_to_device(models.resnet50(pretrained=True), device).eval(),
 }
 eval_and_print(models_fp32, tag="(FP32)")
 
@@ -143,8 +155,8 @@ mx_spec = finalize_mx_specs(raw_mx)
 inject_pyt_ops(mx_spec)
 
 models_mx = {
-    "AlexNet":  models.alexnet(pretrained=True).to(device).eval(),
-    "ResNet50": models.resnet50(pretrained=True).to(device).eval(),
+    "AlexNet":  safe_model_to_device(models.alexnet(pretrained=True), device).eval(),
+    "ResNet50": safe_model_to_device(models.resnet50(pretrained=True), device).eval(),
 }
 eval_and_print(models_mx, tag="(MXINT8)")
 
@@ -152,7 +164,7 @@ img_path, local_label = raw_ds.imgs[0]
 img = Image.open(img_path).convert("RGB")
 x   = eval_tf(img).unsqueeze(0).to(device)
 with torch.no_grad():
-    logits = models.resnet50(pretrained=True).to(device)(x)
+    logits = safe_model_to_device(models.resnet50(pretrained=True), device)(x)
     probs  = torch.softmax(logits, dim=1)
     top5   = torch.topk(probs, 5).indices.cpu().numpy().tolist()[0]
 print("True global label:", map_target(local_label))
