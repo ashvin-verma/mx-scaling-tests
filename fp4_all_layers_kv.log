@@ -1,0 +1,77 @@
+nohup: ignoring input
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/handlers/checkpoint.py:16: DeprecationWarning: `TorchScript` support for functional optimizers is deprecated and will be removed in a future PyTorch release. Consider using the `torch.compile` optimizer instead.
+  from torch.distributed.optim import ZeroRedundancyOptimizer
+2025-11-07 11:40:09,228 - INFO - Will replace ALL Linear layers with MX (overrides tier selection)
+2025-11-07 11:40:09,229 - INFO - ================================================================================
+2025-11-07 11:40:09,229 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-11-07 11:40:09,229 - INFO - ================================================================================
+2025-11-07 11:40:09,229 - INFO - 
+================================================================================
+2025-11-07 11:40:09,229 - INFO - DATASET: pile
+2025-11-07 11:40:09,229 - INFO - ================================================================================
+2025-11-07 11:40:09,229 - INFO - Loading evaluation data...
+2025-11-07 11:40:09,229 - INFO - Loading 512 samples from The Pile (train split)...
+'(MaxRetryError('HTTPSConnectionPool(host=\'cas-bridge.xethub.hf.co\', port=443): Max retries exceeded with url: /xet-bridge-us/64ef8ede6c34f89ab1791292/692dc8ac96e9f0980e30d49a6ca669c9e47ad961f88c0c784569f56921dea5e1?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20251107%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251107T194012Z&X-Amz-Expires=3600&X-Amz-Signature=4a32c10db8b7b3ac77973c5444ef75e5889436351d4d6e7ed4cd54a149ca9efa&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=67ff5057d68757d92e90d56a&response-content-disposition=inline%3B+filename*%3DUTF-8%27%2700.jsonl.zst%3B+filename%3D%2200.jsonl.zst%22%3B&x-id=GetObject&Expires=1762548012&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc2MjU0ODAxMn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82NGVmOGVkZTZjMzRmODlhYjE3OTEyOTIvNjkyZGM4YWM5NmU5ZjA5ODBlMzBkNDlhNmNhNjY5YzllNDdhZDk2MWY4OGMwYzc4NDU2OWY1NjkyMWRlYTVlMSoifV19&Signature=RZ4tALOyvaTX6ZLAHBap6xJEtSXmu~CB84sU9YmLG4Yahg7qX~o-prepooK7mPtomINfC~TM3BjZ5ziJDlZQZ90DsJeK5zyaAYm0FpHrxyOX30un2Xzy6O7ZBjo0NtwThBynSHeb1ro5Nj7QybTdnjQI68lt9R7096jW2UgvFAwyp87DUi2FiHZ5VRls-zk809QNUUeGkoJr4EJUAotjPpXC25F37jEVHBWghHkyXghGkRTmLeERUon2LeMXvMZLZUxx3igFvcjO~fA5XBlveOeVsBDe7Eo0vfM8ID2SpFJmLjLys-975XIbGS5~xk9QO3pPqsqbNXBY5WAOfXlqhw__&Key-Pair-Id=K2L8F4GPSG1IFC (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x78dab41272c0>: Failed to resolve \'cas-bridge.xethub.hf.co\' ([Errno -5] No address associated with hostname)"))'), '(Request ID: 7ffb3461-0561-4041-b82d-6b7f67c535c0)')' thrown while requesting GET https://huggingface.co/datasets/monology/pile-uncopyrighted/resolve/3be90335b66f24456a5d6659d9c8d208c0357119/train/00.jsonl.zst
+Retrying in 1s [Retry 1/5].
+2025-11-07 11:40:13,878 - INFO - Loaded 512 samples from The Pile
+2025-11-07 11:40:13,878 - INFO - Loaded 512 samples for dataset 'pile'
+2025-11-07 11:40:13,878 - INFO - 
+================================================================================
+2025-11-07 11:40:13,878 - INFO - Evaluating: qwen1.5-0.5B
+2025-11-07 11:40:13,878 - INFO - ================================================================================
+2025-11-07 11:40:13,878 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-11-07 11:40:16,577 - INFO - Baseline-pile    Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Current run is terminating due to exception: CUDA out of memory. Tried to allocate 298.00 MiB. GPU 0 has a total capacity of 23.58 GiB of which 138.25 MiB is free. Process 867679 has 20.79 GiB memory in use. Including non-PyTorch memory, this process has 2.64 GiB memory in use. Of the allocated memory 2.39 GiB is allocated by PyTorch, and 15.90 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Engine run is terminating due to exception: CUDA out of memory. Tried to allocate 298.00 MiB. GPU 0 has a total capacity of 23.58 GiB of which 138.25 MiB is free. Process 867679 has 20.79 GiB memory in use. Including non-PyTorch memory, this process has 2.64 GiB memory in use. Of the allocated memory 2.39 GiB is allocated by PyTorch, and 15.90 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 1452, in <module>
+    main()
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 1212, in main
+    run_eval(
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 856, in run_eval
+    fut.result()
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 822, in worker
+    res = eval_model(model, loader, target_device, context_factory=context_factory)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 746, in eval_model
+    state = engine.run(loader)
+            ^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 905, in run
+    return self._internal_run()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 948, in _internal_run
+    return next(self._internal_run_generator)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 1023, in _internal_run_as_gen
+    self._handle_exception(e)
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 660, in _handle_exception
+    raise e
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 972, in _internal_run_as_gen
+    epoch_time_taken += yield from self._run_once_on_dataset_as_gen()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 1128, in _run_once_on_dataset_as_gen
+    self._handle_exception(e)
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 660, in _handle_exception
+    raise e
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 1111, in _run_once_on_dataset_as_gen
+    self._fire_event(Events.ITERATION_COMPLETED)
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 435, in _fire_event
+    func(*first, *(event_args + others), **kwargs)
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/metrics/metric.py", line 475, in iteration_completed
+    self.update(output)
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 690, in update
+    ent = -(probs * (probs + 1e-12).log()).sum(dim=-1)
+                     ~~~~~~^~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 298.00 MiB. GPU 0 has a total capacity of 23.58 GiB of which 138.25 MiB is free. Process 867679 has 20.79 GiB memory in use. Including non-PyTorch memory, this process has 2.64 GiB memory in use. Of the allocated memory 2.39 GiB is allocated by PyTorch, and 15.90 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

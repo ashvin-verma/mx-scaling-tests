@@ -254,6 +254,14 @@ class MxLinear(nn.Module):
             )
         # Perform matmul with quantized tensors
         out = F.linear(x_mx, w_mx, self.bias)
+        if self.mx_specs.get("quantize_outputs"):
+            out = quantize_mx_op(
+                out,
+                self.mx_specs,
+                elem_format=self.mx_specs["a_elem_format"],
+                axes=[-1],
+                round=self.mx_specs.get("round", "even")
+            )
         return out
 
 def replace_linear_with_mx(model, mx_specs, target_modules=None):
@@ -588,7 +596,7 @@ def make_nvfp8_factory(
     return factory
 
 # ==================== Data ====================
-def load_pile_data(split="validation", max_samples=1000):
+def load_pile_data(split="train", max_samples=1000):
     """
     Load data from The Pile dataset (Parquet-backed on HuggingFace Hub).
     Falls back to WikiText if The Pile is not available.
@@ -608,6 +616,34 @@ def load_pile_data(split="validation", max_samples=1000):
         logger.warning(f"Could not load The Pile: {e}. Falling back to WikiText.")
         ds = load_dataset("wikitext", "wikitext-2-raw-v1", split="test")
         return ds["text"][:max_samples]
+
+
+def load_wikitext_data(split="test", max_samples=1000):
+    """Load WikiText-2 dataset."""
+    ds = load_dataset("wikitext", "wikitext-2-raw-v1", split=split)
+    texts = []
+    for text in ds["text"]:
+        if text.strip():
+            texts.append(text)
+        if len(texts) >= max_samples:
+            break
+    if not texts:
+        raise RuntimeError("WikiText dataset returned no usable samples")
+    return texts
+
+
+DATASET_LOADERS = {
+    "pile": load_pile_data,
+    "wikitext": load_wikitext_data,
+}
+
+
+def load_eval_dataset(name, max_samples=1000):
+    name = name.lower()
+    if name not in DATASET_LOADERS:
+        raise ValueError(f"Unsupported dataset '{name}'. Available: {sorted(DATASET_LOADERS.keys())}")
+    loader = DATASET_LOADERS[name]
+    return loader(max_samples=max_samples)
 
 def get_available_devices(min_free_ratio=0.5):
     """Get list of CUDA device indices with sufficient free memory."""
@@ -951,20 +987,22 @@ ATTENTION_MODULE_PATTERNS = [
     "wqkv", "out_proj",                        # Phi / MPT variations
 ]
 
-ALL_TIERS_ORDER = ["A", "B", "C", "D", "E"]
+ALL_TIERS_ORDER = ["A", "B", "C", "D"]
 
 TIER_DEFINITIONS = {
     "A": {
         "description": "MLP-only MXFP8 (very safe)",
         "target_patterns": MLP_MODULE_PATTERNS,
-        "allow_format_override": True,
-        "default_format": "fp8_e4m3",
+        "module_groups": [
+            {"patterns": MLP_MODULE_PATTERNS, "format": "fp8_e4m3"},
+        ],
     },
     "B": {
         "description": "MLP + attention projections in MXFP8 (safe)",
         "target_patterns": MLP_MODULE_PATTERNS + ATTENTION_MODULE_PATTERNS,
-        "allow_format_override": True,
-        "default_format": "fp8_e4m3",
+        "module_groups": [
+            {"patterns": MLP_MODULE_PATTERNS + ATTENTION_MODULE_PATTERNS, "format": "fp8_e4m3"},
+        ],
     },
     "C": {
         "description": "MLP in MXFP6, attention projections in MXFP8 (balanced)",
@@ -980,13 +1018,6 @@ TIER_DEFINITIONS = {
         "module_groups": [
             {"patterns": MLP_MODULE_PATTERNS, "format": "fp4_e2m1"},
             {"patterns": ATTENTION_MODULE_PATTERNS, "format": "fp6_e3m2"},
-        ],
-    },
-    "E": {
-        "description": "MLP + attention projections in MXFP4 (most aggressive)",
-        "target_patterns": MLP_MODULE_PATTERNS + ATTENTION_MODULE_PATTERNS,
-        "module_groups": [
-            {"patterns": MLP_MODULE_PATTERNS + ATTENTION_MODULE_PATTERNS, "format": "fp4_e2m1"},
         ],
     },
 }
@@ -1045,8 +1076,10 @@ def main():
                        help="Number of DataLoader workers")
     parser.add_argument("--max_samples", type=int, default=20000,
                        help="Maximum number of samples from dataset")
-    parser.add_argument("--tier", choices=["A", "B", "C", "D", "E", "all"], default="B",
-                       help="Quantization tier: A=MLP FP8, B=MLP+attention FP8 (default), C=MLP FP6 + attention FP8, D=MLP FP4 + attention FP6, E=MLP+attention FP4, or 'all' to run tiers A-E sequentially")
+    parser.add_argument("--datasets", nargs="+", default=["pile"],
+                       help="Dataset names to evaluate sequentially (e.g., pile, wikitext)")
+    parser.add_argument("--tier", choices=["A", "B", "C", "D", "all"], default="B",
+                       help="Quantization tier: A=MLP MXFP8, B=MLP+attention MXFP8 (default), C=MLP MXFP6 + attention MXFP8, D=MLP MXFP4 + attention MXFP6, or 'all' to run tiers A-D sequentially")
     parser.add_argument("--all_linears", action="store_true",
                        help="Replace ALL Linear layers (not just attention/MLP)")
     parser.add_argument("--mlp_only", action="store_true",
@@ -1061,6 +1094,12 @@ def main():
                        help="Skip BFP16 block-floating stage")
     parser.add_argument("--skip_bf16", action="store_true",
                        help="Skip BF16 per-tensor stage")
+    parser.add_argument("--skip_int8", action="store_true",
+                       help="Skip INT8 (bitsandbytes) stage")
+    parser.add_argument("--skip_nvfp8_backend", action="store_true",
+                       help="Skip NV-FP8 (Transformer Engine) stage")
+    parser.add_argument("--quantize_outputs", action="store_true",
+                       help="Quantize Linear outputs/k-cache using MX specs")
     parser.add_argument("--full_pipeline", action="store_true",
                        help="Run all tiers and stages with no skips for the primary MX comparison set")
     args = parser.parse_args()
@@ -1071,6 +1110,8 @@ def main():
         args.skip_nvfp8_emulation = False
         args.skip_bfp16 = False
         args.skip_bf16 = False
+        args.skip_int8 = False
+        args.skip_nvfp8_backend = False
         if sorted(args.models) == sorted(default_model_list):
             args.models = ["llama-3.1-8b", "qwen2.5-14b"]
 
@@ -1081,6 +1122,11 @@ def main():
 
     if getattr(args, "no_mx", False):
         args.skip_mx = True
+
+    dataset_names = [name.lower() for name in args.datasets]
+    dataset_names = list(dict.fromkeys(dataset_names))
+    if not dataset_names:
+        raise ValueError("At least one dataset must be specified")
     
     # Determine tier program
     if args.all_linears:
@@ -1096,7 +1142,7 @@ def main():
             tiers_to_run = list(ALL_TIERS_ORDER)
         else:
             if tier_arg not in TIER_DEFINITIONS:
-                raise ValueError(f"Unsupported tier '{tier_arg}'. Available tiers: {ALL_TIERS_ORDER + ['all']}")
+                raise ValueError(f"Unsupported tier '{tier_arg}'. Available tiers: {ALL_TIERS_ORDER + ['ALL']}")
             tiers_to_run = [tier_arg]
 
         tier_target_modules = {}
@@ -1117,119 +1163,82 @@ def main():
 
     logged_formats = set()
 
-    def resolve_spec(format_key):
-        spec = get_mx_spec(format_key)
+    def resolve_spec(format_key, quantize_outputs_flag=False):
+        base_spec = get_mx_spec(format_key)
         if format_key not in logged_formats:
-            logger.info(f"MX Configuration ({format_key}): {spec}")
+            logger.info(f"MX Configuration ({format_key}): {base_spec}")
             logged_formats.add(format_key)
-        return spec
-    
-    # Load data
-    logger.info("Loading evaluation data...")
-    data = load_pile_data(max_samples=args.max_samples)
+        if quantize_outputs_flag:
+            spec = copy.deepcopy(base_spec)
+            spec["quantize_outputs"] = True
+            logger.info(f"Enabling output quantization for format {format_key}")
+            return spec
+        return base_spec
     
     logger.info("=" * 80)
     logger.info("SELECTIVE MX GEMM REPLACEMENT BENCHMARK")
     logger.info("=" * 80)
-    
-    for model_name, config in selected_configs.items():
+
+    for dataset_name in dataset_names:
         logger.info(f"\n{'=' * 80}")
-        logger.info(f"Evaluating: {model_name}")
+        logger.info(f"DATASET: {dataset_name}")
         logger.info(f"{'=' * 80}")
+        logger.info("Loading evaluation data...")
+        data = load_eval_dataset(dataset_name, max_samples=args.max_samples)
+        logger.info(f"Loaded {len(data)} samples for dataset '{dataset_name}'")
 
-        model_batch_size = config.get("eval_batch_size", args.batch_size)
-        if model_batch_size != args.batch_size:
-            logger.info(f"Using batch size override {model_batch_size} for {model_name}")
+        for model_name, config in selected_configs.items():
+            logger.info(f"\n{'=' * 80}")
+            logger.info(f"Evaluating: {model_name}")
+            logger.info(f"{'=' * 80}")
+
+            model_batch_size = config.get("eval_batch_size", args.batch_size)
+            if model_batch_size != args.batch_size:
+                logger.info(f"Using batch size override {model_batch_size} for {model_name}")
         
-        # Build FP32/BF16 baseline
-        logger.info("\n--- Baseline (FP32/BF16) ---")
-        baseline_factory = {
-            f"{model_name}": make_model_factory(
-                model_id=config["model_id"],
-                tokenizer_kwargs=config["tokenizer_kwargs"],
-                model_kwargs=config["model_kwargs"],
-                use_mx=False,
-                multi_gpu=config.get("multi_gpu", False),
-                max_memory=config.get("max_memory"),
-            )
-        }
-        devices = get_available_devices(min_free_ratio=args.min_free_ratio)
-        run_eval(
-            baseline_factory,
-            tag="Baseline",
-            data=data,
-            devices=devices,
-            batch_size=model_batch_size,
-            workers_per_device=args.workers_per_device,
-            loader_workers=args.loader_workers
-        )
-
-        # BF16 per-tensor baseline
-        if not args.skip_bf16:
-            logger.info("\n--- BF16 (per-tensor cast) ---")
-            try:
-                bf16_model_kwargs = copy.deepcopy(config["model_kwargs"])
-                bf16_model_kwargs["torch_dtype"] = torch.bfloat16
-                bf16_factory = {
-                    f"{model_name}-BF16": make_model_factory(
-                        model_id=config["model_id"],
-                        tokenizer_kwargs=config["tokenizer_kwargs"],
-                        model_kwargs=bf16_model_kwargs,
-                        use_mx=False,
-                        multi_gpu=config.get("multi_gpu", False),
-                        max_memory=config.get("max_memory"),
-                    )
-                }
-                devices = get_available_devices(min_free_ratio=args.min_free_ratio)
-                run_eval(
-                    bf16_factory,
-                    tag="BF16",
-                    data=data,
-                    devices=devices,
-                    batch_size=model_batch_size,
-                    workers_per_device=args.workers_per_device,
-                    loader_workers=args.loader_workers
+            # Build FP32/BF16 baseline
+            logger.info("\n--- Baseline (FP32/BF16) ---")
+            baseline_factory = {
+                f"{model_name}": make_model_factory(
+                    model_id=config["model_id"],
+                    tokenizer_kwargs=config["tokenizer_kwargs"],
+                    model_kwargs=config["model_kwargs"],
+                    use_mx=False,
+                    multi_gpu=config.get("multi_gpu", False),
+                    max_memory=config.get("max_memory"),
                 )
-            except Exception as exc:
-                logger.warning(f"Skipping BF16 benchmark for {model_name}: {exc}")
+            }
+            devices = get_available_devices(min_free_ratio=args.min_free_ratio)
+            run_eval(
+                baseline_factory,
+                tag=f"Baseline-{dataset_name}",
+                data=data,
+                devices=devices,
+                batch_size=model_batch_size,
+                workers_per_device=args.workers_per_device,
+                loader_workers=args.loader_workers
+            )
 
-        # Tier-specific evaluation stages
-        bfp16_specs_cache = None
-        nvfp8_emulation_cache = {}
-
-        for tier_name in tiers_to_run:
-            tier_patterns = tier_target_modules.get(tier_name)
-            if tier_name == "ALL":
-                tier_label = "ALL"
-                tier_description = "All Linear layers"
-            else:
-                tier_label = f"T{tier_name}"
-                tier_description = TIER_DEFINITIONS[tier_name]["description"]
-
-            logger.info(f"\n--- Tier {tier_label}: {tier_description} ---")
-
-            # BFP16 block-floating via MX
-            if not args.skip_bfp16:
+            # BF16 per-tensor baseline
+            if not args.skip_bf16:
+                logger.info("\n--- BF16 (per-tensor cast) ---")
                 try:
-                    if bfp16_specs_cache is None:
-                        bfp16_specs_cache = finalize_mx_specs(dict(BFP16_MX_PRESET))
-                        logger.info(f"BFP16 MX Configuration: {bfp16_specs_cache}")
-                    bfp16_factory = {
-                        f"{model_name}-BFP16-{tier_label}": make_model_factory(
+                    bf16_model_kwargs = copy.deepcopy(config["model_kwargs"])
+                    bf16_model_kwargs["torch_dtype"] = torch.bfloat16
+                    bf16_factory = {
+                        f"{model_name}-BF16": make_model_factory(
                             model_id=config["model_id"],
                             tokenizer_kwargs=config["tokenizer_kwargs"],
-                            model_kwargs=config["model_kwargs"],
-                            use_mx=True,
-                            mx_specs=bfp16_specs_cache,
-                            target_modules=tier_patterns,
+                            model_kwargs=bf16_model_kwargs,
+                            use_mx=False,
                             multi_gpu=config.get("multi_gpu", False),
                             max_memory=config.get("max_memory"),
                         )
                     }
                     devices = get_available_devices(min_free_ratio=args.min_free_ratio)
                     run_eval(
-                        bfp16_factory,
-                        tag=f"BFP16-{tier_label}",
+                        bf16_factory,
+                        tag=f"BF16-{dataset_name}",
                         data=data,
                         devices=devices,
                         batch_size=model_batch_size,
@@ -1237,109 +1246,192 @@ def main():
                         loader_workers=args.loader_workers
                     )
                 except Exception as exc:
-                    logger.warning(f"Skipping BFP16 benchmark for {model_name} [{tier_label}]: {exc}")
+                    logger.warning(f"Skipping BF16 benchmark for {model_name}: {exc}")
 
-            # NV-FP8 emulation with no shared exponent bits
-            if not args.skip_nvfp8_emulation:
-                try:
-                    nvfp8_factories = {}
-                    for preset_name, preset in NVFP8_EMULATION_PRESETS.items():
-                        if preset_name not in nvfp8_emulation_cache:
-                            spec = finalize_mx_specs(dict(preset))
-                            nvfp8_emulation_cache[preset_name] = spec
-                            logger.info(f"NV-FP8 Emulation ({preset_name}) MX Configuration: {spec}")
-                        spec = nvfp8_emulation_cache[preset_name]
-                        factory_name = f"{model_name}-NVFP8-Emu-{preset_name}-{tier_label}"
-                        nvfp8_factories[factory_name] = make_model_factory(
+            # Tier-specific evaluation stages
+            bfp16_specs_cache = None
+            nvfp8_emulation_cache = {}
+
+            for tier_name in tiers_to_run:
+                tier_patterns = tier_target_modules.get(tier_name)
+                if tier_name == "ALL":
+                    tier_label = "ALL"
+                    tier_description = "All Linear layers"
+                else:
+                    tier_label = f"T{tier_name}"
+                    tier_description = TIER_DEFINITIONS[tier_name]["description"]
+
+                logger.info(f"\n--- Tier {tier_label}: {tier_description} ---")
+
+                # BFP16 block-floating via MX
+                if not args.skip_bfp16:
+                    try:
+                        if bfp16_specs_cache is None:
+                            bfp16_specs_cache = finalize_mx_specs(dict(BFP16_MX_PRESET))
+                            logger.info(f"BFP16 MX Configuration: {bfp16_specs_cache}")
+                        bfp16_factory = {
+                            f"{model_name}-BFP16-{tier_label}": make_model_factory(
+                                model_id=config["model_id"],
+                                tokenizer_kwargs=config["tokenizer_kwargs"],
+                                model_kwargs=config["model_kwargs"],
+                                use_mx=True,
+                                mx_specs=bfp16_specs_cache,
+                                target_modules=tier_patterns,
+                                multi_gpu=config.get("multi_gpu", False),
+                                max_memory=config.get("max_memory"),
+                            )
+                        }
+                        devices = get_available_devices(min_free_ratio=args.min_free_ratio)
+                        run_eval(
+                            bfp16_factory,
+                            tag=f"BFP16-{tier_label}-{dataset_name}",
+                            data=data,
+                            devices=devices,
+                            batch_size=model_batch_size,
+                            workers_per_device=args.workers_per_device,
+                            loader_workers=args.loader_workers
+                        )
+                    except Exception as exc:
+                        logger.warning(f"Skipping BFP16 benchmark for {model_name} [{tier_label}]: {exc}")
+
+                # NV-FP8 emulation with no shared exponent bits
+                if not args.skip_nvfp8_emulation:
+                    try:
+                        nvfp8_factories = {}
+                        for preset_name, preset in NVFP8_EMULATION_PRESETS.items():
+                            if preset_name not in nvfp8_emulation_cache:
+                                spec = finalize_mx_specs(dict(preset))
+                                nvfp8_emulation_cache[preset_name] = spec
+                                logger.info(f"NV-FP8 Emulation ({preset_name}) MX Configuration: {spec}")
+                            spec = nvfp8_emulation_cache[preset_name]
+                            factory_name = f"{model_name}-NVFP8-Emu-{preset_name}-{tier_label}"
+                            nvfp8_factories[factory_name] = make_model_factory(
+                                model_id=config["model_id"],
+                                tokenizer_kwargs=config["tokenizer_kwargs"],
+                                model_kwargs=config["model_kwargs"],
+                                use_mx=True,
+                                mx_specs=spec,
+                                target_modules=tier_patterns,
+                                multi_gpu=config.get("multi_gpu", False),
+                                max_memory=config.get("max_memory"),
+                            )
+                        devices = get_available_devices(min_free_ratio=args.min_free_ratio)
+                        run_eval(
+                            nvfp8_factories,
+                            tag=f"NVFP8Emu-{tier_label}-{dataset_name}",
+                            data=data,
+                            devices=devices,
+                            batch_size=model_batch_size,
+                            workers_per_device=args.workers_per_device,
+                            loader_workers=args.loader_workers
+                        )
+                    except Exception as exc:
+                        logger.warning(f"Skipping NV-FP8 emulation for {model_name} [{tier_label}]: {exc}")
+
+                # Build MX variant (selective GEMM replacement)
+                if not args.skip_mx:
+                    plans = []
+                    if tier_name == "ALL":
+                        for fmt in args.mx_format:
+                            plans.append({
+                                "label": f"AllLinears-{fmt}",
+                                "groups": [{"patterns": None, "format": fmt}]
+                            })
+                    else:
+                        plans = build_tier_mx_plans(tier_name, args.mx_format)
+
+                    mx_factories = {}
+                    for plan in plans:
+                        spec_groups = []
+                        for group in plan["groups"]:
+                            fmt = group["format"]
+                            spec = resolve_spec(fmt, args.quantize_outputs)
+                            spec_groups.append({
+                                "mx_specs": spec,
+                                "target_modules": _normalize_patterns(group.get("patterns")),
+                            })
+                        factory_name = f"{model_name}-{plan['label']}"
+                        mx_factories[factory_name] = make_model_factory(
                             model_id=config["model_id"],
                             tokenizer_kwargs=config["tokenizer_kwargs"],
                             model_kwargs=config["model_kwargs"],
                             use_mx=True,
-                            mx_specs=spec,
-                            target_modules=tier_patterns,
+                            mx_spec_groups=spec_groups,
                             multi_gpu=config.get("multi_gpu", False),
                             max_memory=config.get("max_memory"),
                         )
-                    devices = get_available_devices(min_free_ratio=args.min_free_ratio)
-                    run_eval(
-                        nvfp8_factories,
-                        tag=f"NVFP8Emu-{tier_label}",
-                        data=data,
-                        devices=devices,
-                        batch_size=model_batch_size,
-                        workers_per_device=args.workers_per_device,
-                        loader_workers=args.loader_workers
-                    )
-                except Exception as exc:
-                    logger.warning(f"Skipping NV-FP8 emulation for {model_name} [{tier_label}]: {exc}")
 
-            # Build MX variant (selective GEMM replacement)
-            if not args.skip_mx:
-                plans = []
-                if tier_name == "ALL":
-                    for fmt in args.mx_format:
-                        plans.append({
-                            "label": f"AllLinears-{fmt}",
-                            "groups": [{"patterns": None, "format": fmt}]
-                        })
+                    if not mx_factories:
+                        logger.warning(f"No MX formats configured for tier {tier_label}; skipping MX stage.")
+                    else:
+                        devices = get_available_devices(min_free_ratio=args.min_free_ratio)
+                        mx_tag = f"MX-{tier_label}-{dataset_name}"
+                        run_eval(
+                            mx_factories,
+                            tag=mx_tag,
+                            data=data,
+                            devices=devices,
+                            batch_size=model_batch_size,
+                            workers_per_device=args.workers_per_device,
+                            loader_workers=args.loader_workers
+                        )
                 else:
-                    plans = build_tier_mx_plans(tier_name, args.mx_format)
+                    logger.info(f"--- MX (Selective GEMM) [{tier_label}] --- Skipped (--skip_mx)")
 
-                mx_factories = {}
-                for plan in plans:
-                    spec_groups = []
-                    for group in plan["groups"]:
-                        fmt = group["format"]
-                        spec = resolve_spec(fmt)
-                        spec_groups.append({
-                            "mx_specs": spec,
-                            "target_modules": _normalize_patterns(group.get("patterns")),
-                        })
-                    factory_name = f"{model_name}-{plan['label']}"
-                    mx_factories[factory_name] = make_model_factory(
-                        model_id=config["model_id"],
-                        tokenizer_kwargs=config["tokenizer_kwargs"],
-                        model_kwargs=config["model_kwargs"],
-                        use_mx=True,
-                        mx_spec_groups=spec_groups,
-                        multi_gpu=config.get("multi_gpu", False),
-                        max_memory=config.get("max_memory"),
-                    )
-
-                if not mx_factories:
-                    logger.warning(f"No MX formats configured for tier {tier_label}; skipping MX stage.")
+                # NV-FP8 (Transformer Engine) for the tier
+                if TE_AVAILABLE and te is not None and torch.cuda.is_available():
+                    try:
+                        nvfp8_factory = {
+                            f"{model_name}-NVFP8-{tier_label}": make_nvfp8_factory(
+                                model_id=config["model_id"],
+                                tokenizer_kwargs=config["tokenizer_kwargs"],
+                                model_kwargs=config["model_kwargs"],
+                                target_modules=tier_patterns,
+                                recipe=config.get("nvfp8_recipe", DEFAULT_NVFP8_RECIPE),
+                            )
+                        }
+                        devices = get_available_devices(min_free_ratio=args.min_free_ratio)
+                        if not devices:
+                            raise RuntimeError("No eligible CUDA devices for NV-FP8 backend")
+                        run_eval(
+                            nvfp8_factory,
+                            tag=f"NVFP8-{tier_label}-{dataset_name}",
+                            data=data,
+                            devices=devices,
+                            batch_size=model_batch_size,
+                            workers_per_device=args.workers_per_device,
+                            loader_workers=args.loader_workers
+                        )
+                    except Exception as exc:
+                        logger.warning(f"Skipping NV-FP8 benchmark for {model_name} [{tier_label}]: {exc}")
                 else:
-                    devices = get_available_devices(min_free_ratio=args.min_free_ratio)
-                    run_eval(
-                        mx_factories,
-                        tag=f"MX-{tier_label}",
-                        data=data,
-                        devices=devices,
-                        batch_size=model_batch_size,
-                        workers_per_device=args.workers_per_device,
-                        loader_workers=args.loader_workers
-                    )
-            else:
-                logger.info(f"--- MX (Selective GEMM) [{tier_label}] --- Skipped (--skip_mx)")
+                    if tier_name == tiers_to_run[0]:
+                        reason = []
+                        if not TE_AVAILABLE or te is None:
+                            reason.append("transformer_engine not available")
+                        if not torch.cuda.is_available():
+                            reason.append("CUDA unavailable")
+                        if reason:
+                            logger.info(f"\n--- NV-FP8 (Transformer Engine) --- Skipped ({', '.join(reason)})")
 
-            # NV-FP8 (Transformer Engine) for the tier
-            if TE_AVAILABLE and te is not None and torch.cuda.is_available():
+            # Build INT8 variant (bitsandbytes)
+            if BitsAndBytesConfig is not None and torch.cuda.is_available() and not args.skip_int8:
+                logger.info("\n--- INT8 (bitsandbytes) ---")
                 try:
-                    nvfp8_factory = {
-                        f"{model_name}-NVFP8-{tier_label}": make_nvfp8_factory(
+                    int8_factory = {
+                        f"{model_name}-INT8": make_int8_factory(
                             model_id=config["model_id"],
                             tokenizer_kwargs=config["tokenizer_kwargs"],
                             model_kwargs=config["model_kwargs"],
-                            target_modules=tier_patterns,
-                            recipe=config.get("nvfp8_recipe", DEFAULT_NVFP8_RECIPE),
+                            quant_kwargs=config.get("int8_quant_kwargs"),
                         )
                     }
                     devices = get_available_devices(min_free_ratio=args.min_free_ratio)
                     if not devices:
-                        raise RuntimeError("No eligible CUDA devices for NV-FP8 backend")
+                        raise RuntimeError("No eligible CUDA devices for INT8 backend")
                     run_eval(
-                        nvfp8_factory,
-                        tag=f"NVFP8-{tier_label}",
+                        int8_factory,
+                        tag=f"INT8-{dataset_name}",
                         data=data,
                         devices=devices,
                         batch_size=model_batch_size,
@@ -1347,45 +1439,9 @@ def main():
                         loader_workers=args.loader_workers
                     )
                 except Exception as exc:
-                    logger.warning(f"Skipping NV-FP8 benchmark for {model_name} [{tier_label}]: {exc}")
+                    logger.warning(f"Skipping INT8 benchmark for {model_name}: {exc}")
             else:
-                if tier_name == tiers_to_run[0]:
-                    reason = []
-                    if not TE_AVAILABLE or te is None:
-                        reason.append("transformer_engine not available")
-                    if not torch.cuda.is_available():
-                        reason.append("CUDA unavailable")
-                    if reason:
-                        logger.info(f"\n--- NV-FP8 (Transformer Engine) --- Skipped ({', '.join(reason)})")
-
-        # Build INT8 variant (bitsandbytes)
-        if BitsAndBytesConfig is not None and torch.cuda.is_available():
-            logger.info("\n--- INT8 (bitsandbytes) ---")
-            try:
-                int8_factory = {
-                    f"{model_name}-INT8": make_int8_factory(
-                        model_id=config["model_id"],
-                        tokenizer_kwargs=config["tokenizer_kwargs"],
-                        model_kwargs=config["model_kwargs"],
-                        quant_kwargs=config.get("int8_quant_kwargs"),
-                    )
-                }
-                devices = get_available_devices(min_free_ratio=args.min_free_ratio)
-                if not devices:
-                    raise RuntimeError("No eligible CUDA devices for INT8 backend")
-                run_eval(
-                    int8_factory,
-                    tag="INT8",
-                    data=data,
-                    devices=devices,
-                    batch_size=model_batch_size,
-                    workers_per_device=args.workers_per_device,
-                    loader_workers=args.loader_workers
-                )
-            except Exception as exc:
-                logger.warning(f"Skipping INT8 benchmark for {model_name}: {exc}")
-        else:
-            logger.info("\n--- INT8 (bitsandbytes) --- Skipped (dependency or CUDA unavailable)")
+                logger.info("\n--- INT8 (bitsandbytes) --- Skipped (dependency or CUDA unavailable)")
 
     
     logger.info("\n" + "=" * 80)

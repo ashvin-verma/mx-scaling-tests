@@ -1,0 +1,726 @@
+nohup: ignoring input
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/handlers/checkpoint.py:16: DeprecationWarning: `TorchScript` support for functional optimizers is deprecated and will be removed in a future PyTorch release. Consider using the `torch.compile` optimizer instead.
+  from torch.distributed.optim import ZeroRedundancyOptimizer
+2025-10-14 11:55:01,706 - INFO - Tier A selected: MLP-only MXFP8 (very safe)
+2025-10-14 11:55:01,706 - INFO - Tier B selected: MLP + attention projections in MXFP8 (safe)
+2025-10-14 11:55:01,706 - INFO - Tier C selected: MLP in MXFP6, attention projections in MXFP8 (balanced)
+2025-10-14 11:55:01,706 - INFO - Tier D selected: MLP in MXFP4, attention projections in MXFP6 (aggressive)
+2025-10-14 11:55:01,707 - INFO - Loading evaluation data...
+2025-10-14 11:55:01,707 - INFO - Loading 20000 samples from The Pile (train split)...
+2025-10-14 11:55:06,199 - INFO - Loaded 20000 samples from The Pile
+2025-10-14 11:55:06,200 - INFO - ================================================================================
+2025-10-14 11:55:06,200 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-14 11:55:06,200 - INFO - ================================================================================
+2025-10-14 11:55:06,200 - INFO - 
+================================================================================
+2025-10-14 11:55:06,200 - INFO - Evaluating: tinystories-33M
+2025-10-14 11:55:06,200 - INFO - ================================================================================
+2025-10-14 11:55:06,200 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-14 11:55:07,916 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 11:58:59,821 - INFO - tinystories-33M                 Baseline         PPL 5.11  Xent 1.6320  Entr 4.6064
+2025-10-14 11:59:20,452 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-14 11:59:20,486 - INFO - BF16             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:01:32,286 - INFO - tinystories-33M-BF16            BF16             PPL 5.14  Xent 1.6375  Entr 4.6200
+2025-10-14 12:01:52,778 - INFO - 
+--- Tier A: MLP-only MXFP8 (very safe) ---
+2025-10-14 12:01:52,779 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 16,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-14 12:01:52,783 - INFO - BFP16-TierA      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:01:54,191 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:01:54,192 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-14 12:05:43,409 - INFO - tinystories-33M-BFP16-TierA     BFP16-TierA      PPL 5.12  Xent 1.6324  Entr 4.6072
+2025-10-14 12:06:04,087 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-14 12:06:04,088 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-14 12:06:04,092 - INFO - NVFP8Emu-TierA   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:06:05,575 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:06:05,576 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-14 12:06:07,701 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:06:07,702 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-14 12:12:40,946 - INFO - tinystories-33M-NVFP8-Emu-fp8_e4m3_no_shared-TierANVFP8Emu-TierA   PPL 5.30  Xent 1.6678  Entr 4.6952
+2025-10-14 12:12:42,349 - INFO - tinystories-33M-NVFP8-Emu-fp8_e5m2_no_shared-TierANVFP8Emu-TierA   PPL 5.13  Xent 1.6355  Entr 4.6126
+2025-10-14 12:13:01,639 - INFO - MX Configuration (fp8_e4m3): {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "max",
+    "block_size": 32,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": true
+}
+2025-10-14 12:13:01,640 - INFO - MX-TierA         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:13:03,248 - INFO - Applying MX quantization groups to roneneldan/TinyStories-33M
+2025-10-14 12:13:03,249 - INFO - Replaced 8 Linear layers with MxLinear
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py:1965: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+2025-10-14 12:17:15,582 - INFO - tinystories-33M-TierA           MX-TierA         PPL 5.22  Xent 1.6533  Entr 4.6588
+2025-10-14 12:17:36,124 - INFO - NVFP8-TierA      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:17:37,711 - INFO - Replaced 8 Linear layers with NvFp8Linear
+2025-10-14 12:17:59,746 - WARNING - Skipping NV-FP8 benchmark for tinystories-33M [A]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-14 12:17:59,746 - INFO - 
+--- Tier B: MLP + attention projections in MXFP8 (safe) ---
+2025-10-14 12:17:59,748 - INFO - BFP16-TierB      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:18:01,134 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:18:01,135 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:21:53,424 - INFO - tinystories-33M-BFP16-TierB     BFP16-TierB      PPL 5.11  Xent 1.6321  Entr 4.6067
+2025-10-14 12:22:14,101 - INFO - NVFP8Emu-TierB   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:22:15,598 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:22:15,599 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:22:17,404 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:22:17,405 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:31:05,069 - INFO - tinystories-33M-NVFP8-Emu-fp8_e4m3_no_shared-TierBNVFP8Emu-TierB   PPL 5.06  Xent 1.6217  Entr 4.5788
+2025-10-14 12:31:09,002 - INFO - tinystories-33M-NVFP8-Emu-fp8_e5m2_no_shared-TierBNVFP8Emu-TierB   PPL 4.73  Xent 1.5547  Entr 4.3951
+2025-10-14 12:31:25,810 - INFO - MX-TierB         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:31:27,424 - INFO - Applying MX quantization groups to roneneldan/TinyStories-33M
+2025-10-14 12:31:27,425 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:35:44,566 - INFO - tinystories-33M-TierB           MX-TierB         PPL 5.23  Xent 1.6539  Entr 4.6549
+2025-10-14 12:36:05,165 - INFO - NVFP8-TierB      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:36:07,211 - INFO - Replaced 24 Linear layers with NvFp8Linear
+2025-10-14 12:36:24,899 - WARNING - Skipping NV-FP8 benchmark for tinystories-33M [B]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-14 12:36:24,899 - INFO - 
+--- Tier C: MLP in MXFP6, attention projections in MXFP8 (balanced) ---
+2025-10-14 12:36:24,900 - INFO - BFP16-TierC      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:36:26,317 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:36:26,318 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:40:22,212 - INFO - tinystories-33M-BFP16-TierC     BFP16-TierC      PPL 5.11  Xent 1.6321  Entr 4.6067
+2025-10-14 12:40:42,899 - INFO - NVFP8Emu-TierC   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:40:44,440 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:40:44,441 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:40:46,552 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:40:46,553 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:49:26,034 - INFO - tinystories-33M-NVFP8-Emu-fp8_e4m3_no_shared-TierCNVFP8Emu-TierC   PPL 5.06  Xent 1.6217  Entr 4.5788
+2025-10-14 12:49:28,923 - INFO - tinystories-33M-NVFP8-Emu-fp8_e5m2_no_shared-TierCNVFP8Emu-TierC   PPL 4.73  Xent 1.5547  Entr 4.3951
+2025-10-14 12:49:46,838 - INFO - MX Configuration (fp6_e3m2): {
+    "scale_bits": 8,
+    "w_elem_format": "fp6_e3m2",
+    "a_elem_format": "fp6_e3m2",
+    "w_elem_format_bp": "fp6_e3m2",
+    "a_elem_format_bp": "fp6_e3m2",
+    "a_elem_format_bp_ex": "fp6_e3m2",
+    "a_elem_format_bp_os": "fp6_e3m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "max",
+    "block_size": 32,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": true
+}
+2025-10-14 12:49:46,842 - INFO - MX-TierC         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:49:48,363 - INFO - Applying MX quantization groups to roneneldan/TinyStories-33M
+2025-10-14 12:49:48,364 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-14 12:49:48,364 - INFO - Replaced 16 Linear layers with MxLinear
+2025-10-14 12:54:09,597 - INFO - tinystories-33M-TierC           MX-TierC         PPL 5.13  Xent 1.6347  Entr 4.6083
+2025-10-14 12:54:30,265 - INFO - NVFP8-TierC      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:54:32,032 - INFO - Replaced 24 Linear layers with NvFp8Linear
+2025-10-14 12:54:51,522 - WARNING - Skipping NV-FP8 benchmark for tinystories-33M [C]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-14 12:54:51,522 - INFO - 
+--- Tier D: MLP in MXFP4, attention projections in MXFP6 (aggressive) ---
+2025-10-14 12:54:51,525 - INFO - BFP16-TierD      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:54:52,955 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:54:52,956 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:58:49,919 - INFO - tinystories-33M-BFP16-TierD     BFP16-TierD      PPL 5.11  Xent 1.6321  Entr 4.6067
+2025-10-14 12:59:10,660 - INFO - NVFP8Emu-TierD   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 12:59:12,140 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:59:12,141 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 12:59:13,883 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-14 12:59:13,884 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-14 13:07:46,190 - INFO - tinystories-33M-NVFP8-Emu-fp8_e4m3_no_shared-TierDNVFP8Emu-TierD   PPL 5.06  Xent 1.6217  Entr 4.5788
+2025-10-14 13:07:46,309 - INFO - tinystories-33M-NVFP8-Emu-fp8_e5m2_no_shared-TierDNVFP8Emu-TierD   PPL 4.73  Xent 1.5547  Entr 4.3951
+2025-10-14 13:08:27,008 - INFO - MX Configuration (fp4_e2m1): {
+    "scale_bits": 8,
+    "w_elem_format": "fp4_e2m1",
+    "a_elem_format": "fp4_e2m1",
+    "w_elem_format_bp": "fp4_e2m1",
+    "a_elem_format_bp": "fp4_e2m1",
+    "a_elem_format_bp_ex": "fp4_e2m1",
+    "a_elem_format_bp_os": "fp4_e2m1",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "max",
+    "block_size": 32,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": true
+}
+2025-10-14 13:08:27,010 - INFO - MX-TierD         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /roneneldan/TinyStories-33M/resolve/main/config.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x702d95ee1a00>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 5e2ddde1-1563-4724-8665-6be5da3f9cfd)')' thrown while requesting HEAD https://huggingface.co/roneneldan/TinyStories-33M/resolve/main/config.json
+Retrying in 1s [Retry 1/5].
+2025-10-14 13:08:30,194 - INFO - Applying MX quantization groups to roneneldan/TinyStories-33M
+2025-10-14 13:08:30,195 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-14 13:08:30,196 - INFO - Replaced 16 Linear layers with MxLinear
+2025-10-14 13:12:29,143 - INFO - tinystories-33M-TierD           MX-TierD         PPL 5.35  Xent 1.6767  Entr 4.7260
+2025-10-14 13:12:49,755 - INFO - NVFP8-TierD      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 13:12:51,304 - INFO - Replaced 24 Linear layers with NvFp8Linear
+2025-10-14 13:13:13,153 - WARNING - Skipping NV-FP8 benchmark for tinystories-33M [D]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-14 13:13:13,154 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-14 13:13:13,155 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 13:16:56,110 - INFO - tinystories-33M-INT8            INT8             PPL 5.18  Xent 1.6446  Entr nan
+2025-10-14 13:17:16,525 - INFO - 
+================================================================================
+2025-10-14 13:17:16,526 - INFO - Evaluating: phi-1_5
+2025-10-14 13:17:16,526 - INFO - ================================================================================
+2025-10-14 13:17:16,526 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-14 13:17:16,534 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 14:01:34,686 - INFO - phi-1_5                         Baseline         PPL 2.35  Xent 0.8554  Entr 2.4281
+2025-10-14 14:01:59,382 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-14 14:01:59,384 - INFO - BF16             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 14:14:45,917 - INFO - phi-1_5-BF16                    BF16             PPL 2.35  Xent 0.8553  Entr 2.4248
+2025-10-14 14:15:09,139 - INFO - 
+--- Tier A: MLP-only MXFP8 (very safe) ---
+2025-10-14 14:15:09,140 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 16,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-14 14:15:09,141 - INFO - BFP16-TierA      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 14:15:10,815 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 14:15:10,817 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-14 15:00:45,142 - INFO - phi-1_5-BFP16-TierA             BFP16-TierA      PPL 2.35  Xent 0.8553  Entr 2.4275
+2025-10-14 15:01:09,893 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-14 15:01:09,893 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-14 15:01:09,895 - INFO - NVFP8Emu-TierA   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+'(MaxRetryError("HTTPSConnectionPool(host='huggingface.co', port=443): Max retries exceeded with url: /microsoft/phi-1_5/resolve/main/config.json (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x702c70d64d40>: Failed to establish a new connection: [Errno 101] Network is unreachable'))"), '(Request ID: 801d9364-188c-41b8-bc06-f18f0e9f29c8)')' thrown while requesting HEAD https://huggingface.co/microsoft/phi-1_5/resolve/main/config.json
+Retrying in 1s [Retry 1/5].
+2025-10-14 15:01:12,774 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 15:01:12,776 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-14 15:01:15,053 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 15:01:15,061 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-14 16:42:41,910 - INFO - phi-1_5-NVFP8-Emu-fp8_e5m2_no_shared-TierANVFP8Emu-TierA   PPL 2.36  Xent 0.8573  Entr 2.4502
+2025-10-14 16:43:22,085 - INFO - phi-1_5-NVFP8-Emu-fp8_e4m3_no_shared-TierANVFP8Emu-TierA   PPL 2.36  Xent 0.8572  Entr 2.4529
+2025-10-14 16:43:46,849 - INFO - MX-TierA         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 16:43:48,547 - INFO - Applying MX quantization groups to microsoft/phi-1_5
+2025-10-14 16:43:48,549 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-14 17:29:55,868 - INFO - phi-1_5-TierA                   MX-TierA         PPL 2.40  Xent 0.8755  Entr 2.5115
+2025-10-14 17:30:20,745 - INFO - NVFP8-TierA      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 17:30:24,489 - INFO - Replaced 48 Linear layers with NvFp8Linear
+2025-10-14 17:30:51,977 - WARNING - Skipping NV-FP8 benchmark for phi-1_5 [A]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-14 17:30:51,978 - INFO - 
+--- Tier B: MLP + attention projections in MXFP8 (safe) ---
+2025-10-14 17:30:51,979 - INFO - BFP16-TierB      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 17:30:53,531 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 17:30:53,535 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-14 18:16:58,790 - INFO - phi-1_5-BFP16-TierB             BFP16-TierB      PPL 2.35  Xent 0.8553  Entr 2.4278
+2025-10-14 18:17:23,600 - INFO - NVFP8Emu-TierB   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 18:17:25,340 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 18:17:25,343 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-14 18:17:27,198 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 18:17:27,202 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-14 20:36:07,423 - INFO - phi-1_5-NVFP8-Emu-fp8_e4m3_no_shared-TierBNVFP8Emu-TierB   PPL 2.39  Xent 0.8721  Entr 2.5052
+2025-10-14 20:36:50,735 - INFO - phi-1_5-NVFP8-Emu-fp8_e5m2_no_shared-TierBNVFP8Emu-TierB   PPL 2.40  Xent 0.8767  Entr 2.5203
+2025-10-14 20:37:15,619 - INFO - MX-TierB         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 20:37:17,263 - INFO - Applying MX quantization groups to microsoft/phi-1_5
+2025-10-14 20:37:17,267 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-14 21:24:27,543 - INFO - phi-1_5-TierB                   MX-TierB         PPL 2.41  Xent 0.8787  Entr 2.5275
+2025-10-14 21:24:52,247 - INFO - NVFP8-TierB      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 21:24:55,570 - INFO - Replaced 144 Linear layers with NvFp8Linear
+2025-10-14 21:25:18,901 - WARNING - Skipping NV-FP8 benchmark for phi-1_5 [B]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-14 21:25:18,902 - INFO - 
+--- Tier C: MLP in MXFP6, attention projections in MXFP8 (balanced) ---
+2025-10-14 21:25:18,902 - INFO - BFP16-TierC      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 21:25:20,493 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 21:25:20,496 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-14 22:11:10,382 - INFO - phi-1_5-BFP16-TierC             BFP16-TierC      PPL 2.35  Xent 0.8553  Entr 2.4278
+2025-10-14 22:11:35,301 - INFO - NVFP8Emu-TierC   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-14 22:11:37,188 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 22:11:37,193 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-14 22:11:39,108 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-14 22:11:39,112 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-15 00:30:20,498 - INFO - phi-1_5-NVFP8-Emu-fp8_e4m3_no_shared-TierCNVFP8Emu-TierC   PPL 2.39  Xent 0.8721  Entr 2.5052
+2025-10-15 00:31:02,785 - INFO - phi-1_5-NVFP8-Emu-fp8_e5m2_no_shared-TierCNVFP8Emu-TierC   PPL 2.40  Xent 0.8767  Entr 2.5203
+2025-10-15 00:31:27,329 - INFO - MX-TierC         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-15 00:31:29,045 - INFO - Applying MX quantization groups to microsoft/phi-1_5
+2025-10-15 00:31:29,047 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-15 00:31:29,049 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-15 01:18:08,666 - INFO - phi-1_5-TierC                   MX-TierC         PPL 2.40  Xent 0.8769  Entr 2.5214
+2025-10-15 01:18:33,347 - INFO - NVFP8-TierC      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-15 01:18:37,026 - INFO - Replaced 144 Linear layers with NvFp8Linear
+2025-10-15 01:18:58,565 - WARNING - Skipping NV-FP8 benchmark for phi-1_5 [C]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-15 01:18:58,566 - INFO - 
+--- Tier D: MLP in MXFP4, attention projections in MXFP6 (aggressive) ---
+2025-10-15 01:18:58,567 - INFO - BFP16-TierD      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-15 01:19:00,219 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-15 01:19:00,222 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-15 02:04:45,108 - INFO - phi-1_5-BFP16-TierD             BFP16-TierD      PPL 2.35  Xent 0.8553  Entr 2.4278
+2025-10-15 02:05:09,930 - INFO - NVFP8Emu-TierD   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-15 02:05:11,875 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-15 02:05:11,879 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-15 02:05:13,983 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-15 02:05:13,991 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-15 04:23:50,806 - INFO - phi-1_5-NVFP8-Emu-fp8_e4m3_no_shared-TierDNVFP8Emu-TierD   PPL 2.39  Xent 0.8721  Entr 2.5052
+2025-10-15 04:24:37,585 - INFO - phi-1_5-NVFP8-Emu-fp8_e5m2_no_shared-TierDNVFP8Emu-TierD   PPL 2.40  Xent 0.8767  Entr 2.5203
+2025-10-15 04:25:02,721 - INFO - MX-TierD         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-15 04:25:04,671 - INFO - Applying MX quantization groups to microsoft/phi-1_5
+2025-10-15 04:25:04,673 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-15 04:25:04,676 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-15 05:11:37,727 - INFO - phi-1_5-TierD                   MX-TierD         PPL 2.49  Xent 0.9119  Entr 2.7322
+2025-10-15 05:12:02,454 - INFO - NVFP8-TierD      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-15 05:12:05,902 - INFO - Replaced 144 Linear layers with NvFp8Linear
+2025-10-15 05:12:29,227 - WARNING - Skipping NV-FP8 benchmark for phi-1_5 [D]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-15 05:12:29,228 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-15 05:12:29,228 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-15 05:36:20,335 - INFO - phi-1_5-INT8                    INT8             PPL 2.35  Xent 0.8544  Entr nan
+2025-10-15 05:36:40,904 - INFO - 
+================================================================================
+2025-10-15 05:36:40,904 - INFO - Evaluating: llama-3.1-8b
+2025-10-15 05:36:40,904 - INFO - ================================================================================
+2025-10-15 05:36:40,905 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-15 05:36:40,916 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 57.41it/s]
+2025-10-15 06:18:36,509 - INFO - llama-3.1-8b                    Baseline         PPL 1.76  Xent 0.5661  Entr 1.5749
+2025-10-15 06:19:08,687 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-15 06:19:08,689 - INFO - BF16             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 56.70it/s]
+2025-10-15 07:00:54,566 - INFO - llama-3.1-8b-BF16               BF16             PPL 1.76  Xent 0.5661  Entr 1.5749
+2025-10-15 07:01:26,782 - INFO - 
+--- Tier A: MLP-only MXFP8 (very safe) ---
+2025-10-15 07:01:26,782 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 16,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-15 07:01:26,783 - INFO - BFP16-TierA      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 59.74it/s]
+2025-10-15 07:01:28,394 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 07:01:28,396 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-15 07:43:10,807 - INFO - llama-3.1-8b-BFP16-TierA        BFP16-TierA      PPL 1.76  Xent 0.5661  Entr 1.5749
+2025-10-15 07:43:43,258 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-15 07:43:43,259 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-15 07:43:43,260 - INFO - NVFP8Emu-TierA   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 59.55it/s]
+2025-10-15 07:43:44,935 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 07:43:44,938 - INFO - Replaced 96 Linear layers with MxLinear
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 54.57it/s]
+2025-10-15 07:43:46,734 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 07:43:46,737 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-15 11:39:38,287 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e4m3_no_shared-TierANVFP8Emu-TierA   PPL 1.76  Xent 0.5678  Entr 1.6190
+2025-10-15 11:40:46,825 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e5m2_no_shared-TierANVFP8Emu-TierA   PPL 1.85  Xent 0.6135  Entr 1.7855
+2025-10-15 11:41:19,297 - INFO - MX-TierA         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 58.13it/s]
+2025-10-15 11:41:21,152 - INFO - Applying MX quantization groups to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 11:41:21,155 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-15 12:38:04,683 - INFO - llama-3.1-8b-TierA              MX-TierA         PPL 1.78  Xent 0.5789  Entr 1.6479
+2025-10-15 12:38:37,499 - INFO - NVFP8-TierA      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 65.05it/s]
+2025-10-15 12:38:43,140 - INFO - Replaced 96 Linear layers with NvFp8Linear
+2025-10-15 12:39:06,118 - WARNING - Skipping NV-FP8 benchmark for llama-3.1-8b [A]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-15 12:39:06,119 - INFO - 
+--- Tier B: MLP + attention projections in MXFP8 (safe) ---
+2025-10-15 12:39:06,123 - INFO - BFP16-TierB      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 60.22it/s]
+2025-10-15 12:39:07,770 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 12:39:07,775 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-15 13:20:39,576 - INFO - llama-3.1-8b-BFP16-TierB        BFP16-TierB      PPL 1.76  Xent 0.5661  Entr 1.5749
+2025-10-15 13:21:12,057 - INFO - NVFP8Emu-TierB   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 59.56it/s]
+2025-10-15 13:21:13,713 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 13:21:13,718 - INFO - Replaced 224 Linear layers with MxLinear
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 54.58it/s]
+2025-10-15 13:21:15,591 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 13:21:15,596 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-15 18:24:52,372 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e4m3_no_shared-TierBNVFP8Emu-TierB   PPL 1.72  Xent 0.5415  Entr 1.4811
+2025-10-15 18:26:17,433 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e5m2_no_shared-TierBNVFP8Emu-TierB   PPL 1.76  Xent 0.5656  Entr 1.5844
+2025-10-15 18:26:49,739 - INFO - MX-TierB         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 54.64it/s]
+2025-10-15 18:26:51,545 - INFO - Applying MX quantization groups to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 18:26:51,551 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-15 19:27:48,829 - INFO - llama-3.1-8b-TierB              MX-TierB         PPL 1.75  Xent 0.5571  Entr 1.5486
+2025-10-15 19:28:21,307 - INFO - NVFP8-TierB      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 54.76it/s]
+2025-10-15 19:28:27,446 - INFO - Replaced 224 Linear layers with NvFp8Linear
+2025-10-15 19:28:50,297 - WARNING - Skipping NV-FP8 benchmark for llama-3.1-8b [B]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-15 19:28:50,297 - INFO - 
+--- Tier C: MLP in MXFP6, attention projections in MXFP8 (balanced) ---
+2025-10-15 19:28:50,298 - INFO - BFP16-TierC      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 62.61it/s]
+2025-10-15 19:28:51,982 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 19:28:51,987 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-15 20:10:14,277 - INFO - llama-3.1-8b-BFP16-TierC        BFP16-TierC      PPL 1.76  Xent 0.5661  Entr 1.5749
+2025-10-15 20:10:46,442 - INFO - NVFP8Emu-TierC   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 60.66it/s]
+2025-10-15 20:10:48,292 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 20:10:48,298 - INFO - Replaced 224 Linear layers with MxLinear
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 54.17it/s]
+2025-10-15 20:10:50,249 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-15 20:10:50,254 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-16 01:13:49,819 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e4m3_no_shared-TierCNVFP8Emu-TierC   PPL 1.72  Xent 0.5415  Entr 1.4811
+2025-10-16 01:15:02,489 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e5m2_no_shared-TierCNVFP8Emu-TierC   PPL 1.76  Xent 0.5656  Entr 1.5844
+2025-10-16 01:15:34,869 - INFO - MX-TierC         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 57.36it/s]
+2025-10-16 01:15:36,529 - INFO - Applying MX quantization groups to meta-llama/Meta-Llama-3.1-8B
+2025-10-16 01:15:36,532 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-16 01:15:36,535 - INFO - Replaced 128 Linear layers with MxLinear
+2025-10-16 02:16:16,959 - INFO - llama-3.1-8b-TierC              MX-TierC         PPL 1.79  Xent 0.5822  Entr 1.6596
+2025-10-16 02:16:49,428 - INFO - NVFP8-TierC      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 62.20it/s]
+2025-10-16 02:16:55,335 - INFO - Replaced 224 Linear layers with NvFp8Linear
+2025-10-16 02:17:20,036 - WARNING - Skipping NV-FP8 benchmark for llama-3.1-8b [C]: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-16 02:17:20,036 - INFO - 
+--- Tier D: MLP in MXFP4, attention projections in MXFP6 (aggressive) ---
+2025-10-16 02:17:20,038 - INFO - BFP16-TierD      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 57.31it/s]
+2025-10-16 02:17:21,620 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-16 02:17:21,625 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-16 02:58:53,056 - INFO - llama-3.1-8b-BFP16-TierD        BFP16-TierD      PPL 1.76  Xent 0.5661  Entr 1.5749
+2025-10-16 02:59:26,753 - INFO - NVFP8Emu-TierD   Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 57.21it/s]
+2025-10-16 02:59:28,418 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-16 02:59:28,425 - INFO - Replaced 224 Linear layers with MxLinear
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 57.73it/s]
+2025-10-16 02:59:30,265 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-16 02:59:30,271 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-16 08:02:30,544 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e4m3_no_shared-TierDNVFP8Emu-TierD   PPL 1.72  Xent 0.5415  Entr 1.4811
+2025-10-16 08:03:45,785 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e5m2_no_shared-TierDNVFP8Emu-TierD   PPL 1.76  Xent 0.5656  Entr 1.5844
+2025-10-16 08:04:18,585 - INFO - MX-TierD         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 59.64it/s]
+2025-10-16 08:04:20,297 - INFO - Applying MX quantization groups to meta-llama/Meta-Llama-3.1-8B
+2025-10-16 08:04:20,300 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-16 08:04:20,303 - INFO - Replaced 128 Linear layers with MxLinear
+2025-10-16 09:04:25,529 - INFO - llama-3.1-8b-TierD              MX-TierD         PPL 2.28  Xent 0.8225  Entr 2.4092
+2025-10-16 09:05:00,342 - INFO - NVFP8-TierD      Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 59.92it/s]
+2025-10-16 09:05:02,985 - WARNING - Skipping NV-FP8 benchmark for llama-3.1-8b [D]: CUDA out of memory. Tried to allocate 112.00 MiB. GPU 0 has a total capacity of 23.58 GiB of which 12.38 MiB is free. Including non-PyTorch memory, this process has 2.37 GiB memory in use. Process 2245789 has 1.96 GiB memory in use. Process 2245783 has 2.51 GiB memory in use. Process 2245807 has 1.96 GiB memory in use. Process 2245799 has 4.47 GiB memory in use. Process 2245867 has 4.40 GiB memory in use. Process 2245896 has 1.96 GiB memory in use. Process 2245993 has 1.96 GiB memory in use. Process 2246032 has 1.96 GiB memory in use. Of the allocated memory 2.10 GiB is allocated by PyTorch, and 25.84 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+2025-10-16 09:05:02,985 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-16 09:05:02,986 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:02<00:06,  2.19s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:04<00:04,  2.42s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:07<00:02,  2.43s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:07<00:00,  1.64s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:07<00:00,  1.91s/it]
+2025-10-16 10:02:59,620 - INFO - llama-3.1-8b-INT8               INT8             PPL 1.82  Xent 0.5980  Entr nan
+2025-10-16 10:03:20,151 - INFO - 
+================================================================================
+2025-10-16 10:03:20,152 - INFO - BENCHMARK COMPLETE
+2025-10-16 10:03:20,152 - INFO - ================================================================================
