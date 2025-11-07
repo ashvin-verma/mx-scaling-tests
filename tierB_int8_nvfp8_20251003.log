@@ -1,0 +1,58 @@
+nohup: ignoring input
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/handlers/checkpoint.py:16: DeprecationWarning: `TorchScript` support for functional optimizers is deprecated and will be removed in a future PyTorch release. Consider using the `torch.compile` optimizer instead.
+  from torch.distributed.optim import ZeroRedundancyOptimizer
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformer_engine/__init__.py:32: RuntimeWarning: Detected a PyTorch installation but could not find the shared object file for the Transformer Engine PyTorch extension library. If this is not intentional, please reinstall Transformer Engine with `pip install transformer_engine[pytorch]` or build from source with `NVTE_FRAMEWORK=pytorch`.
+  warnings.warn(
+2025-10-03 14:02:41,526 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 14:02:41,526 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-03 14:02:42,640 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 14:02:42,640 - INFO - Loading evaluation data...
+2025-10-03 14:02:42,640 - INFO - Loading 200 samples from The Pile (train split)...
+2025-10-03 14:02:46,084 - INFO - Loaded 200 samples from The Pile
+2025-10-03 14:02:46,084 - INFO - ================================================================================
+2025-10-03 14:02:46,084 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 14:02:46,085 - INFO - ================================================================================
+2025-10-03 14:02:46,085 - INFO - 
+================================================================================
+2025-10-03 14:02:46,085 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 14:02:46,085 - INFO - ================================================================================
+2025-10-03 14:02:46,085 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 14:02:47,983 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 67.72it/s]
+2025-10-03 14:03:17,844 - INFO - llama-3.1-8b                    Baseline         PPL 1.76  Xent 0.5670  Entr 1.5463
+2025-10-03 14:03:40,690 - INFO - 
+--- MX (Selective GEMM) --- Skipped (--skip_mx)
+2025-10-03 14:03:40,690 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 14:03:40,721 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:05,  1.97s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:04<00:04,  2.12s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:06<00:02,  2.16s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:06<00:00,  1.49s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:06<00:00,  1.72s/it]
+2025-10-03 14:04:24,482 - INFO - llama-3.1-8b-INT8               INT8             PPL 1.81  Xent 0.5951  Entr nan
+2025-10-03 14:04:35,065 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 14:04:35,065 - INFO - 
+================================================================================
+2025-10-03 14:04:35,065 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 14:04:35,066 - INFO - ================================================================================
+2025-10-03 14:04:35,066 - INFO - Using batch size override 1 for qwen2.5-14b
+2025-10-03 14:04:35,066 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 14:04:35,066 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:06,  1.07it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:05,  1.05it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:04,  1.04it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:03<00:03,  1.03it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:04<00:02,  1.03it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:05<00:01,  1.03it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:06<00:00,  1.04it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:07<00:00,  1.27it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:07<00:00,  1.12it/s]
+2025-10-03 14:04:44,393 - INFO - Loaded Qwen/Qwen2.5-14B across devices: ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5', 'cuda:6', 'cuda:7']
+2025-10-03 14:05:37,152 - INFO - qwen2.5-14b                     Baseline         PPL 2.35  Xent 0.8533  Entr 2.1449
+2025-10-03 14:05:47,613 - INFO - 
+--- MX (Selective GEMM) --- Skipped (--skip_mx)
+2025-10-03 14:05:47,614 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 14:05:47,617 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:09,  1.37s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:02<00:08,  1.44s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:04<00:07,  1.47s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:05<00:05,  1.49s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:07<00:04,  1.48s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:08<00:03,  1.50s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:10<00:01,  1.49s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:10<00:00,  1.21s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:10<00:00,  1.37s/it]
+2025-10-03 14:07:37,957 - INFO - qwen2.5-14b-INT8                INT8             PPL 2.38  Xent 0.8671  Entr nan
+2025-10-03 14:07:48,408 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 14:07:48,409 - INFO - 
+================================================================================
+2025-10-03 14:07:48,409 - INFO - BENCHMARK COMPLETE
+2025-10-03 14:07:48,409 - INFO - ================================================================================

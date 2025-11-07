@@ -1,0 +1,85 @@
+nohup: ignoring input
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/handlers/checkpoint.py:16: DeprecationWarning: `TorchScript` support for functional optimizers is deprecated and will be removed in a future PyTorch release. Consider using the `torch.compile` optimizer instead.
+  from torch.distributed.optim import ZeroRedundancyOptimizer
+2025-10-03 01:48:53,298 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 01:48:54,491 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 01:48:54,492 - INFO - Loading evaluation data...
+2025-10-03 01:48:54,492 - INFO - Loading 1000 samples from The Pile (train split)...
+'(MaxRetryError('HTTPSConnectionPool(host=\'cas-bridge.xethub.hf.co\', port=443): Max retries exceeded with url: /xet-bridge-us/64ef8ede6c34f89ab1791292/692dc8ac96e9f0980e30d49a6ca669c9e47ad961f88c0c784569f56921dea5e1?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cas%2F20251003%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20251003T083106Z&X-Amz-Expires=3600&X-Amz-Signature=c3aa4dff8ff33d7bb70a749a835d26c93171546e3681aedb023e80c627da2789&X-Amz-SignedHeaders=host&X-Xet-Cas-Uid=6895373cf0f5a0b338fc0be6&response-content-disposition=inline%3B+filename*%3DUTF-8%27%2700.jsonl.zst%3B+filename%3D%2200.jsonl.zst%22%3B&x-id=GetObject&Expires=1759483866&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc1OTQ4Mzg2Nn19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2FzLWJyaWRnZS54ZXRodWIuaGYuY28veGV0LWJyaWRnZS11cy82NGVmOGVkZTZjMzRmODlhYjE3OTEyOTIvNjkyZGM4YWM5NmU5ZjA5ODBlMzBkNDlhNmNhNjY5YzllNDdhZDk2MWY4OGMwYzc4NDU2OWY1NjkyMWRlYTVlMSoifV19&Signature=rlnlcdZbEqTf77ypa2C1~vUMSeAQFklI2sFj5hOMmAhoFzMKcm0~eGPCwgcFbHaX3TRGuIkWeP~-x8XKXsGblIpJA694q9DNrxEOiG-8tnlz-lG2WUxu6Ngxb1xKpPaj0tYuf6272kL7Owfmklv~nBxrt9W4s9W534jMlD3sE5kp-rKZ73tTZcJFs2US-UsufHvgd6PGQTJBFQdlvLGk42xAqBUObAPayHazRxGjAja0z7jLxy-uX41A4PSQF8IBwRWClm0U-KvDS3km6rNJelyoV~ChBqA3IPIKZcdpODBZaXLxOjxY7t783G7L~a433pDo2dES0IIaLm-uitIlbg__&Key-Pair-Id=K2L8F4GPSG1IFC (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x72527c9c2bd0>: Failed to resolve \'cas-bridge.xethub.hf.co\' ([Errno -5] No address associated with hostname)"))'), '(Request ID: 7e74b843-3b65-4052-8c3e-70d06e22d32d)')' thrown while requesting GET https://huggingface.co/datasets/monology/pile-uncopyrighted/resolve/3be90335b66f24456a5d6659d9c8d208c0357119/train/00.jsonl.zst
+Retrying in 1s [Retry 1/5].
+2025-10-03 01:48:58,710 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 01:48:58,710 - INFO - ================================================================================
+2025-10-03 01:48:58,710 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 01:48:58,710 - INFO - ================================================================================
+2025-10-03 01:48:58,710 - INFO - 
+================================================================================
+2025-10-03 01:48:58,710 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 01:48:58,710 - INFO - ================================================================================
+2025-10-03 01:48:58,710 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:49:00,579 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [01:59<05:57, 119.06s/it]Fetching 4 files: 100%|██████████| 4/4 [01:59<00:00, 29.76s/it] 
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 53.24it/s]
+2025-10-03 01:53:10,050 - INFO - llama-3.1-8b                    Baseline         PPL 1.73  Xent 0.5484  Entr 1.5210
+2025-10-03 01:53:32,486 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 01:53:32,536 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 59.98it/s]
+2025-10-03 01:53:34,161 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 01:53:34,164 - INFO - Replaced 96 Linear layers with MxLinear
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py:1965: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+2025-10-03 01:56:07,034 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.75  Xent 0.5609  Entr 1.5969
+2025-10-03 01:56:29,470 - INFO - 
+================================================================================
+2025-10-03 01:56:29,471 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 01:56:29,471 - INFO - ================================================================================
+2025-10-03 01:56:29,471 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:56:29,473 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files:  12%|█▎        | 1/8 [03:32<24:50, 212.99s/it]Fetching 8 files:  25%|██▌       | 2/8 [03:34<08:52, 88.73s/it] Fetching 8 files: 100%|██████████| 8/8 [03:34<00:00, 26.84s/it]
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:00<00:00, 59.27it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:00<00:00, 66.41it/s]
+Traceback (most recent call last):
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 609, in <module>
+    main()
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 571, in main
+    run_eval(
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 387, in run_eval
+    fut.result()
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 365, in worker
+    model, tok = build_fn(target_device)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 181, in factory
+    model = model.to(target, non_blocking=True)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4462, in to
+    return super().to(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1174, in to
+    return self._apply(convert)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 780, in _apply
+    module._apply(fn)
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 780, in _apply
+    module._apply(fn)
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 780, in _apply
+    module._apply(fn)
+  [Previous line repeated 2 more times]
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 805, in _apply
+    param_applied = fn(param)
+                    ^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1160, in convert
+    return t.to(
+           ^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 136.00 MiB. GPU 0 has a total capacity of 23.58 GiB of which 87.38 MiB is free. Including non-PyTorch memory, this process has 23.48 GiB memory in use. Of the allocated memory 23.23 GiB is allocated by PyTorch, and 2.47 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

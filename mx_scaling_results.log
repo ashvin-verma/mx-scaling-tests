@@ -1,0 +1,67 @@
+2025-09-25 22:22:22,977 - transformers_modules.microsoft.phi-3-mini-128k-instruct.072cb7562cb8c4adf682a8e186aaafa49469eb5d.modeling_phi3 - WARNING - `flash-attention` package not found, consider installing for better performance: No module named 'flash_attn'.
+2025-09-25 22:22:22,978 - transformers_modules.microsoft.phi-3-mini-128k-instruct.072cb7562cb8c4adf682a8e186aaafa49469eb5d.modeling_phi3 - WARNING - Current `flash-attention` does not support `window_size`. Either upgrade or use `attn_implementation='eager'`.
+2025-09-25 22:29:17,681 - __main__ - INFO - 
+
+======= EVALUATING ON WIKITEXT =======
+2025-09-25 22:29:20,066 - __main__ - INFO - 
+=== FP32 Evaluation ===
+2025-09-25 22:29:32,449 - __main__ - INFO - bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 22:30:11,055 - __main__ - INFO - phi-1_5                         (FP32)      PPL 3.90  Xent 1.36  Entr 3.48
+2025-09-25 22:30:27,406 - ignite.engine.engine.Engine - ERROR - Current run is terminating due to exception: 'DynamicCache' object has no attribute 'get_usable_length'
+2025-09-25 22:30:27,406 - ignite.engine.engine.Engine - ERROR - Engine run is terminating due to exception: 'DynamicCache' object has no attribute 'get_usable_length'
+2025-09-25 22:42:16,025 - __main__ - INFO - 
+
+======= EVALUATING ON WIKITEXT =======
+2025-09-25 22:42:18,832 - __main__ - INFO - 
+=== FP32 Evaluation ===
+2025-09-25 22:42:30,998 - __main__ - INFO - bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 22:43:06,943 - __main__ - INFO - phi-1_5                         (FP32)      PPL 3.90  Xent 1.36  Entr 3.48
+2025-09-25 22:43:22,239 - ignite.engine.engine.Engine - ERROR - Current run is terminating due to exception: 'DynamicCache' object has no attribute 'get_usable_length'
+2025-09-25 22:43:22,239 - ignite.engine.engine.Engine - ERROR - Engine run is terminating due to exception: 'DynamicCache' object has no attribute 'get_usable_length'
+2025-09-25 22:44:35,080 - __main__ - INFO - 
+
+======= EVALUATING ON WIKITEXT =======
+2025-09-25 22:44:37,988 - __main__ - INFO - 
+=== FP32 Evaluation ===
+2025-09-25 22:44:48,576 - __main__ - INFO - bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 22:45:19,142 - __main__ - INFO - phi-1_5                         (FP32)      PPL 3.90  Xent 1.36  Entr 3.48
+2025-09-25 22:45:33,468 - ignite.engine.engine.Engine - ERROR - Current run is terminating due to exception: You are attempting to perform batched generation with padding_side='right' this may lead to unexpected behaviour for Flash Attention version of Phi3. Make sure to  call `tokenizer.padding_side  = 'left'` before tokenizing the input. 
+2025-09-25 22:45:33,468 - ignite.engine.engine.Engine - ERROR - Engine run is terminating due to exception: You are attempting to perform batched generation with padding_side='right' this may lead to unexpected behaviour for Flash Attention version of Phi3. Make sure to  call `tokenizer.padding_side  = 'left'` before tokenizing the input. 
+2025-09-25 22:49:01,038 - __main__ - INFO - 
+
+======= EVALUATING ON WIKITEXT =======
+2025-09-25 22:49:03,565 - __main__ - INFO - 
+=== FP32 Evaluation ===
+2025-09-25 22:49:14,359 - __main__ - INFO - bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 22:49:47,533 - __main__ - INFO - phi-1_5                         (FP32)      PPL 3.90  Xent 1.36  Entr 3.48
+2025-09-25 22:50:03,232 - transformers_modules.microsoft.phi-3-mini-128k-instruct.072cb7562cb8c4adf682a8e186aaafa49469eb5d.modeling_phi3 - WARNING - You are not running the flash-attention implementation, expect numerical differences.
+2025-09-25 22:50:03,233 - ignite.engine.engine.Engine - ERROR - Current run is terminating due to exception: _get_usable_length() takes 2 positional arguments but 3 were given
+2025-09-25 22:50:03,233 - ignite.engine.engine.Engine - ERROR - Engine run is terminating due to exception: _get_usable_length() takes 2 positional arguments but 3 were given
+2025-09-25 22:53:59,386 - __main__ - INFO - 
+
+======= EVALUATING ON WIKITEXT =======
+2025-09-25 22:54:01,998 - __main__ - INFO - 
+=== FP32 Evaluation ===
+2025-09-25 22:54:13,180 - __main__ - INFO - bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 22:54:46,471 - __main__ - INFO - phi-1_5                         (FP32)      PPL 3.90  Xent 1.36  Entr 3.48
+2025-09-25 22:55:01,686 - transformers_modules.microsoft.phi-3-mini-128k-instruct.072cb7562cb8c4adf682a8e186aaafa49469eb5d.modeling_phi3 - WARNING - You are not running the flash-attention implementation, expect numerical differences.
+2025-09-25 22:55:01,716 - ignite.engine.engine.Engine - ERROR - Current run is terminating due to exception: Attention weights should be of size (1, 32, 8, 16), but is torch.Size([1, 32, 8, 8])
+2025-09-25 22:55:01,716 - ignite.engine.engine.Engine - ERROR - Engine run is terminating due to exception: Attention weights should be of size (1, 32, 8, 16), but is torch.Size([1, 32, 8, 8])
+2025-09-25 23:01:44,899 - __main__ - INFO - 
+
+======= EVALUATING ON WIKITEXT =======
+2025-09-25 23:01:47,358 - __main__ - INFO - 
+=== FP32 Evaluation ===
+2025-09-25 23:01:57,854 - __main__ - INFO - bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 23:02:31,302 - __main__ - INFO - phi-1_5                         (FP32)      PPL 3.90  Xent 1.36  Entr 3.48
+2025-09-25 23:02:47,331 - ignite.engine.engine.Engine - ERROR - Current run is terminating due to exception: 'DynamicCache' object has no attribute 'get_usable_length'
+2025-09-25 23:02:47,331 - ignite.engine.engine.Engine - ERROR - Engine run is terminating due to exception: 'DynamicCache' object has no attribute 'get_usable_length'
+2025-09-25 23:19:16,308 - __main__ - INFO - 
+
+======= EVALUATING ON WIKITEXT =======
+2025-09-25 23:19:18,882 - __main__ - INFO - 
+=== FP32 Evaluation ===
+2025-09-25 23:19:31,881 - __main__ - INFO - bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 23:20:10,642 - __main__ - INFO - phi-1_5                         (FP32)      PPL 3.90  Xent 1.36  Entr 3.48
+2025-09-25 23:20:22,047 - ignite.engine.engine.Engine - ERROR - Current run is terminating due to exception: 'DynamicCache' object has no attribute 'get_usable_length'
+2025-09-25 23:20:22,047 - ignite.engine.engine.Engine - ERROR - Engine run is terminating due to exception: 'DynamicCache' object has no attribute 'get_usable_length'

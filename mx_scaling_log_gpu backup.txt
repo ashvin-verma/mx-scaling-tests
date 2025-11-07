@@ -1,0 +1,97 @@
+2025-09-25 22:30:57,906 - INFO - ======= EVALUATING ON WIKITEXT =======
+2025-09-25 22:31:00,534 - INFO - === FP32 Evaluation ===
+2025-09-25 22:31:03,467 - INFO - WIKITEXT | (FP32)      Using GPUs (>=80% free): [0, 1, 2, 3, 4, 5, 6, 7]
+2025-09-25 22:31:14,112 - INFO - WIKITEXT | bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 22:31:14,791 - INFO - === MX Format: INT8 (no block/scale sweep) ===
+2025-09-25 22:31:15,424 - INFO - Generating exponent histogram for bert-base-uncased on cpu
+2025-09-25 22:31:18,563 - INFO - Saved exponent histogram to bert-base-uncased_exp_hist_gpus.png
+2025-09-25 22:31:18,931 - INFO - WIKITEXT | (MX-INT8)   Using GPUs (>=80% free): [0, 1, 2, 3, 4, 5, 6, 7]
+2025-09-25 22:32:21,261 - INFO - WIKITEXT | bert-base-uncased               (MX-INT8)   PPL 1.64  Xent 0.50  Entr 1.75
+2025-09-25 22:32:21,900 - INFO - ============================================================
+2025-09-25 22:42:45,084 - INFO - ======= EVALUATING ON WIKITEXT =======
+2025-09-25 22:42:47,956 - INFO - === FP32 Evaluation ===
+2025-09-25 22:42:50,084 - INFO - WIKITEXT | (FP32)      Using GPUs (>=80% free): [1, 2, 3, 4, 5, 6, 7]
+2025-09-25 22:43:31,037 - INFO - WIKITEXT | tinystories-33M                 (FP32)      PPL 3.08  Xent 1.13  Entr 2.80
+2025-09-25 22:43:32,596 - INFO - WIKITEXT | bert-base-uncased               (FP32)      PPL 1.59  Xent 0.47  Entr 1.52
+2025-09-25 22:44:02,992 - INFO - WIKITEXT | phi-1_5                         (FP32)      PPL 3.90  Xent 1.36  Entr 3.48
+2025-09-25 22:44:05,768 - INFO - WIKITEXT | qwen1.5-0.5B                    (FP32)      PPL 8.02  Xent 2.08  Entr 5.60
+2025-09-25 22:44:08,037 - INFO - === MX Format: INT8 (no block/scale sweep) ===
+2025-09-25 22:44:08,702 - INFO - Generating exponent histogram for bert-base-uncased on cpu
+2025-09-25 22:44:10,052 - INFO - Saved exponent histogram to bert-base-uncased_exp_hist_gpus.png
+2025-09-25 22:44:11,823 - INFO - Generating exponent histogram for phi-1_5 on cpu
+2025-09-25 22:44:20,837 - INFO - Saved exponent histogram to phi-1_5_exp_hist_gpus.png
+2025-09-25 22:44:22,659 - INFO - Generating exponent histogram for tinystories-33M on cpu
+2025-09-25 22:44:24,371 - INFO - Saved exponent histogram to tinystories-33M_exp_hist_gpus.png
+2025-09-25 22:44:26,381 - INFO - Generating exponent histogram for qwen1.5-0.5B on cpu
+2025-09-25 22:44:30,446 - INFO - Saved exponent histogram to qwen1.5-0.5B_exp_hist_gpus.png
+2025-09-25 22:44:31,095 - INFO - WIKITEXT | (MX-INT8)   Using GPUs (>=80% free): [0, 1, 2, 3, 4, 5, 6, 7]
+2025-09-25 22:48:34,677 - INFO - WIKITEXT | tinystories-33M                 (MX-INT8)   PPL 3.15  Xent 1.15  Entr 2.81
+2025-09-25 22:52:14,307 - INFO - WIKITEXT | bert-base-uncased               (MX-INT8)   PPL 1.64  Xent 0.50  Entr 1.75
+2025-09-25 22:53:57,215 - INFO - WIKITEXT | phi-1_5                         (MX-INT8)   PPL 3.89  Xent 1.36  Entr 3.53
+2025-09-25 22:54:02,335 - INFO - WIKITEXT | qwen1.5-0.5B                    (MX-INT8)   PPL 10.77  Xent 2.38  Entr 6.11
+2025-09-25 22:54:03,943 - INFO - === MX Format: FP8_E4M3 | Block Size: 32 | Scale Bits: 4 ===
+2025-09-25 22:54:04,601 - INFO - Generating exponent histogram for bert-base-uncased on cpu
+2025-09-25 22:54:06,306 - INFO - Saved exponent histogram to bert-base-uncased_exp_hist_gpus.png
+2025-09-25 22:54:08,285 - INFO - Generating exponent histogram for phi-1_5 on cpu
+2025-09-25 22:54:17,429 - INFO - Saved exponent histogram to phi-1_5_exp_hist_gpus.png
+2025-09-25 22:54:19,161 - INFO - Generating exponent histogram for tinystories-33M on cpu
+2025-09-25 22:54:20,865 - INFO - Saved exponent histogram to tinystories-33M_exp_hist_gpus.png
+2025-09-25 22:54:22,816 - INFO - Generating exponent histogram for qwen1.5-0.5B on cpu
+2025-09-25 22:54:27,012 - INFO - Saved exponent histogram to qwen1.5-0.5B_exp_hist_gpus.png
+2025-09-25 22:54:27,430 - INFO - WIKITEXT | (MX-FP8_E4M3)  Using GPUs (>=80% free): [1, 2, 3, 4, 5, 6, 7]
+2025-09-25 22:57:46,451 - INFO - WIKITEXT | tinystories-33M                 (MX-FP8_E4M3)  PPL 3.18  Xent 1.16  Entr 2.83 | block_size=32, scale_bits=4
+2025-09-25 23:00:34,374 - INFO - WIKITEXT | bert-base-uncased               (MX-FP8_E4M3)  PPL 1.59  Xent 0.46  Entr 1.51 | block_size=32, scale_bits=4
+2025-09-25 23:01:49,596 - INFO - WIKITEXT | qwen1.5-0.5B                    (MX-FP8_E4M3)  PPL 7.68  Xent 2.04  Entr 5.85 | block_size=32, scale_bits=4
+2025-09-25 23:01:55,643 - INFO - WIKITEXT | phi-1_5                         (MX-FP8_E4M3)  PPL 3.91  Xent 1.36  Entr 3.49 | block_size=32, scale_bits=4
+2025-09-25 23:02:00,383 - INFO - === MX Format: FP8_E4M3 | Block Size: 32 | Scale Bits: 8 ===
+2025-09-25 23:02:01,115 - INFO - Generating exponent histogram for bert-base-uncased on cpu
+2025-09-25 23:02:02,833 - INFO - Saved exponent histogram to bert-base-uncased_exp_hist_gpus.png
+2025-09-25 23:02:04,902 - INFO - Generating exponent histogram for phi-1_5 on cpu
+2025-09-25 23:02:14,500 - INFO - Saved exponent histogram to phi-1_5_exp_hist_gpus.png
+2025-09-25 23:02:16,783 - INFO - Generating exponent histogram for tinystories-33M on cpu
+2025-09-25 23:02:18,422 - INFO - Saved exponent histogram to tinystories-33M_exp_hist_gpus.png
+2025-09-25 23:02:20,536 - INFO - Generating exponent histogram for qwen1.5-0.5B on cpu
+2025-09-25 23:02:24,817 - INFO - Saved exponent histogram to qwen1.5-0.5B_exp_hist_gpus.png
+2025-09-25 23:02:25,321 - INFO - WIKITEXT | (MX-FP8_E4M3)  Using GPUs (>=80% free): [1, 2, 3, 4, 5, 6, 7]
+2025-09-25 23:05:44,522 - INFO - WIKITEXT | tinystories-33M                 (MX-FP8_E4M3)  PPL 3.09  Xent 1.13  Entr 2.82 | block_size=32, scale_bits=8
+2025-09-25 23:08:31,190 - INFO - WIKITEXT | bert-base-uncased               (MX-FP8_E4M3)  PPL 1.58  Xent 0.45  Entr 1.54 | block_size=32, scale_bits=8
+2025-09-25 23:09:56,289 - INFO - WIKITEXT | qwen1.5-0.5B                    (MX-FP8_E4M3)  PPL 43.18  Xent 3.77  Entr 7.60 | block_size=32, scale_bits=8
+2025-09-25 23:10:04,635 - INFO - WIKITEXT | phi-1_5                         (MX-FP8_E4M3)  PPL 3.88  Xent 1.36  Entr 3.51 | block_size=32, scale_bits=8
+2025-09-25 23:10:08,210 - INFO - === MX Format: FP8_E4M3 | Block Size: 32 | Scale Bits: 16 ===
+2025-09-25 23:10:08,956 - INFO - Generating exponent histogram for bert-base-uncased on cpu
+2025-09-25 23:10:10,257 - INFO - Saved exponent histogram to bert-base-uncased_exp_hist_gpus.png
+2025-09-25 23:10:12,257 - INFO - Generating exponent histogram for phi-1_5 on cpu
+2025-09-25 23:10:20,989 - INFO - Saved exponent histogram to phi-1_5_exp_hist_gpus.png
+2025-09-25 23:10:22,930 - INFO - Generating exponent histogram for tinystories-33M on cpu
+2025-09-25 23:10:24,665 - INFO - Saved exponent histogram to tinystories-33M_exp_hist_gpus.png
+2025-09-25 23:10:26,173 - INFO - Generating exponent histogram for qwen1.5-0.5B on cpu
+2025-09-25 23:10:29,448 - INFO - Saved exponent histogram to qwen1.5-0.5B_exp_hist_gpus.png
+2025-09-25 23:10:29,921 - INFO - WIKITEXT | (MX-FP8_E4M3)  Using GPUs (>=80% free): [0, 1, 2, 3, 4, 5, 6, 7]
+2025-09-25 23:13:50,848 - INFO - WIKITEXT | tinystories-33M                 (MX-FP8_E4M3)  PPL 3.09  Xent 1.13  Entr 2.82 | block_size=32, scale_bits=16
+2025-09-25 23:16:38,854 - INFO - WIKITEXT | bert-base-uncased               (MX-FP8_E4M3)  PPL 1.58  Xent 0.45  Entr 1.54 | block_size=32, scale_bits=16
+2025-09-25 23:17:47,511 - INFO - WIKITEXT | qwen1.5-0.5B                    (MX-FP8_E4M3)  PPL 43.18  Xent 3.77  Entr 7.60 | block_size=32, scale_bits=16
+2025-09-25 23:17:54,791 - INFO - WIKITEXT | phi-1_5                         (MX-FP8_E4M3)  PPL 3.88  Xent 1.36  Entr 3.51 | block_size=32, scale_bits=16
+2025-09-25 23:17:59,273 - INFO - === MX Format: FP8_E4M3 | Block Size: 64 | Scale Bits: 4 ===
+2025-09-25 23:18:00,015 - INFO - Generating exponent histogram for bert-base-uncased on cpu
+2025-09-25 23:18:01,503 - INFO - Saved exponent histogram to bert-base-uncased_exp_hist_gpus.png
+2025-09-25 23:18:03,898 - INFO - Generating exponent histogram for phi-1_5 on cpu
+2025-09-25 23:18:12,644 - INFO - Saved exponent histogram to phi-1_5_exp_hist_gpus.png
+2025-09-25 23:18:14,612 - INFO - Generating exponent histogram for tinystories-33M on cpu
+2025-09-25 23:18:16,194 - INFO - Saved exponent histogram to tinystories-33M_exp_hist_gpus.png
+2025-09-25 23:18:17,885 - INFO - Generating exponent histogram for qwen1.5-0.5B on cpu
+2025-09-25 23:18:21,159 - INFO - Saved exponent histogram to qwen1.5-0.5B_exp_hist_gpus.png
+2025-09-25 23:18:21,522 - INFO - WIKITEXT | (MX-FP8_E4M3)  Using GPUs (>=80% free): [0, 1, 2, 3, 4, 5, 6, 7]
+2025-09-25 23:22:26,088 - INFO - WIKITEXT | tinystories-33M                 (MX-FP8_E4M3)  PPL 3.15  Xent 1.15  Entr 2.82 | block_size=64, scale_bits=4
+2025-09-25 23:26:11,631 - INFO - WIKITEXT | bert-base-uncased               (MX-FP8_E4M3)  PPL 1.58  Xent 0.45  Entr 1.47 | block_size=64, scale_bits=4
+2025-09-25 23:27:57,559 - INFO - WIKITEXT | phi-1_5                         (MX-FP8_E4M3)  PPL 3.94  Xent 1.37  Entr 3.51 | block_size=64, scale_bits=4
+2025-09-25 23:28:02,918 - INFO - WIKITEXT | qwen1.5-0.5B                    (MX-FP8_E4M3)  PPL 7.48  Xent 2.01  Entr 5.76 | block_size=64, scale_bits=4
+2025-09-25 23:28:04,507 - INFO - === MX Format: FP8_E4M3 | Block Size: 64 | Scale Bits: 8 ===
+2025-09-25 23:28:05,270 - INFO - Generating exponent histogram for bert-base-uncased on cpu
+2025-09-25 23:28:06,533 - INFO - Saved exponent histogram to bert-base-uncased_exp_hist_gpus.png
+2025-09-25 23:28:08,502 - INFO - Generating exponent histogram for phi-1_5 on cpu
+2025-09-25 23:28:17,198 - INFO - Saved exponent histogram to phi-1_5_exp_hist_gpus.png
+2025-09-25 23:28:19,074 - INFO - Generating exponent histogram for tinystories-33M on cpu
+2025-09-25 23:28:20,653 - INFO - Saved exponent histogram to tinystories-33M_exp_hist_gpus.png
+2025-09-25 23:28:22,277 - INFO - Generating exponent histogram for qwen1.5-0.5B on cpu
+2025-09-25 23:28:25,390 - INFO - Saved exponent histogram to qwen1.5-0.5B_exp_hist_gpus.png
+2025-09-25 23:28:25,722 - INFO - WIKITEXT | (MX-FP8_E4M3)  Using GPUs (>=80% free): [0, 1, 2, 3, 4, 5, 6, 7]

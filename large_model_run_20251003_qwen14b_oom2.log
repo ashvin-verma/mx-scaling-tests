@@ -1,0 +1,153 @@
+nohup: ignoring input
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/handlers/checkpoint.py:16: DeprecationWarning: `TorchScript` support for functional optimizers is deprecated and will be removed in a future PyTorch release. Consider using the `torch.compile` optimizer instead.
+  from torch.distributed.optim import ZeroRedundancyOptimizer
+2025-10-03 09:25:16,590 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 09:25:17,259 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 09:25:17,260 - INFO - Loading evaluation data...
+2025-10-03 09:25:17,260 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 09:25:20,793 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 09:25:20,793 - INFO - ================================================================================
+2025-10-03 09:25:20,793 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 09:25:20,793 - INFO - ================================================================================
+2025-10-03 09:25:20,793 - INFO - 
+================================================================================
+2025-10-03 09:25:20,793 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 09:25:20,793 - INFO - ================================================================================
+2025-10-03 09:25:20,793 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 09:25:22,852 - INFO - Baseline         Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 65.89it/s]
+2025-10-03 09:27:30,579 - INFO - llama-3.1-8b                    Baseline         PPL 1.73  Xent 0.5484  Entr 1.5210
+2025-10-03 09:27:53,933 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 09:27:53,981 - INFO - MX-Selective     Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 63.31it/s]
+2025-10-03 09:27:55,558 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 09:27:55,560 - INFO - Replaced 96 Linear layers with MxLinear
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py:1965: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+2025-10-03 09:30:27,817 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.75  Xent 0.5609  Entr 1.5969
+2025-10-03 09:30:51,167 - INFO - 
+================================================================================
+2025-10-03 09:30:51,167 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 09:30:51,167 - INFO - ================================================================================
+2025-10-03 09:30:51,167 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 09:30:51,169 - INFO - Baseline         Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:06,  1.04it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:05,  1.03it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:04,  1.03it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:03<00:03,  1.01it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:04<00:02,  1.00it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:05<00:02,  1.00s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:06<00:00,  1.01it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:07<00:00,  1.23it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:07<00:00,  1.09it/s]
+Current run is terminating due to exception: CUDA out of memory. Tried to allocate 320.00 MiB. GPU 3 has a total capacity of 23.58 GiB of which 272.25 MiB is free. Process 616636 has 19.04 GiB memory in use. Including non-PyTorch memory, this process has 4.25 GiB memory in use. Of the allocated memory 3.97 GiB is allocated by PyTorch, and 38.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Engine run is terminating due to exception: CUDA out of memory. Tried to allocate 320.00 MiB. GPU 3 has a total capacity of 23.58 GiB of which 272.25 MiB is free. Process 616636 has 19.04 GiB memory in use. Including non-PyTorch memory, this process has 4.25 GiB memory in use. Of the allocated memory 3.97 GiB is allocated by PyTorch, and 38.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 698, in <module>
+    main()
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 658, in main
+    run_eval(
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 470, in run_eval
+    fut.result()
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 436, in worker
+    res = eval_model(model, loader, target_device)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 362, in eval_model
+    state = engine.run(loader)
+            ^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 905, in run
+    return self._internal_run()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 948, in _internal_run
+    return next(self._internal_run_generator)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 1023, in _internal_run_as_gen
+    self._handle_exception(e)
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 660, in _handle_exception
+    raise e
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 972, in _internal_run_as_gen
+    epoch_time_taken += yield from self._run_once_on_dataset_as_gen()
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 1128, in _run_once_on_dataset_as_gen
+    self._handle_exception(e)
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 660, in _handle_exception
+    raise e
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/engine/engine.py", line 1110, in _run_once_on_dataset_as_gen
+    self.state.output = self._process_function(self, self.state.batch)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 354, in step
+    out = model(input_ids=input_ids, attention_mask=attention_mask, labels=input_ids)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 940, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 449, in forward
+    outputs: BaseModelOutputWithPast = self.model(
+                                       ^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/generic.py", line 1064, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 384, in forward
+    hidden_states = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/modeling_layers.py", line 94, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 234, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/deprecation.py", line 172, in wrapped_func
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 169, in forward
+    attn_output, attn_weights = attention_interface(
+                                ^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/models/qwen2/modeling_qwen2.py", line 114, in eager_attention_forward
+    attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(query.dtype)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/nn/functional.py", line 1890, in softmax
+    ret = input.softmax(dim, dtype=dtype)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 320.00 MiB. GPU 3 has a total capacity of 23.58 GiB of which 272.25 MiB is free. Process 616636 has 19.04 GiB memory in use. Including non-PyTorch memory, this process has 4.25 GiB memory in use. Of the allocated memory 3.97 GiB is allocated by PyTorch, and 38.38 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

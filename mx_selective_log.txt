@@ -1,0 +1,2108 @@
+2025-10-02 23:39:44,610 - INFO - Will replace only targeted modules: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'c_attn', 'c_proj', 'c_fc']
+2025-10-02 23:39:45,711 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3'}
+2025-10-02 23:39:45,711 - INFO - Loading evaluation data...
+2025-10-02 23:39:46,388 - WARNING - Could not load The Pile: Dataset scripts are no longer supported, but found pile.py. Falling back to WikiText.
+2025-10-02 23:39:48,642 - INFO - ================================================================================
+2025-10-02 23:39:48,642 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-02 23:39:48,642 - INFO - ================================================================================
+2025-10-02 23:39:48,642 - INFO - 
+================================================================================
+2025-10-02 23:39:48,642 - INFO - Evaluating: tinystories-33M
+2025-10-02 23:39:48,643 - INFO - ================================================================================
+2025-10-02 23:39:48,643 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-02 23:39:50,608 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:40:07,235 - INFO - tinystories-33M                 Baseline         PPL 2.84  Xent 1.0438  Entr 2.9906
+2025-10-02 23:40:17,751 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-02 23:40:17,791 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:40:19,108 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-02 23:40:19,108 - INFO - Replaced 0 Linear layers with MxLinear
+2025-10-02 23:40:29,228 - INFO - tinystories-33M-MX              MX-Selective     PPL 2.84  Xent 1.0438  Entr 2.9906
+2025-10-02 23:40:39,722 - INFO - 
+================================================================================
+2025-10-02 23:40:39,722 - INFO - Evaluating: qwen1.5-0.5B
+2025-10-02 23:40:39,722 - INFO - ================================================================================
+2025-10-02 23:40:39,723 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-02 23:40:39,724 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:41:47,245 - INFO - qwen1.5-0.5B                    Baseline         PPL 9.08  Xent 2.2062  Entr 5.4072
+2025-10-02 23:41:59,082 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-02 23:41:59,086 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:42:00,542 - INFO - Applying MX quantization to Qwen/Qwen1.5-0.5B
+2025-10-02 23:42:00,543 - INFO - Replaced 0 Linear layers with MxLinear
+2025-10-02 23:42:55,432 - INFO - qwen1.5-0.5B-MX                 MX-Selective     PPL 9.08  Xent 2.2062  Entr 5.4072
+2025-10-02 23:43:07,138 - INFO - 
+================================================================================
+2025-10-02 23:43:07,226 - INFO - Evaluating: phi-1_5
+2025-10-02 23:43:07,226 - INFO - ================================================================================
+2025-10-02 23:43:07,227 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-02 23:43:07,229 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:45:37,988 - INFO - phi-1_5                         Baseline         PPL 2.08  Xent 0.7337  Entr 2.5252
+2025-10-02 23:45:52,387 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-02 23:45:52,388 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:45:53,997 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-02 23:45:53,998 - INFO - Replaced 0 Linear layers with MxLinear
+2025-10-02 23:47:58,880 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.08  Xent 0.7337  Entr 2.5252
+2025-10-02 23:48:13,449 - INFO - 
+================================================================================
+2025-10-02 23:48:13,450 - INFO - Evaluating: qwen2.5-7b
+2025-10-02 23:48:13,450 - INFO - ================================================================================
+2025-10-02 23:48:13,450 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-02 23:48:13,452 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:52:29,706 - INFO - qwen2.5-7b                      Baseline         PPL 3.35  Xent 1.2083  Entr 4.0024
+2025-10-02 23:53:29,304 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-02 23:53:30,465 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3'}
+2025-10-02 23:53:30,466 - INFO - Loading evaluation data...
+2025-10-02 23:53:30,466 - INFO - Loading 50 samples from The Pile (validation split)...
+2025-10-02 23:53:33,021 - WARNING - Could not load The Pile: Bad split: validation. Available splits: ['train']. Falling back to WikiText.
+2025-10-02 23:53:35,050 - INFO - ================================================================================
+2025-10-02 23:53:35,051 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-02 23:53:35,051 - INFO - ================================================================================
+2025-10-02 23:53:35,051 - INFO - 
+================================================================================
+2025-10-02 23:53:35,051 - INFO - Evaluating: tinystories-33M
+2025-10-02 23:53:35,051 - INFO - ================================================================================
+2025-10-02 23:53:35,051 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-02 23:53:37,000 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:53:39,807 - INFO - tinystories-33M                 Baseline         PPL 2.39  Xent 0.8713  Entr 2.4317
+2025-10-02 23:53:50,431 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-02 23:53:50,479 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:53:51,970 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-02 23:53:51,971 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-02 23:54:35,331 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-02 23:54:36,490 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-02 23:54:36,491 - INFO - Loading evaluation data...
+2025-10-02 23:54:36,491 - INFO - Loading 50 samples from The Pile (train split)...
+2025-10-02 23:54:38,938 - WARNING - Could not load The Pile: Compression type zstd not supported. Falling back to WikiText.
+2025-10-02 23:54:40,926 - INFO - ================================================================================
+2025-10-02 23:54:40,926 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-02 23:54:40,926 - INFO - ================================================================================
+2025-10-02 23:54:40,926 - INFO - 
+================================================================================
+2025-10-02 23:54:40,926 - INFO - Evaluating: tinystories-33M
+2025-10-02 23:54:40,926 - INFO - ================================================================================
+2025-10-02 23:54:40,927 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-02 23:54:42,805 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-02 23:54:45,589 - INFO - tinystories-33M                 Baseline         PPL 2.39  Xent 0.8713  Entr 2.4317
+2025-10-03 00:06:34,210 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 00:06:35,432 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 00:06:35,433 - INFO - Loading evaluation data...
+2025-10-03 00:06:35,433 - INFO - Loading 100 samples from The Pile (train split)...
+2025-10-03 00:06:37,918 - WARNING - Could not load The Pile: Compression type zstd not supported. Falling back to WikiText.
+2025-10-03 00:06:40,525 - INFO - ================================================================================
+2025-10-03 00:06:40,525 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 00:06:40,525 - INFO - ================================================================================
+2025-10-03 00:06:40,525 - INFO - 
+================================================================================
+2025-10-03 00:06:40,525 - INFO - Evaluating: tinystories-33M
+2025-10-03 00:06:40,525 - INFO - ================================================================================
+2025-10-03 00:06:40,526 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 00:06:42,380 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:06:45,553 - INFO - tinystories-33M                 Baseline         PPL 2.49  Xent 0.9103  Entr 2.5539
+2025-10-03 00:06:56,026 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 00:06:56,064 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:06:57,594 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 00:06:57,594 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-03 00:06:59,731 - INFO - tinystories-33M-MX              MX-Selective     PPL 2.54  Xent 0.9322  Entr 2.6054
+2025-10-03 00:07:10,168 - INFO - 
+================================================================================
+2025-10-03 00:07:10,168 - INFO - BENCHMARK COMPLETE
+2025-10-03 00:07:10,169 - INFO - ================================================================================
+2025-10-03 00:28:32,039 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 00:28:33,308 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 00:28:33,308 - INFO - Loading evaluation data...
+2025-10-03 00:28:33,308 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 00:28:35,766 - WARNING - Could not load The Pile: Compression type zstd not supported. Falling back to WikiText.
+2025-10-03 00:28:37,836 - INFO - ================================================================================
+2025-10-03 00:28:37,837 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 00:28:37,837 - INFO - ================================================================================
+2025-10-03 00:28:37,837 - INFO - 
+================================================================================
+2025-10-03 00:28:37,837 - INFO - Evaluating: tinystories-33M
+2025-10-03 00:28:37,837 - INFO - ================================================================================
+2025-10-03 00:28:37,837 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 00:28:39,746 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:28:52,075 - INFO - tinystories-33M                 Baseline         PPL 2.84  Xent 1.0438  Entr 2.9906
+2025-10-03 00:29:02,619 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 00:29:02,667 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:29:04,072 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 00:29:04,073 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-03 00:29:15,169 - INFO - tinystories-33M-MX              MX-Selective     PPL 2.92  Xent 1.0718  Entr 3.0512
+2025-10-03 00:29:25,659 - INFO - 
+================================================================================
+2025-10-03 00:29:25,659 - INFO - Evaluating: qwen1.5-0.5B
+2025-10-03 00:29:25,659 - INFO - ================================================================================
+2025-10-03 00:29:25,659 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 00:29:25,662 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:30:21,808 - INFO - qwen1.5-0.5B                    Baseline         PPL 9.08  Xent 2.2062  Entr 5.4072
+2025-10-03 00:30:33,623 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 00:30:33,632 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:30:35,120 - INFO - Applying MX quantization to Qwen/Qwen1.5-0.5B
+2025-10-03 00:30:35,122 - INFO - Replaced 72 Linear layers with MxLinear
+2025-10-03 00:31:31,204 - INFO - qwen1.5-0.5B-MX                 MX-Selective     PPL 26.41  Xent 3.2738  Entr 6.7087
+2025-10-03 00:31:43,015 - INFO - 
+================================================================================
+2025-10-03 00:31:43,016 - INFO - Evaluating: phi-1_5
+2025-10-03 00:31:43,016 - INFO - ================================================================================
+2025-10-03 00:31:43,016 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 00:31:43,017 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:33:48,170 - INFO - phi-1_5                         Baseline         PPL 2.08  Xent 0.7337  Entr 2.5252
+2025-10-03 00:34:02,943 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 00:34:02,945 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:34:04,591 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-03 00:34:04,593 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-03 00:36:13,350 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.21  Xent 0.7941  Entr 2.7995
+2025-10-03 00:36:28,114 - INFO - 
+================================================================================
+2025-10-03 00:36:28,114 - INFO - BENCHMARK COMPLETE
+2025-10-03 00:36:28,115 - INFO - ================================================================================
+2025-10-03 00:51:36,838 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 00:51:38,083 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 00:51:38,084 - INFO - Loading evaluation data...
+2025-10-03 00:51:38,084 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 00:51:41,064 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 00:51:41,065 - INFO - ================================================================================
+2025-10-03 00:51:41,065 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 00:51:41,065 - INFO - ================================================================================
+2025-10-03 00:51:41,065 - INFO - 
+================================================================================
+2025-10-03 00:51:41,065 - INFO - Evaluating: tinystories-33M
+2025-10-03 00:51:41,065 - INFO - ================================================================================
+2025-10-03 00:51:41,065 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 00:51:42,873 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:51:55,515 - INFO - tinystories-33M                 Baseline         PPL 5.09  Xent 1.6270  Entr 4.6149
+2025-10-03 00:52:06,062 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 00:52:06,122 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:52:07,411 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 00:52:07,412 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-03 00:52:19,384 - INFO - tinystories-33M-MX              MX-Selective     PPL 5.20  Xent 1.6493  Entr 4.6689
+2025-10-03 00:52:29,865 - INFO - 
+================================================================================
+2025-10-03 00:52:29,866 - INFO - Evaluating: qwen1.5-0.5B
+2025-10-03 00:52:29,866 - INFO - ================================================================================
+2025-10-03 00:52:29,866 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 00:52:29,869 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:53:27,002 - INFO - qwen1.5-0.5B                    Baseline         PPL 3.39  Xent 1.2198  Entr 3.2130
+2025-10-03 00:53:38,839 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 00:53:38,840 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:53:40,290 - INFO - Applying MX quantization to Qwen/Qwen1.5-0.5B
+2025-10-03 00:53:40,292 - INFO - Replaced 72 Linear layers with MxLinear
+2025-10-03 00:54:38,047 - INFO - qwen1.5-0.5B-MX                 MX-Selective     PPL 3.30  Xent 1.1937  Entr 3.1290
+2025-10-03 00:54:49,892 - INFO - 
+================================================================================
+2025-10-03 00:54:49,893 - INFO - Evaluating: phi-1_5
+2025-10-03 00:54:49,893 - INFO - ================================================================================
+2025-10-03 00:54:49,893 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 00:54:49,899 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:56:59,431 - INFO - phi-1_5                         Baseline         PPL 2.36  Xent 0.8589  Entr 2.4506
+2025-10-03 00:57:14,358 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 00:57:14,398 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 00:57:16,118 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-03 00:57:16,120 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-03 00:59:27,407 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.41  Xent 0.8810  Entr 2.5410
+2025-10-03 00:59:42,218 - INFO - 
+================================================================================
+2025-10-03 00:59:42,218 - INFO - BENCHMARK COMPLETE
+2025-10-03 00:59:42,218 - INFO - ================================================================================
+2025-10-03 01:06:42,857 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 01:06:44,019 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 01:06:44,019 - INFO - Loading evaluation data...
+2025-10-03 01:06:44,019 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 01:06:47,172 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 01:06:47,172 - INFO - ================================================================================
+2025-10-03 01:06:47,172 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 01:06:47,172 - INFO - ================================================================================
+2025-10-03 01:06:47,172 - INFO - 
+================================================================================
+2025-10-03 01:06:47,172 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 01:06:47,172 - INFO - ================================================================================
+2025-10-03 01:06:47,173 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:06:48,993 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 01:06:51,173 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 01:06:51,677 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 01:06:51,678 - INFO - Loading evaluation data...
+2025-10-03 01:06:51,678 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 01:06:55,149 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 01:06:55,149 - INFO - ================================================================================
+2025-10-03 01:06:55,150 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 01:06:55,150 - INFO - ================================================================================
+2025-10-03 01:06:55,150 - INFO - 
+================================================================================
+2025-10-03 01:06:55,150 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 01:06:55,150 - INFO - ================================================================================
+2025-10-03 01:06:55,150 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:06:56,981 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 01:12:52,688 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 01:12:53,902 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 01:12:53,902 - INFO - Loading evaluation data...
+2025-10-03 01:12:53,902 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 01:12:57,440 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 01:12:57,441 - INFO - ================================================================================
+2025-10-03 01:12:57,441 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 01:12:57,441 - INFO - ================================================================================
+2025-10-03 01:12:57,441 - INFO - 
+================================================================================
+2025-10-03 01:12:57,441 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 01:12:57,441 - INFO - ================================================================================
+2025-10-03 01:12:57,441 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:12:59,360 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 01:14:16,913 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 01:14:18,096 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 01:14:18,097 - INFO - Loading evaluation data...
+2025-10-03 01:14:18,097 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 01:14:21,165 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 01:14:21,165 - INFO - ================================================================================
+2025-10-03 01:14:21,165 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 01:14:21,165 - INFO - ================================================================================
+2025-10-03 01:14:21,165 - INFO - 
+================================================================================
+2025-10-03 01:14:21,165 - INFO - Evaluating: qwen2.5-7b
+2025-10-03 01:14:21,166 - INFO - ================================================================================
+2025-10-03 01:14:21,166 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:17:30,716 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 01:17:31,915 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 01:17:31,915 - INFO - Loading evaluation data...
+2025-10-03 01:17:31,915 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 01:17:35,106 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 01:17:35,107 - INFO - ================================================================================
+2025-10-03 01:17:35,107 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 01:17:35,107 - INFO - ================================================================================
+2025-10-03 01:17:35,107 - INFO - 
+================================================================================
+2025-10-03 01:17:35,107 - INFO - Evaluating: qwen2.5-7b
+2025-10-03 01:17:35,107 - INFO - ================================================================================
+2025-10-03 01:17:35,107 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:17:36,988 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 01:19:39,144 - INFO - qwen2.5-7b                      Baseline         PPL 2.87  Xent 1.0552  Entr 2.8286
+2025-10-03 01:20:00,909 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 01:20:00,954 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 01:20:02,123 - INFO - Applying MX quantization to Qwen/Qwen2.5-7B
+2025-10-03 01:20:02,125 - INFO - Replaced 84 Linear layers with MxLinear
+2025-10-03 01:22:48,107 - INFO - qwen2.5-7b-MX                   MX-Selective     PPL 2.87  Xent 1.0546  Entr 2.8399
+2025-10-03 01:23:09,981 - INFO - 
+================================================================================
+2025-10-03 01:23:09,981 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 01:23:09,982 - INFO - ================================================================================
+2025-10-03 01:23:09,982 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:23:09,984 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 01:48:53,298 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 01:48:54,491 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 01:48:54,492 - INFO - Loading evaluation data...
+2025-10-03 01:48:54,492 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 01:48:58,710 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 01:48:58,710 - INFO - ================================================================================
+2025-10-03 01:48:58,710 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 01:48:58,710 - INFO - ================================================================================
+2025-10-03 01:48:58,710 - INFO - 
+================================================================================
+2025-10-03 01:48:58,710 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 01:48:58,710 - INFO - ================================================================================
+2025-10-03 01:48:58,710 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:49:00,579 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 01:53:10,050 - INFO - llama-3.1-8b                    Baseline         PPL 1.73  Xent 0.5484  Entr 1.5210
+2025-10-03 01:53:32,486 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 01:53:32,536 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 01:53:34,161 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 01:53:34,164 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-03 01:56:07,034 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.75  Xent 0.5609  Entr 1.5969
+2025-10-03 01:56:29,470 - INFO - 
+================================================================================
+2025-10-03 01:56:29,471 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 01:56:29,471 - INFO - ================================================================================
+2025-10-03 01:56:29,471 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:56:29,473 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 08:57:29,198 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 08:57:29,889 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 08:57:29,889 - INFO - Loading evaluation data...
+2025-10-03 08:57:29,889 - INFO - Loading 10 samples from The Pile (train split)...
+2025-10-03 08:57:48,550 - INFO - Loaded 10 samples from The Pile
+2025-10-03 08:57:48,551 - INFO - ================================================================================
+2025-10-03 08:57:48,551 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 08:57:48,551 - INFO - ================================================================================
+2025-10-03 08:57:48,551 - INFO - 
+================================================================================
+2025-10-03 08:57:48,551 - INFO - Evaluating: tinystories-33M
+2025-10-03 08:57:48,551 - INFO - ================================================================================
+2025-10-03 08:57:48,551 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 08:57:50,580 - INFO - Baseline         Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 08:57:53,228 - INFO - tinystories-33M                 Baseline         PPL 4.68  Xent 1.5431  Entr 4.3353
+2025-10-03 08:58:03,735 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 08:58:03,775 - INFO - MX-Selective     Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 08:58:05,259 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 08:58:05,260 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-03 08:58:06,080 - INFO - tinystories-33M-MX              MX-Selective     PPL 4.70  Xent 1.5474  Entr 4.3424
+2025-10-03 08:58:16,513 - INFO - 
+================================================================================
+2025-10-03 08:58:16,513 - INFO - BENCHMARK COMPLETE
+2025-10-03 08:58:16,513 - INFO - ================================================================================
+2025-10-03 09:25:16,590 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 09:25:17,259 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 09:25:17,260 - INFO - Loading evaluation data...
+2025-10-03 09:25:17,260 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 09:25:20,793 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 09:25:20,793 - INFO - ================================================================================
+2025-10-03 09:25:20,793 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 09:25:20,793 - INFO - ================================================================================
+2025-10-03 09:25:20,793 - INFO - 
+================================================================================
+2025-10-03 09:25:20,793 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 09:25:20,793 - INFO - ================================================================================
+2025-10-03 09:25:20,793 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 09:25:22,852 - INFO - Baseline         Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 09:27:30,579 - INFO - llama-3.1-8b                    Baseline         PPL 1.73  Xent 0.5484  Entr 1.5210
+2025-10-03 09:27:53,933 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 09:27:53,981 - INFO - MX-Selective     Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 09:27:55,558 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 09:27:55,560 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-03 09:30:27,817 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.75  Xent 0.5609  Entr 1.5969
+2025-10-03 09:30:51,167 - INFO - 
+================================================================================
+2025-10-03 09:30:51,167 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 09:30:51,167 - INFO - ================================================================================
+2025-10-03 09:30:51,167 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 09:30:51,169 - INFO - Baseline         Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 09:51:19,988 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 09:51:20,660 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 09:51:20,660 - INFO - Loading evaluation data...
+2025-10-03 09:51:20,660 - INFO - Loading 10 samples from The Pile (train split)...
+2025-10-03 09:51:23,951 - INFO - Loaded 10 samples from The Pile
+2025-10-03 09:51:23,951 - INFO - ================================================================================
+2025-10-03 09:51:23,951 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 09:51:23,952 - INFO - ================================================================================
+2025-10-03 09:51:23,952 - INFO - 
+================================================================================
+2025-10-03 09:51:23,952 - INFO - Evaluating: tinystories-33M
+2025-10-03 09:51:23,952 - INFO - ================================================================================
+2025-10-03 09:51:23,952 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 09:51:26,012 - INFO - Baseline         Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 09:51:28,384 - INFO - tinystories-33M                 Baseline         PPL 4.68  Xent 1.5431  Entr 4.3353
+2025-10-03 09:51:38,885 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 09:51:38,918 - INFO - MX-Selective     Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 09:51:40,311 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 09:51:40,312 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-03 09:51:41,110 - INFO - tinystories-33M-MX              MX-Selective     PPL 4.70  Xent 1.5474  Entr 4.3424
+2025-10-03 09:51:51,550 - INFO - 
+================================================================================
+2025-10-03 09:51:51,550 - INFO - BENCHMARK COMPLETE
+2025-10-03 09:51:51,551 - INFO - ================================================================================
+2025-10-03 09:52:28,918 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 09:52:29,587 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 09:52:29,588 - INFO - Loading evaluation data...
+2025-10-03 09:52:29,588 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 09:52:32,916 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 09:52:32,917 - INFO - ================================================================================
+2025-10-03 09:52:32,917 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 09:52:32,917 - INFO - ================================================================================
+2025-10-03 09:52:32,917 - INFO - 
+================================================================================
+2025-10-03 09:52:32,917 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 09:52:32,917 - INFO - ================================================================================
+2025-10-03 09:52:32,917 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 09:52:34,926 - INFO - Baseline         Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 09:54:42,625 - INFO - llama-3.1-8b                    Baseline         PPL 1.73  Xent 0.5484  Entr 1.5210
+2025-10-03 09:55:06,322 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 09:55:06,374 - INFO - MX-Selective     Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 09:55:07,963 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 09:55:07,965 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-03 09:57:40,591 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.75  Xent 0.5609  Entr 1.5969
+2025-10-03 09:58:03,827 - INFO - 
+================================================================================
+2025-10-03 09:58:03,827 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 09:58:03,827 - INFO - ================================================================================
+2025-10-03 09:58:03,827 - INFO - Using batch size override 2 for qwen2.5-14b
+2025-10-03 09:58:03,828 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 09:58:03,830 - INFO - Baseline         Using GPUs: [2, 4, 5, 6] with 1 worker(s)/device
+2025-10-03 10:09:46,337 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 10:09:47,453 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 10:09:47,453 - INFO - Loading evaluation data...
+2025-10-03 10:09:47,453 - INFO - Loading 10 samples from The Pile (train split)...
+2025-10-03 10:09:50,609 - INFO - Loaded 10 samples from The Pile
+2025-10-03 10:09:50,609 - INFO - ================================================================================
+2025-10-03 10:09:50,609 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 10:09:50,609 - INFO - ================================================================================
+2025-10-03 10:09:50,609 - INFO - 
+================================================================================
+2025-10-03 10:09:50,609 - INFO - Evaluating: tinystories-33M
+2025-10-03 10:09:50,609 - INFO - ================================================================================
+2025-10-03 10:09:50,610 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 10:09:52,499 - INFO - Baseline         Using GPUs: [0, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 10:09:55,306 - INFO - tinystories-33M                 Baseline         PPL 4.68  Xent 1.5431  Entr 4.3353
+2025-10-03 10:10:05,838 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 10:10:05,901 - INFO - MX-Selective     Using GPUs: [0, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 10:10:07,323 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 10:10:07,324 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-03 10:10:08,104 - INFO - tinystories-33M-MX              MX-Selective     PPL 4.70  Xent 1.5474  Entr 4.3424
+2025-10-03 10:10:18,544 - INFO - 
+================================================================================
+2025-10-03 10:10:18,544 - INFO - BENCHMARK COMPLETE
+2025-10-03 10:10:18,545 - INFO - ================================================================================
+2025-10-03 10:18:07,578 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 10:18:08,638 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 10:18:08,639 - INFO - Loading evaluation data...
+2025-10-03 10:18:08,639 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 10:18:11,850 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 10:18:11,850 - INFO - ================================================================================
+2025-10-03 10:18:11,850 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 10:18:11,850 - INFO - ================================================================================
+2025-10-03 10:18:11,850 - INFO - 
+================================================================================
+2025-10-03 10:18:11,850 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 10:18:11,850 - INFO - ================================================================================
+2025-10-03 10:18:11,851 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 10:18:13,783 - INFO - Baseline         Using GPUs: [0, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 10:20:22,045 - INFO - llama-3.1-8b                    Baseline         PPL 1.73  Xent 0.5484  Entr 1.5210
+2025-10-03 10:20:44,127 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 10:20:44,182 - INFO - MX-Selective     Using GPUs: [0, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 10:20:45,819 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 10:20:45,822 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-03 10:23:17,393 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.75  Xent 0.5609  Entr 1.5969
+2025-10-03 10:23:39,275 - INFO - 
+================================================================================
+2025-10-03 10:23:39,276 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 10:23:39,276 - INFO - ================================================================================
+2025-10-03 10:23:39,276 - INFO - Using batch size override 1 for qwen2.5-14b
+2025-10-03 10:23:39,276 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 10:23:39,282 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 10:23:49,465 - INFO - Loaded Qwen/Qwen2.5-14B across devices: ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5', 'cuda:6', 'cuda:7']
+2025-10-03 10:28:12,828 - INFO - qwen2.5-14b                     Baseline         PPL 2.38  Xent 0.8682  Entr 2.2031
+2025-10-03 10:28:23,304 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 10:28:23,306 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 10:28:34,548 - INFO - Loaded Qwen/Qwen2.5-14B across devices: ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5', 'cuda:6', 'cuda:7']
+2025-10-03 10:28:34,550 - INFO - Applying MX quantization to Qwen/Qwen2.5-14B
+2025-10-03 10:28:34,554 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-03 10:37:34,833 - INFO - qwen2.5-14b-MX                  MX-Selective     PPL 2.36  Xent 0.8566  Entr 2.1757
+2025-10-03 10:37:45,250 - INFO - 
+================================================================================
+2025-10-03 10:37:45,250 - INFO - BENCHMARK COMPLETE
+2025-10-03 10:37:45,250 - INFO - ================================================================================
+2025-10-03 11:00:32,965 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 11:00:34,203 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 11:00:34,204 - INFO - Loading evaluation data...
+2025-10-03 11:00:34,204 - INFO - Loading 10 samples from The Pile (train split)...
+2025-10-03 11:00:38,636 - INFO - Loaded 10 samples from The Pile
+2025-10-03 11:00:38,636 - INFO - ================================================================================
+2025-10-03 11:00:38,638 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 11:00:38,638 - INFO - ================================================================================
+2025-10-03 11:00:38,638 - INFO - 
+================================================================================
+2025-10-03 11:00:38,638 - INFO - Evaluating: tinystories-33M
+2025-10-03 11:00:38,639 - INFO - ================================================================================
+2025-10-03 11:00:38,639 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 11:00:40,494 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 11:00:43,028 - INFO - tinystories-33M                 Baseline         PPL 4.68  Xent 1.5431  Entr 4.3353
+2025-10-03 11:00:53,505 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 11:00:53,551 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 11:00:55,006 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 11:00:55,007 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-03 11:00:55,790 - INFO - tinystories-33M-MX              MX-Selective     PPL 4.90  Xent 1.5889  Entr 4.4384
+2025-10-03 11:01:06,217 - INFO - 
+================================================================================
+2025-10-03 11:01:06,217 - INFO - BENCHMARK COMPLETE
+2025-10-03 11:01:06,217 - INFO - ================================================================================
+2025-10-03 11:01:18,049 - INFO - Tier A selected. Will replace modules matching: ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 11:01:19,220 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 11:01:19,220 - INFO - Loading evaluation data...
+2025-10-03 11:01:19,220 - INFO - Loading 5 samples from The Pile (train split)...
+2025-10-03 11:01:22,269 - INFO - Loaded 5 samples from The Pile
+2025-10-03 11:01:22,269 - INFO - ================================================================================
+2025-10-03 11:01:22,269 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 11:01:22,269 - INFO - ================================================================================
+2025-10-03 11:01:22,269 - INFO - 
+================================================================================
+2025-10-03 11:01:22,269 - INFO - Evaluating: tinystories-33M
+2025-10-03 11:01:22,269 - INFO - ================================================================================
+2025-10-03 11:01:22,269 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 11:01:24,040 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 11:01:26,509 - INFO - tinystories-33M                 Baseline         PPL 4.83  Xent 1.5758  Entr 4.4269
+2025-10-03 11:01:36,984 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 11:01:37,033 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 11:01:38,526 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 11:01:38,527 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-03 11:01:39,242 - INFO - tinystories-33M-MX              MX-Selective     PPL 4.79  Xent 1.5671  Entr 4.3973
+2025-10-03 11:01:49,670 - INFO - 
+================================================================================
+2025-10-03 11:01:49,671 - INFO - BENCHMARK COMPLETE
+2025-10-03 11:01:49,671 - INFO - ================================================================================
+2025-10-03 11:06:53,105 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 11:06:54,259 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 11:06:54,259 - INFO - Loading evaluation data...
+2025-10-03 11:06:54,260 - INFO - Loading 200 samples from The Pile (train split)...
+2025-10-03 11:06:57,874 - INFO - Loaded 200 samples from The Pile
+2025-10-03 11:06:57,875 - INFO - ================================================================================
+2025-10-03 11:06:57,875 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 11:06:57,875 - INFO - ================================================================================
+2025-10-03 11:06:57,875 - INFO - 
+================================================================================
+2025-10-03 11:06:57,875 - INFO - Evaluating: tinystories-33M
+2025-10-03 11:06:57,875 - INFO - ================================================================================
+2025-10-03 11:06:57,875 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 11:06:59,756 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 11:07:04,049 - INFO - tinystories-33M                 Baseline         PPL 5.16  Xent 1.6414  Entr 4.6259
+2025-10-03 11:07:14,548 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 11:07:14,595 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 11:07:16,036 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 11:07:16,037 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-03 11:07:18,999 - INFO - tinystories-33M-MX              MX-Selective     PPL 5.28  Xent 1.6633  Entr 4.6771
+2025-10-03 11:07:29,436 - INFO - 
+================================================================================
+2025-10-03 11:07:29,436 - INFO - Evaluating: phi-1_5
+2025-10-03 11:07:29,436 - INFO - ================================================================================
+2025-10-03 11:07:29,436 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 11:07:29,441 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 11:07:57,889 - INFO - phi-1_5                         Baseline         PPL 2.38  Xent 0.8663  Entr 2.4644
+2025-10-03 11:08:12,804 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 11:08:12,808 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 11:08:14,359 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-03 11:08:14,363 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-03 11:08:42,937 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.43  Xent 0.8890  Entr 2.5634
+2025-10-03 11:08:57,699 - INFO - 
+================================================================================
+2025-10-03 11:08:57,700 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 11:08:57,700 - INFO - ================================================================================
+2025-10-03 11:08:57,700 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 11:08:57,701 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:19:34,916 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 13:19:36,134 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 13:19:36,135 - INFO - Loading evaluation data...
+2025-10-03 13:19:36,135 - INFO - Loading 200 samples from The Pile (train split)...
+2025-10-03 13:19:40,499 - INFO - Loaded 200 samples from The Pile
+2025-10-03 13:19:40,499 - INFO - ================================================================================
+2025-10-03 13:19:40,501 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 13:19:40,501 - INFO - ================================================================================
+2025-10-03 13:19:40,502 - INFO - 
+================================================================================
+2025-10-03 13:19:40,502 - INFO - Evaluating: tinystories-33M
+2025-10-03 13:19:40,502 - INFO - ================================================================================
+2025-10-03 13:19:40,502 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:19:42,389 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:19:47,051 - INFO - tinystories-33M                 Baseline         PPL 5.16  Xent 1.6414  Entr 4.6259
+2025-10-03 13:19:57,559 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 13:19:57,603 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:19:59,014 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-03 13:19:59,015 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-03 13:20:02,069 - INFO - tinystories-33M-MX              MX-Selective     PPL 5.28  Xent 1.6633  Entr 4.6771
+2025-10-03 13:20:12,513 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 13:20:12,518 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:20:12,814 - WARNING - Skipping INT8 benchmark for tinystories-33M: Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`
+2025-10-03 13:20:12,815 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 13:20:12,815 - INFO - 
+================================================================================
+2025-10-03 13:20:12,815 - INFO - Evaluating: phi-1_5
+2025-10-03 13:20:12,815 - INFO - ================================================================================
+2025-10-03 13:20:12,815 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:20:12,816 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:20:40,884 - INFO - phi-1_5                         Baseline         PPL 2.38  Xent 0.8663  Entr 2.4644
+2025-10-03 13:20:55,554 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 13:20:55,556 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:20:57,112 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-03 13:20:57,116 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-03 13:21:25,693 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.43  Xent 0.8890  Entr 2.5634
+2025-10-03 13:21:40,402 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 13:21:40,404 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:21:40,682 - WARNING - Skipping INT8 benchmark for phi-1_5: Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`
+2025-10-03 13:21:40,683 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 13:21:40,683 - INFO - 
+================================================================================
+2025-10-03 13:21:40,683 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 13:21:40,683 - INFO - ================================================================================
+2025-10-03 13:21:40,683 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:21:40,684 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:23:42,281 - INFO - llama-3.1-8b                    Baseline         PPL 1.76  Xent 0.5670  Entr 1.5463
+2025-10-03 13:24:04,097 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 13:24:04,098 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:24:05,765 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 13:24:05,770 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-03 13:24:45,065 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.75  Xent 0.5591  Entr 1.5309
+2025-10-03 13:25:07,407 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 13:25:07,408 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:25:07,800 - WARNING - Skipping INT8 benchmark for llama-3.1-8b: Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`
+2025-10-03 13:25:07,800 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 13:25:07,800 - INFO - 
+================================================================================
+2025-10-03 13:25:07,800 - INFO - Evaluating: qwen2.5-7b
+2025-10-03 13:25:07,801 - INFO - ================================================================================
+2025-10-03 13:25:07,801 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:25:07,801 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:25:35,423 - INFO - qwen2.5-7b                      Baseline         PPL 2.87  Xent 1.0538  Entr 2.7963
+2025-10-03 13:25:57,279 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 13:25:57,280 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:25:58,422 - INFO - Applying MX quantization to Qwen/Qwen2.5-7B
+2025-10-03 13:25:58,427 - INFO - Replaced 196 Linear layers with MxLinear
+2025-10-03 13:26:35,774 - INFO - qwen2.5-7b-MX                   MX-Selective     PPL 2.86  Xent 1.0524  Entr 2.7972
+2025-10-03 13:26:57,514 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 13:26:57,515 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:26:57,802 - WARNING - Skipping INT8 benchmark for qwen2.5-7b: Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`
+2025-10-03 13:26:57,803 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 13:26:57,803 - INFO - 
+================================================================================
+2025-10-03 13:26:57,803 - INFO - Evaluating: phi-3-medium-14b
+2025-10-03 13:26:57,803 - INFO - ================================================================================
+2025-10-03 13:26:57,803 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:26:57,805 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:38:57,396 - INFO - Tier A selected. Will replace modules matching: ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 13:38:58,594 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 13:38:58,594 - INFO - Loading evaluation data...
+2025-10-03 13:38:58,594 - INFO - Loading 200 samples from The Pile (train split)...
+2025-10-03 13:39:01,505 - INFO - Loaded 200 samples from The Pile
+2025-10-03 13:39:01,506 - INFO - ================================================================================
+2025-10-03 13:39:01,506 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 13:39:01,506 - INFO - ================================================================================
+2025-10-03 13:39:01,506 - INFO - 
+================================================================================
+2025-10-03 13:39:01,506 - INFO - Evaluating: phi-1_5
+2025-10-03 13:39:01,506 - INFO - ================================================================================
+2025-10-03 13:39:01,506 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:39:03,277 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:40:00,350 - INFO - phi-1_5                         Baseline         PPL 2.38  Xent 0.8663  Entr 2.4644
+2025-10-03 13:40:15,043 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 13:40:15,110 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:40:16,726 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-03 13:40:16,728 - INFO - Replaced 48 Linear layers with MxLinear
+2025-10-03 13:40:45,029 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.42  Xent 0.8851  Entr 2.5469
+2025-10-03 13:40:59,748 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 13:40:59,751 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:41:00,141 - WARNING - Skipping INT8 benchmark for phi-1_5: Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`
+2025-10-03 13:41:00,141 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 13:41:00,142 - INFO - 
+================================================================================
+2025-10-03 13:41:00,142 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 13:41:00,142 - INFO - ================================================================================
+2025-10-03 13:41:00,142 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:41:00,143 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:41:30,394 - INFO - llama-3.1-8b                    Baseline         PPL 1.76  Xent 0.5670  Entr 1.5463
+2025-10-03 13:41:53,545 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 13:41:53,546 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:41:55,090 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 13:41:55,092 - INFO - Replaced 96 Linear layers with MxLinear
+2025-10-03 13:42:32,102 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.78  Xent 0.5755  Entr 1.6134
+2025-10-03 13:42:55,250 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 13:42:55,252 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:42:55,644 - WARNING - Skipping INT8 benchmark for llama-3.1-8b: Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`
+2025-10-03 13:42:55,644 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 13:42:55,644 - INFO - 
+================================================================================
+2025-10-03 13:42:55,645 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 13:42:55,645 - INFO - ================================================================================
+2025-10-03 13:42:55,645 - INFO - Using batch size override 1 for qwen2.5-14b
+2025-10-03 13:42:55,645 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:42:55,646 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:43:04,212 - INFO - Loaded Qwen/Qwen2.5-14B across devices: ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5', 'cuda:6', 'cuda:7']
+2025-10-03 13:43:57,692 - INFO - qwen2.5-14b                     Baseline         PPL 2.35  Xent 0.8533  Entr 2.1449
+2025-10-03 13:44:08,121 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 13:44:08,123 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:44:17,438 - INFO - Loaded Qwen/Qwen2.5-14B across devices: ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5', 'cuda:6', 'cuda:7']
+2025-10-03 13:44:17,440 - INFO - Applying MX quantization to Qwen/Qwen2.5-14B
+2025-10-03 13:44:17,444 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-03 13:46:06,421 - INFO - qwen2.5-14b-MX                  MX-Selective     PPL 2.33  Xent 0.8438  Entr 2.1283
+2025-10-03 13:46:16,833 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 13:46:16,835 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 13:46:18,084 - WARNING - Skipping INT8 benchmark for qwen2.5-14b: Using `bitsandbytes` 8-bit quantization requires the latest version of bitsandbytes: `pip install -U bitsandbytes`
+2025-10-03 13:46:18,084 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 13:46:18,084 - INFO - 
+================================================================================
+2025-10-03 13:46:18,084 - INFO - BENCHMARK COMPLETE
+2025-10-03 13:46:18,084 - INFO - ================================================================================
+2025-10-03 13:53:55,628 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 13:53:55,628 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-03 13:53:56,899 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 13:53:56,902 - INFO - Loading evaluation data...
+2025-10-03 13:53:56,902 - INFO - Loading 200 samples from The Pile (train split)...
+2025-10-03 13:54:16,233 - INFO - Loaded 200 samples from The Pile
+2025-10-03 13:54:16,233 - INFO - ================================================================================
+2025-10-03 13:54:16,233 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 13:54:16,233 - INFO - ================================================================================
+2025-10-03 13:54:16,233 - INFO - 
+================================================================================
+2025-10-03 13:54:16,233 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 13:54:16,233 - INFO - ================================================================================
+2025-10-03 13:54:16,233 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 13:54:18,144 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 14:02:41,526 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 14:02:41,526 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-03 14:02:42,640 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 14:02:42,640 - INFO - Loading evaluation data...
+2025-10-03 14:02:42,640 - INFO - Loading 200 samples from The Pile (train split)...
+2025-10-03 14:02:46,084 - INFO - Loaded 200 samples from The Pile
+2025-10-03 14:02:46,084 - INFO - ================================================================================
+2025-10-03 14:02:46,084 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 14:02:46,085 - INFO - ================================================================================
+2025-10-03 14:02:46,085 - INFO - 
+================================================================================
+2025-10-03 14:02:46,085 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 14:02:46,085 - INFO - ================================================================================
+2025-10-03 14:02:46,085 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 14:02:47,983 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 14:03:17,844 - INFO - llama-3.1-8b                    Baseline         PPL 1.76  Xent 0.5670  Entr 1.5463
+2025-10-03 14:03:40,690 - INFO - 
+--- MX (Selective GEMM) --- Skipped (--skip_mx)
+2025-10-03 14:03:40,690 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 14:03:40,721 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 14:04:24,482 - INFO - llama-3.1-8b-INT8               INT8             PPL 1.81  Xent 0.5951  Entr nan
+2025-10-03 14:04:35,065 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 14:04:35,065 - INFO - 
+================================================================================
+2025-10-03 14:04:35,065 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 14:04:35,066 - INFO - ================================================================================
+2025-10-03 14:04:35,066 - INFO - Using batch size override 1 for qwen2.5-14b
+2025-10-03 14:04:35,066 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 14:04:35,066 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 14:04:44,393 - INFO - Loaded Qwen/Qwen2.5-14B across devices: ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5', 'cuda:6', 'cuda:7']
+2025-10-03 14:05:37,152 - INFO - qwen2.5-14b                     Baseline         PPL 2.35  Xent 0.8533  Entr 2.1449
+2025-10-03 14:05:47,613 - INFO - 
+--- MX (Selective GEMM) --- Skipped (--skip_mx)
+2025-10-03 14:05:47,614 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-03 14:05:47,617 - INFO - INT8             Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-03 14:07:37,957 - INFO - qwen2.5-14b-INT8                INT8             PPL 2.38  Xent 0.8671  Entr nan
+2025-10-03 14:07:48,408 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-03 14:07:48,409 - INFO - 
+================================================================================
+2025-10-03 14:07:48,409 - INFO - BENCHMARK COMPLETE
+2025-10-03 14:07:48,409 - INFO - ================================================================================
+2025-10-06 13:40:13,880 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-06 13:40:13,880 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-06 13:40:14,292 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-06 13:40:14,292 - INFO - Loading evaluation data...
+2025-10-06 13:40:14,292 - INFO - Loading 200 samples from The Pile (train split)...
+2025-10-06 13:40:18,956 - INFO - Loaded 200 samples from The Pile
+2025-10-06 13:40:18,956 - INFO - ================================================================================
+2025-10-06 13:40:18,956 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-06 13:40:18,956 - INFO - ================================================================================
+2025-10-06 13:40:18,957 - INFO - 
+================================================================================
+2025-10-06 13:40:18,957 - INFO - Evaluating: deepseek-llm-67b-base
+2025-10-06 13:40:18,957 - INFO - ================================================================================
+2025-10-06 13:40:18,957 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-06 13:40:20,870 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:45:07,875 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-06 13:45:08,152 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-06 13:45:08,153 - INFO - Loading evaluation data...
+2025-10-06 13:45:08,153 - INFO - Loading 20 samples from The Pile (train split)...
+2025-10-06 13:45:11,719 - INFO - Loaded 20 samples from The Pile
+2025-10-06 13:45:11,720 - INFO - ================================================================================
+2025-10-06 13:45:11,720 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-06 13:45:11,720 - INFO - ================================================================================
+2025-10-06 13:45:11,720 - INFO - 
+================================================================================
+2025-10-06 13:45:11,720 - INFO - Evaluating: tinystories-33M
+2025-10-06 13:45:11,720 - INFO - ================================================================================
+2025-10-06 13:45:11,720 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-06 13:45:13,808 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:45:16,362 - INFO - tinystories-33M                 Baseline         PPL 5.09  Xent 1.6269  Entr 4.5916
+2025-10-06 13:45:26,872 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-06 13:45:26,905 - INFO - MX-Selective     Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:45:28,294 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-06 13:45:28,295 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-06 13:46:06,714 - INFO - tinystories-33M-MX              MX-Selective     PPL 5.06  Xent 1.6221  Entr 4.6033
+2025-10-06 13:46:17,156 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-06 13:46:17,159 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:46:20,708 - INFO - tinystories-33M-INT8            INT8             PPL 5.05  Xent 1.6186  Entr nan
+2025-10-06 13:46:30,985 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (dependency or CUDA unavailable)
+2025-10-06 13:46:30,985 - INFO - 
+================================================================================
+2025-10-06 13:46:30,986 - INFO - BENCHMARK COMPLETE
+2025-10-06 13:46:30,986 - INFO - ================================================================================
+2025-10-06 13:54:19,838 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-06 13:54:20,121 - INFO - MX Configuration (fp8_e5m2): {'w_elem_format': 'fp8_e5m2', 'a_elem_format': 'fp8_e5m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e5m2', 'a_elem_format_bp': 'fp8_e5m2', 'a_elem_format_bp_os': 'fp8_e5m2', 'a_elem_format_bp_ex': 'fp8_e5m2', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-06 13:54:20,121 - INFO - Loading evaluation data...
+2025-10-06 13:54:20,121 - INFO - Loading 20 samples from The Pile (train split)...
+2025-10-06 13:54:23,576 - INFO - Loaded 20 samples from The Pile
+2025-10-06 13:54:23,577 - INFO - ================================================================================
+2025-10-06 13:54:23,577 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-06 13:54:23,577 - INFO - ================================================================================
+2025-10-06 13:54:23,577 - INFO - 
+================================================================================
+2025-10-06 13:54:23,577 - INFO - Evaluating: tinystories-33M
+2025-10-06 13:54:23,577 - INFO - ================================================================================
+2025-10-06 13:54:23,577 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-06 13:54:25,714 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:54:28,290 - INFO - tinystories-33M                 Baseline         PPL 5.09  Xent 1.6269  Entr 4.5916
+2025-10-06 13:54:38,854 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-06 13:54:38,881 - INFO - MX-Selective     Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:54:40,497 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-06 13:54:40,498 - INFO - Replaced 24 Linear layers with MxLinear
+2025-10-06 13:54:41,410 - INFO - tinystories-33M-MX              MX-Selective     PPL 4.90  Xent 1.5900  Entr 4.4749
+2025-10-06 13:54:51,874 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-06 13:54:51,877 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:54:55,319 - INFO - tinystories-33M-INT8            INT8             PPL 5.05  Xent 1.6186  Entr nan
+2025-10-06 13:55:05,627 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (transformer_engine not available)
+2025-10-06 13:55:05,628 - INFO - 
+================================================================================
+2025-10-06 13:55:05,628 - INFO - BENCHMARK COMPLETE
+2025-10-06 13:55:05,628 - INFO - ================================================================================
+2025-10-06 13:55:27,322 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-06 13:55:27,323 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-06 13:55:27,605 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-06 13:55:27,605 - INFO - Loading evaluation data...
+2025-10-06 13:55:27,605 - INFO - Loading 20 samples from The Pile (train split)...
+2025-10-06 13:55:30,867 - INFO - Loaded 20 samples from The Pile
+2025-10-06 13:55:30,867 - INFO - ================================================================================
+2025-10-06 13:55:30,867 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-06 13:55:30,867 - INFO - ================================================================================
+2025-10-06 13:55:30,867 - INFO - 
+================================================================================
+2025-10-06 13:55:30,867 - INFO - Evaluating: tinystories-33M
+2025-10-06 13:55:30,867 - INFO - ================================================================================
+2025-10-06 13:55:30,868 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-06 13:55:33,007 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:55:35,661 - INFO - tinystories-33M                 Baseline         PPL 5.09  Xent 1.6269  Entr 4.5916
+2025-10-06 13:55:46,158 - INFO - 
+--- MX (Selective GEMM) --- Skipped (--skip_mx)
+2025-10-06 13:55:46,158 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-06 13:55:46,186 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-06 13:55:50,040 - INFO - tinystories-33M-INT8            INT8             PPL 5.05  Xent 1.6186  Entr nan
+2025-10-06 13:56:00,429 - INFO - 
+--- NV-FP8 (Transformer Engine) --- Skipped (transformer_engine not available)
+2025-10-06 13:56:00,430 - INFO - 
+================================================================================
+2025-10-06 13:56:00,430 - INFO - BENCHMARK COMPLETE
+2025-10-06 13:56:00,430 - INFO - ================================================================================
+2025-10-07 20:07:56,910 - INFO - Tier A selected. Will replace modules matching: ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 20:07:56,912 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-07 20:07:56,912 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 20:07:56,912 - INFO - Loading evaluation data...
+2025-10-07 20:07:56,912 - INFO - Loading 128 samples from The Pile (train split)...
+2025-10-07 20:08:23,818 - INFO - Loaded 128 samples from The Pile
+2025-10-07 20:08:23,818 - INFO - ================================================================================
+2025-10-07 20:08:23,818 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 20:08:23,818 - INFO - ================================================================================
+2025-10-07 20:08:23,818 - INFO - 
+================================================================================
+2025-10-07 20:08:23,818 - INFO - Evaluating: tinystories-33M
+2025-10-07 20:08:23,818 - INFO - ================================================================================
+2025-10-07 20:08:23,818 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 20:08:25,715 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 20:08:29,483 - INFO - tinystories-33M                 Baseline         PPL 5.08  Xent 1.6251  Entr 4.5819
+2025-10-07 20:08:40,113 - INFO - 
+--- MX (Selective GEMM) --- Skipped (--skip_mx)
+2025-10-07 20:08:40,114 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-07 20:08:40,145 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 20:08:45,016 - INFO - tinystories-33M-INT8            INT8             PPL 5.12  Xent 1.6336  Entr nan
+2025-10-07 20:08:55,366 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-07 20:08:55,367 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 20:08:56,878 - INFO - Replaced 8 Linear layers with NvFp8Linear
+2025-10-07 20:08:57,420 - WARNING - Skipping NV-FP8 benchmark for tinystories-33M: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-07 20:08:57,421 - INFO - 
+================================================================================
+2025-10-07 20:08:57,421 - INFO - BENCHMARK COMPLETE
+2025-10-07 20:08:57,421 - INFO - ================================================================================
+2025-10-07 22:02:23,810 - INFO - Tier A selected. Will replace modules matching: ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:02:23,810 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-07 22:02:23,810 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:02:23,810 - INFO - Loading evaluation data...
+2025-10-07 22:02:23,810 - INFO - Loading 32 samples from The Pile (train split)...
+2025-10-07 22:02:28,264 - INFO - Loaded 32 samples from The Pile
+2025-10-07 22:02:28,264 - INFO - ================================================================================
+2025-10-07 22:02:28,264 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 22:02:28,264 - INFO - ================================================================================
+2025-10-07 22:02:28,264 - INFO - 
+================================================================================
+2025-10-07 22:02:28,264 - INFO - Evaluating: tinystories-33M
+2025-10-07 22:02:28,264 - INFO - ================================================================================
+2025-10-07 22:02:28,264 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 22:02:30,025 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:02:32,776 - INFO - tinystories-33M                 Baseline         PPL 4.72  Xent 1.5515  Entr 4.3962
+2025-10-07 22:02:43,301 - INFO - 
+--- MX (Selective GEMM) --- Skipped (--skip_mx)
+2025-10-07 22:02:43,301 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-07 22:02:43,337 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:02:47,363 - INFO - tinystories-33M-INT8            INT8             PPL 4.72  Xent 1.5525  Entr nan
+2025-10-07 22:02:57,703 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-07 22:02:57,704 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:02:59,315 - INFO - Replaced 8 Linear layers with NvFp8Linear
+2025-10-07 22:02:59,756 - WARNING - Skipping NV-FP8 benchmark for tinystories-33M: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-07 22:02:59,756 - INFO - 
+================================================================================
+2025-10-07 22:02:59,757 - INFO - BENCHMARK COMPLETE
+2025-10-07 22:02:59,757 - INFO - ================================================================================
+2025-10-07 22:29:04,016 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:29:04,016 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-07 22:29:22,011 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:29:22,011 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-07 22:29:22,012 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:29:22,012 - INFO - Loading evaluation data...
+2025-10-07 22:29:22,012 - INFO - Loading 1 samples from The Pile (train split)...
+2025-10-07 22:29:25,180 - INFO - Loaded 1 samples from The Pile
+2025-10-07 22:29:25,180 - INFO - ================================================================================
+2025-10-07 22:29:25,180 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 22:29:25,180 - INFO - ================================================================================
+2025-10-07 22:29:25,181 - INFO - 
+================================================================================
+2025-10-07 22:29:25,181 - INFO - Evaluating: tinystories-33M
+2025-10-07 22:29:25,181 - INFO - ================================================================================
+2025-10-07 22:29:25,181 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 22:29:26,934 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:29:58,016 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:29:58,016 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-07 22:29:58,018 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:29:58,018 - INFO - Loading evaluation data...
+2025-10-07 22:29:58,019 - INFO - Loading 1 samples from The Pile (train split)...
+2025-10-07 22:30:01,210 - INFO - Loaded 1 samples from The Pile
+2025-10-07 22:30:01,210 - INFO - ================================================================================
+2025-10-07 22:30:01,210 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 22:30:01,210 - INFO - ================================================================================
+2025-10-07 22:30:01,210 - INFO - 
+================================================================================
+2025-10-07 22:30:01,210 - INFO - Evaluating: tinystories-33M
+2025-10-07 22:30:01,210 - INFO - ================================================================================
+2025-10-07 22:30:01,210 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 22:30:01,463 - INFO - Baseline         Using GPUs: [0] with 1 worker(s)/device
+2025-10-07 22:32:46,806 - INFO - Tier A selected. Will replace modules matching: ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:32:46,806 - INFO - MX stage skipped by flag; tier selection will apply to NV-FP8 only.
+2025-10-07 22:32:46,806 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:32:46,806 - INFO - Loading evaluation data...
+2025-10-07 22:32:46,806 - INFO - Loading 32 samples from The Pile (train split)...
+2025-10-07 22:32:49,675 - INFO - Loaded 32 samples from The Pile
+2025-10-07 22:32:49,675 - INFO - ================================================================================
+2025-10-07 22:32:49,675 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 22:32:49,675 - INFO - ================================================================================
+2025-10-07 22:32:49,675 - INFO - 
+================================================================================
+2025-10-07 22:32:49,675 - INFO - Evaluating: tinystories-33M
+2025-10-07 22:32:49,675 - INFO - ================================================================================
+2025-10-07 22:32:49,675 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 22:32:51,454 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:32:54,086 - INFO - tinystories-33M                 Baseline         PPL 4.72  Xent 1.5515  Entr 4.3962
+2025-10-07 22:33:04,633 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-07 22:33:04,660 - INFO - BF16             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:33:06,470 - INFO - tinystories-33M-BF16            BF16             PPL 4.76  Xent 1.5605  Entr 4.4062
+2025-10-07 22:33:16,857 - INFO - 
+--- BFP16 (MX block-floating) ---
+2025-10-07 22:33:16,857 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "max",
+    "block_size": 32,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:33:16,859 - INFO - BFP16            Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:33:18,311 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-07 22:33:18,311 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-07 22:33:19,066 - INFO - tinystories-33M-BFP16           BFP16            PPL nan  Xent nan  Entr nan
+2025-10-07 22:33:29,633 - INFO - 
+--- NV-FP8 (Emulated, no shared exponent) ---
+2025-10-07 22:33:29,634 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:33:29,634 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:33:29,636 - INFO - NVFP8-Emu        Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:33:31,045 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-07 22:33:31,046 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-07 22:33:31,761 - INFO - tinystories-33M-NVFP8-Emu-fp8_e4m3_no_sharedNVFP8-Emu        PPL 4.86  Xent 1.5801  Entr 4.4797
+2025-10-07 22:33:32,738 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-07 22:33:32,738 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-07 22:33:33,685 - INFO - tinystories-33M-NVFP8-Emu-fp8_e5m2_no_sharedNVFP8-Emu        PPL 4.78  Xent 1.5651  Entr 4.4284
+2025-10-07 22:33:42,338 - INFO - 
+--- MX (Selective GEMM) --- Skipped (--skip_mx)
+2025-10-07 22:33:42,338 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-07 22:33:42,340 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:33:56,211 - INFO - tinystories-33M-INT8            INT8             PPL 4.72  Xent 1.5525  Entr nan
+2025-10-07 22:34:06,540 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-07 22:34:06,541 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:34:08,217 - INFO - Replaced 8 Linear layers with NvFp8Linear
+2025-10-07 22:34:08,660 - WARNING - Skipping NV-FP8 benchmark for tinystories-33M: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-07 22:34:08,661 - INFO - 
+================================================================================
+2025-10-07 22:34:08,661 - INFO - BENCHMARK COMPLETE
+2025-10-07 22:34:08,661 - INFO - ================================================================================
+2025-10-07 22:45:36,851 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:45:36,851 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:45:36,851 - INFO - Loading evaluation data...
+2025-10-07 22:45:36,851 - INFO - Loading 32 samples from The Pile (train split)...
+2025-10-07 22:46:28,268 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:46:28,269 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:46:28,269 - INFO - Loading evaluation data...
+2025-10-07 22:46:28,269 - INFO - Loading 32 samples from The Pile (train split)...
+2025-10-07 22:46:31,615 - INFO - Loaded 32 samples from The Pile
+2025-10-07 22:46:31,616 - INFO - ================================================================================
+2025-10-07 22:46:31,616 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 22:46:31,616 - INFO - ================================================================================
+2025-10-07 22:46:31,616 - INFO - 
+================================================================================
+2025-10-07 22:46:31,616 - INFO - Evaluating: phi-1_5
+2025-10-07 22:46:31,616 - INFO - ================================================================================
+2025-10-07 22:46:31,616 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 22:46:31,859 - WARNING - Baseline         No GPUs available. Using cpu.
+2025-10-07 22:51:59,587 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:51:59,587 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:51:59,587 - INFO - Loading evaluation data...
+2025-10-07 22:51:59,587 - INFO - Loading 32 samples from The Pile (train split)...
+2025-10-07 22:52:05,993 - INFO - Loaded 32 samples from The Pile
+2025-10-07 22:52:05,993 - INFO - ================================================================================
+2025-10-07 22:52:05,993 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 22:52:05,993 - INFO - ================================================================================
+2025-10-07 22:52:05,993 - INFO - 
+================================================================================
+2025-10-07 22:52:05,994 - INFO - Evaluating: phi-1_5
+2025-10-07 22:52:05,994 - INFO - ================================================================================
+2025-10-07 22:52:05,994 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 22:52:08,153 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:52:15,715 - INFO - phi-1_5                         Baseline         PPL 2.43  Xent 0.8888  Entr 2.5461
+2025-10-07 22:52:20,201 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-07 22:52:20,227 - INFO - BF16             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:52:23,772 - INFO - phi-1_5-BF16                    BF16             PPL 2.43  Xent 0.8882  Entr 2.5410
+2025-10-07 22:52:25,985 - INFO - 
+--- BFP16 (MX block-floating) ---
+2025-10-07 22:52:25,986 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "max",
+    "block_size": 32,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:52:25,987 - INFO - BFP16            Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:52:27,640 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 22:52:27,644 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 22:52:40,555 - INFO - phi-1_5-BFP16                   BFP16            PPL nan  Xent nan  Entr nan
+2025-10-07 22:52:45,314 - INFO - 
+--- NV-FP8 (Emulated, no shared exponent) ---
+2025-10-07 22:52:45,315 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:52:45,316 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:52:45,317 - INFO - NVFP8-Emu        Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:52:46,991 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 22:52:46,996 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 22:52:48,832 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 22:52:48,836 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 22:53:02,150 - INFO - phi-1_5-NVFP8-Emu-fp8_e4m3_no_sharedNVFP8-Emu        PPL 2.48  Xent 0.9080  Entr 2.6278
+2025-10-07 22:53:03,306 - INFO - phi-1_5-NVFP8-Emu-fp8_e5m2_no_sharedNVFP8-Emu        PPL 2.49  Xent 0.9133  Entr 2.6492
+2025-10-07 22:53:08,788 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-07 22:53:08,790 - INFO - MX-Selective     Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:53:10,684 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 22:53:10,687 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 22:53:17,340 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.50  Xent 0.9157  Entr 2.6521
+2025-10-07 22:53:21,948 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-07 22:53:22,046 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:53:27,632 - INFO - phi-1_5-INT8                    INT8             PPL 2.43  Xent 0.8880  Entr nan
+2025-10-07 22:53:27,935 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-07 22:53:27,936 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:53:31,395 - INFO - Replaced 144 Linear layers with NvFp8Linear
+2025-10-07 22:53:35,662 - WARNING - Skipping NV-FP8 benchmark for phi-1_5: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-07 22:53:35,662 - INFO - 
+================================================================================
+2025-10-07 22:53:35,662 - INFO - BENCHMARK COMPLETE
+2025-10-07 22:53:35,662 - INFO - ================================================================================
+2025-10-07 22:54:10,751 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:54:10,751 - INFO - MX Configuration (fp8_e5m2): {'w_elem_format': 'fp8_e5m2', 'a_elem_format': 'fp8_e5m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e5m2', 'a_elem_format_bp': 'fp8_e5m2', 'a_elem_format_bp_os': 'fp8_e5m2', 'a_elem_format_bp_ex': 'fp8_e5m2', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:54:10,751 - INFO - Loading evaluation data...
+2025-10-07 22:54:10,751 - INFO - Loading 32 samples from The Pile (train split)...
+2025-10-07 22:54:13,914 - INFO - Loaded 32 samples from The Pile
+2025-10-07 22:54:13,914 - INFO - ================================================================================
+2025-10-07 22:54:13,914 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 22:54:13,914 - INFO - ================================================================================
+2025-10-07 22:54:13,914 - INFO - 
+================================================================================
+2025-10-07 22:54:13,914 - INFO - Evaluating: phi-1_5
+2025-10-07 22:54:13,914 - INFO - ================================================================================
+2025-10-07 22:54:13,914 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 22:54:15,620 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:54:23,736 - INFO - phi-1_5                         Baseline         PPL 2.43  Xent 0.8888  Entr 2.5461
+2025-10-07 22:54:38,735 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-07 22:54:38,759 - INFO - BF16             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:54:42,481 - INFO - phi-1_5-BF16                    BF16             PPL 2.43  Xent 0.8882  Entr 2.5410
+2025-10-07 22:54:55,203 - INFO - 
+--- BFP16 (MX block-floating) ---
+2025-10-07 22:54:55,203 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "max",
+    "block_size": 32,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:54:55,204 - INFO - BFP16            Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:54:56,975 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 22:54:56,980 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 22:55:09,682 - INFO - phi-1_5-BFP16                   BFP16            PPL nan  Xent nan  Entr nan
+2025-10-07 22:55:24,635 - INFO - 
+--- NV-FP8 (Emulated, no shared exponent) ---
+2025-10-07 22:55:24,636 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:55:24,636 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 22:55:24,638 - INFO - NVFP8-Emu        Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:55:26,466 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 22:55:26,471 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 22:55:28,265 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 22:55:28,510 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 22:55:42,002 - INFO - phi-1_5-NVFP8-Emu-fp8_e4m3_no_sharedNVFP8-Emu        PPL 2.48  Xent 0.9080  Entr 2.6278
+2025-10-07 22:55:43,175 - INFO - phi-1_5-NVFP8-Emu-fp8_e5m2_no_sharedNVFP8-Emu        PPL 2.49  Xent 0.9133  Entr 2.6492
+2025-10-07 22:56:08,383 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-07 22:56:08,388 - INFO - MX-Selective     Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:56:10,185 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 22:56:10,189 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 22:56:17,183 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.51  Xent 0.9191  Entr 2.6725
+2025-10-07 22:56:32,275 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-07 22:56:32,278 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:56:38,581 - INFO - phi-1_5-INT8                    INT8             PPL 2.43  Xent 0.8880  Entr nan
+2025-10-07 22:56:48,985 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-07 22:56:48,986 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 22:56:52,259 - INFO - Replaced 144 Linear layers with NvFp8Linear
+2025-10-07 22:56:55,960 - WARNING - Skipping NV-FP8 benchmark for phi-1_5: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-07 22:56:55,960 - INFO - 
+================================================================================
+2025-10-07 22:56:55,960 - INFO - BENCHMARK COMPLETE
+2025-10-07 22:56:55,960 - INFO - ================================================================================
+2025-10-07 22:57:47,568 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 22:57:47,568 - INFO - MX Configuration (fp6_e3m2): {'w_elem_format': 'fp6_e3m2', 'a_elem_format': 'fp6_e3m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp6_e3m2', 'a_elem_format_bp': 'fp6_e3m2', 'a_elem_format_bp_os': 'fp6_e3m2', 'a_elem_format_bp_ex': 'fp6_e3m2', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 22:57:47,568 - INFO - Loading evaluation data...
+2025-10-07 22:57:47,568 - INFO - Loading 32 samples from The Pile (train split)...
+2025-10-07 22:59:53,467 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:01:57,453 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 23:01:57,453 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 23:01:57,453 - INFO - Loading evaluation data...
+2025-10-07 23:01:57,454 - INFO - Loading 16 samples from The Pile (train split)...
+2025-10-07 23:02:01,928 - INFO - Loaded 16 samples from The Pile
+2025-10-07 23:02:01,928 - INFO - ================================================================================
+2025-10-07 23:02:01,928 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 23:02:01,928 - INFO - ================================================================================
+2025-10-07 23:02:01,928 - INFO - 
+================================================================================
+2025-10-07 23:02:01,928 - INFO - Evaluating: phi-1_5
+2025-10-07 23:02:01,928 - INFO - ================================================================================
+2025-10-07 23:02:01,928 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 23:02:03,740 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:02:10,073 - INFO - phi-1_5                         Baseline         PPL 2.40  Xent 0.8769  Entr 2.4947
+2025-10-07 23:02:24,770 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-07 23:02:24,837 - INFO - BF16             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:02:28,024 - INFO - phi-1_5-BF16                    BF16             PPL 2.40  Xent 0.8760  Entr 2.4883
+2025-10-07 23:02:41,013 - INFO - 
+--- BFP16 (MX block-floating) ---
+2025-10-07 23:02:41,014 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "max",
+    "block_size": 32,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 23:02:41,015 - INFO - BFP16            Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:02:42,804 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 23:02:42,808 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:02:47,703 - INFO - phi-1_5-BFP16                   BFP16            PPL 2.40  Xent 0.8770  Entr 2.4944
+2025-10-07 23:03:02,645 - INFO - 
+--- NV-FP8 (Emulated, no shared exponent) ---
+2025-10-07 23:03:02,646 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 23:03:02,646 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 23:03:02,647 - INFO - NVFP8-Emu        Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:03:04,536 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 23:03:04,540 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:03:06,472 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 23:03:06,476 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:03:14,014 - INFO - phi-1_5-NVFP8-Emu-fp8_e4m3_no_sharedNVFP8-Emu        PPL 2.46  Xent 0.9003  Entr 2.5843
+2025-10-07 23:03:15,369 - INFO - phi-1_5-NVFP8-Emu-fp8_e5m2_no_sharedNVFP8-Emu        PPL 2.47  Xent 0.9022  Entr 2.6010
+2025-10-07 23:03:40,128 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-07 23:03:40,247 - INFO - MX-Selective     Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:03:42,179 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 23:03:42,183 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:03:46,878 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.48  Xent 0.9080  Entr 2.6150
+2025-10-07 23:04:01,645 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-07 23:04:01,718 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:04:06,891 - INFO - phi-1_5-INT8                    INT8             PPL 2.40  Xent 0.8770  Entr nan
+2025-10-07 23:04:17,322 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-07 23:04:17,323 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:04:20,798 - INFO - Replaced 144 Linear layers with NvFp8Linear
+2025-10-07 23:04:25,147 - WARNING - Skipping NV-FP8 benchmark for phi-1_5: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-07 23:04:25,147 - INFO - 
+================================================================================
+2025-10-07 23:04:25,147 - INFO - BENCHMARK COMPLETE
+2025-10-07 23:04:25,148 - INFO - ================================================================================
+2025-10-07 23:57:32,482 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-07 23:57:32,485 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-07 23:57:32,485 - INFO - Loading evaluation data...
+2025-10-07 23:57:32,485 - INFO - Loading 32 samples from The Pile (train split)...
+2025-10-07 23:57:37,136 - INFO - Loaded 32 samples from The Pile
+2025-10-07 23:57:37,137 - INFO - ================================================================================
+2025-10-07 23:57:37,137 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-07 23:57:37,137 - INFO - ================================================================================
+2025-10-07 23:57:37,137 - INFO - 
+================================================================================
+2025-10-07 23:57:37,137 - INFO - Evaluating: phi-1_5
+2025-10-07 23:57:37,137 - INFO - ================================================================================
+2025-10-07 23:57:37,137 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-07 23:57:39,264 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:57:48,107 - INFO - phi-1_5                         Baseline         PPL 2.43  Xent 0.8888  Entr 2.5461
+2025-10-07 23:58:03,000 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-07 23:58:03,032 - INFO - BF16             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:58:06,865 - INFO - phi-1_5-BF16                    BF16             PPL 2.43  Xent 0.8882  Entr 2.5410
+2025-10-07 23:58:19,668 - INFO - 
+--- BFP16 (MX block-floating) ---
+2025-10-07 23:58:19,669 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 16,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 23:58:19,670 - INFO - BFP16            Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:58:21,747 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 23:58:21,751 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:58:28,001 - INFO - phi-1_5-BFP16                   BFP16            PPL 2.43  Xent 0.8888  Entr 2.5458
+2025-10-07 23:58:43,442 - INFO - 
+--- NV-FP8 (Emulated, no shared exponent) ---
+2025-10-07 23:58:43,443 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 23:58:43,443 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-07 23:58:43,445 - INFO - NVFP8-Emu        Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:58:45,745 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 23:58:45,750 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:58:47,975 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 23:58:47,980 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:59:01,336 - INFO - phi-1_5-NVFP8-Emu-fp8_e4m3_no_sharedNVFP8-Emu        PPL 2.48  Xent 0.9080  Entr 2.6278
+2025-10-07 23:59:02,443 - INFO - phi-1_5-NVFP8-Emu-fp8_e5m2_no_sharedNVFP8-Emu        PPL 2.49  Xent 0.9133  Entr 2.6492
+2025-10-07 23:59:27,560 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-07 23:59:27,562 - INFO - MX-Selective     Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:59:29,472 - INFO - Applying MX quantization to microsoft/phi-1_5
+2025-10-07 23:59:29,476 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-07 23:59:36,233 - INFO - phi-1_5-MX                      MX-Selective     PPL 2.50  Xent 0.9157  Entr 2.6521
+2025-10-07 23:59:51,513 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-07 23:59:51,517 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-07 23:59:57,904 - INFO - phi-1_5-INT8                    INT8             PPL 2.43  Xent 0.8880  Entr nan
+2025-10-08 00:00:08,294 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-08 00:00:08,295 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 00:00:11,441 - INFO - Replaced 144 Linear layers with NvFp8Linear
+2025-10-08 00:00:15,503 - WARNING - Skipping NV-FP8 benchmark for phi-1_5: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-08 00:00:15,503 - INFO - 
+================================================================================
+2025-10-08 00:00:15,503 - INFO - BENCHMARK COMPLETE
+2025-10-08 00:00:15,504 - INFO - ================================================================================
+2025-10-08 13:13:55,312 - INFO - Tier A selected. Will replace modules matching: ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-08 13:13:55,312 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:13:55,312 - INFO - MX Configuration (fp8_e5m2): {'w_elem_format': 'fp8_e5m2', 'a_elem_format': 'fp8_e5m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:13:55,313 - INFO - MX Configuration (fp6_e3m2): {'w_elem_format': 'fp6_e3m2', 'a_elem_format': 'fp6_e3m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:13:55,313 - INFO - MX Configuration (fp6_e2m3): {'w_elem_format': 'fp6_e2m3', 'a_elem_format': 'fp6_e2m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:13:55,313 - INFO - MX Configuration (fp4_e2m1): {'w_elem_format': 'fp4_e2m1', 'a_elem_format': 'fp4_e2m1', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:13:55,313 - INFO - Loading evaluation data...
+2025-10-08 13:13:55,313 - INFO - Loading 1 samples from The Pile (train split)...
+2025-10-08 13:13:59,803 - INFO - Loaded 1 samples from The Pile
+2025-10-08 13:13:59,803 - INFO - ================================================================================
+2025-10-08 13:13:59,803 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-08 13:13:59,803 - INFO - ================================================================================
+2025-10-08 13:13:59,803 - INFO - 
+================================================================================
+2025-10-08 13:13:59,804 - INFO - Evaluating: tinystories-33M
+2025-10-08 13:13:59,804 - INFO - ================================================================================
+2025-10-08 13:13:59,804 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-08 13:14:03,796 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:14:06,284 - INFO - tinystories-33M                 Baseline         PPL 4.83  Xent 1.5753  Entr 4.3854
+2025-10-08 13:14:06,753 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-08 13:14:06,771 - INFO - MX-Selective     Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:14:08,124 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-08 13:14:08,125 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-08 13:14:08,710 - INFO - tinystories-33M-MX-fp8_e4m3     MX-Selective     PPL 4.97  Xent 1.6041  Entr 4.4461
+2025-10-08 13:14:09,912 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-08 13:14:09,912 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-08 13:14:10,086 - INFO - tinystories-33M-MX-fp8_e5m2     MX-Selective     PPL 4.97  Xent 1.6027  Entr 4.3582
+2025-10-08 13:14:11,669 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-08 13:14:11,670 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-08 13:14:11,832 - INFO - tinystories-33M-MX-fp6_e3m2     MX-Selective     PPL 4.98  Xent 1.6063  Entr 4.3478
+2025-10-08 13:14:13,242 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-08 13:14:13,242 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-08 13:14:14,206 - INFO - tinystories-33M-MX-fp6_e2m3     MX-Selective     PPL 4.84  Xent 1.5770  Entr 4.4084
+2025-10-08 13:14:14,856 - INFO - Applying MX quantization to roneneldan/TinyStories-33M
+2025-10-08 13:14:14,857 - INFO - Replaced 8 Linear layers with MxLinear
+2025-10-08 13:14:15,019 - INFO - tinystories-33M-MX-fp4_e2m1     MX-Selective     PPL 4.74  Xent 1.5567  Entr 4.2623
+2025-10-08 13:14:15,441 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-08 13:14:15,442 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:14:17,995 - INFO - tinystories-33M-INT8            INT8             PPL 4.94  Xent 1.5977  Entr nan
+2025-10-08 13:14:18,275 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-08 13:14:18,276 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:14:20,139 - INFO - Replaced 8 Linear layers with NvFp8Linear
+2025-10-08 13:14:20,560 - WARNING - Skipping NV-FP8 benchmark for tinystories-33M: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-08 13:14:20,560 - INFO - 
+================================================================================
+2025-10-08 13:14:20,561 - INFO - BENCHMARK COMPLETE
+2025-10-08 13:14:20,561 - INFO - ================================================================================
+2025-10-08 13:18:49,892 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-08 13:18:49,892 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:18:49,892 - INFO - MX Configuration (fp8_e5m2): {'w_elem_format': 'fp8_e5m2', 'a_elem_format': 'fp8_e5m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:18:49,892 - INFO - MX Configuration (fp6_e3m2): {'w_elem_format': 'fp6_e3m2', 'a_elem_format': 'fp6_e3m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:18:49,893 - INFO - MX Configuration (fp6_e2m3): {'w_elem_format': 'fp6_e2m3', 'a_elem_format': 'fp6_e2m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:18:49,893 - INFO - MX Configuration (fp4_e2m1): {'w_elem_format': 'fp4_e2m1', 'a_elem_format': 'fp4_e2m1', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:18:49,893 - INFO - Loading evaluation data...
+2025-10-08 13:18:49,893 - INFO - Loading 128 samples from The Pile (train split)...
+2025-10-08 13:18:53,040 - INFO - Loaded 128 samples from The Pile
+2025-10-08 13:18:53,040 - INFO - ================================================================================
+2025-10-08 13:18:53,040 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-08 13:18:53,040 - INFO - ================================================================================
+2025-10-08 13:18:53,040 - INFO - 
+================================================================================
+2025-10-08 13:18:53,040 - INFO - Evaluating: llama-3.1-8b
+2025-10-08 13:18:53,041 - INFO - ================================================================================
+2025-10-08 13:18:53,041 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-08 13:18:56,097 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:19:31,639 - INFO - llama-3.1-8b                    Baseline         PPL 1.75  Xent 0.5569  Entr 1.5557
+2025-10-08 13:19:54,442 - INFO - 
+--- BF16 (per-tensor cast) ---
+2025-10-08 13:19:54,491 - INFO - BF16             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:20:15,787 - INFO - llama-3.1-8b-BF16               BF16             PPL 1.75  Xent 0.5569  Entr 1.5557
+2025-10-08 13:20:37,934 - INFO - 
+--- BFP16 (MX block-floating) ---
+2025-10-08 13:20:37,935 - INFO - BFP16 MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "bfloat16",
+    "a_elem_format": "bfloat16",
+    "w_elem_format_bp": "bfloat16",
+    "a_elem_format_bp": "bfloat16",
+    "a_elem_format_bp_ex": "bfloat16",
+    "a_elem_format_bp_os": "bfloat16",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 16,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-08 13:20:39,067 - INFO - BFP16            Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:20:40,714 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-08 13:20:40,720 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-08 13:21:01,448 - INFO - llama-3.1-8b-BFP16              BFP16            PPL 1.75  Xent 0.5569  Entr 1.5557
+2025-10-08 13:21:25,550 - INFO - 
+--- NV-FP8 (Emulated, no shared exponent) ---
+2025-10-08 13:21:25,551 - INFO - NV-FP8 Emulation (fp8_e4m3_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e4m3",
+    "a_elem_format": "fp8_e4m3",
+    "w_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp": "fp8_e4m3",
+    "a_elem_format_bp_ex": "fp8_e4m3",
+    "a_elem_format_bp_os": "fp8_e4m3",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-08 13:21:25,551 - INFO - NV-FP8 Emulation (fp8_e5m2_no_shared) MX Configuration: {
+    "scale_bits": 8,
+    "w_elem_format": "fp8_e5m2",
+    "a_elem_format": "fp8_e5m2",
+    "w_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp": "fp8_e5m2",
+    "a_elem_format_bp_ex": "fp8_e5m2",
+    "a_elem_format_bp_os": "fp8_e5m2",
+    "mx_flush_fp32_subnorms": false,
+    "shared_exp_method": "none",
+    "block_size": 0,
+    "bfloat": 0,
+    "fp": 0,
+    "bfloat_subnorms": true,
+    "quantize_backprop": false,
+    "round": "even",
+    "round_m": "even",
+    "round_weight": "even",
+    "round_output": "even",
+    "round_grad_weight": "even",
+    "round_grad_input": "even",
+    "round_mx_output": "even",
+    "round_mx_input_grad_input": "even",
+    "round_mx_weight_grad_input": "even",
+    "round_mx_grad_output_grad_input": "even",
+    "round_mx_input_grad_weight": "even",
+    "round_mx_grad_output_grad_weight": "even",
+    "softmax_exp2": false,
+    "vec_use_exp2": false,
+    "vec_use_recip": false,
+    "custom_cuda": false
+}
+2025-10-08 13:21:25,552 - INFO - NVFP8-Emu        Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:21:27,173 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-08 13:21:27,179 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-08 13:21:28,762 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-08 13:21:28,768 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-08 13:23:28,471 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e4m3_no_sharedNVFP8-Emu        PPL 1.69  Xent 0.5275  Entr 1.4517
+2025-10-08 13:23:33,259 - INFO - llama-3.1-8b-NVFP8-Emu-fp8_e5m2_no_sharedNVFP8-Emu        PPL 1.74  Xent 0.5539  Entr 1.5508
+2025-10-08 13:24:02,093 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-08 13:24:02,094 - INFO - MX-Selective     Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:24:03,744 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-08 13:24:03,750 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-08 13:24:05,325 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-08 13:24:05,330 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-08 13:24:07,222 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-08 13:24:07,227 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-08 13:24:08,995 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-08 13:24:09,001 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-08 13:24:10,748 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-08 13:24:10,753 - INFO - Replaced 224 Linear layers with MxLinear
+2025-10-08 13:24:45,254 - INFO - llama-3.1-8b-MX-fp8_e4m3        MX-Selective     PPL 1.73  Xent 0.5476  Entr 1.5364
+2025-10-08 13:24:45,922 - INFO - llama-3.1-8b-MX-fp8_e5m2        MX-Selective     PPL 1.77  Xent 0.5710  Entr 1.6145
+2025-10-08 13:24:47,822 - INFO - llama-3.1-8b-MX-fp6_e3m2        MX-Selective     PPL 1.77  Xent 0.5689  Entr 1.6064
+2025-10-08 13:24:49,416 - INFO - llama-3.1-8b-MX-fp6_e2m3        MX-Selective     PPL 1.72  Xent 0.5396  Entr 1.4893
+2025-10-08 13:24:49,707 - INFO - llama-3.1-8b-MX-fp4_e2m1        MX-Selective     PPL 1.99  Xent 0.6860  Entr 2.0876
+2025-10-08 13:25:54,384 - INFO - 
+--- INT8 (bitsandbytes) ---
+2025-10-08 13:25:54,388 - INFO - INT8             Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:26:25,758 - INFO - llama-3.1-8b-INT8               INT8             PPL 1.80  Xent 0.5885  Entr nan
+2025-10-08 13:26:36,229 - INFO - 
+--- NV-FP8 (Transformer Engine) ---
+2025-10-08 13:26:36,685 - INFO - NV-FP8           Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:26:41,664 - INFO - Replaced 224 Linear layers with NvFp8Linear
+2025-10-08 13:26:53,011 - WARNING - Skipping NV-FP8 benchmark for llama-3.1-8b: Device compute capability 8.9 or higher required for FP8 execution.
+2025-10-08 13:26:53,011 - INFO - 
+================================================================================
+2025-10-08 13:26:53,011 - INFO - BENCHMARK COMPLETE
+2025-10-08 13:26:53,012 - INFO - ================================================================================
+2025-10-08 13:38:40,086 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-08 13:38:40,086 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:38:40,087 - INFO - MX Configuration (fp8_e5m2): {'w_elem_format': 'fp8_e5m2', 'a_elem_format': 'fp8_e5m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:38:40,087 - INFO - MX Configuration (fp6_e3m2): {'w_elem_format': 'fp6_e3m2', 'a_elem_format': 'fp6_e3m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:38:40,087 - INFO - MX Configuration (fp6_e2m3): {'w_elem_format': 'fp6_e2m3', 'a_elem_format': 'fp6_e2m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:38:40,087 - INFO - MX Configuration (fp4_e2m1): {'w_elem_format': 'fp4_e2m1', 'a_elem_format': 'fp4_e2m1', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:38:40,087 - INFO - Loading evaluation data...
+2025-10-08 13:38:40,087 - INFO - Loading 128 samples from The Pile (train split)...
+2025-10-08 13:38:43,543 - INFO - Loaded 128 samples from The Pile
+2025-10-08 13:38:43,544 - INFO - ================================================================================
+2025-10-08 13:38:43,544 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-08 13:38:43,544 - INFO - ================================================================================
+2025-10-08 13:38:43,544 - INFO - 
+================================================================================
+2025-10-08 13:38:43,544 - INFO - Evaluating: deepseek-llm-67b-base
+2025-10-08 13:38:43,544 - INFO - ================================================================================
+2025-10-08 13:38:43,544 - INFO - Using batch size override 1 for deepseek-llm-67b-base
+2025-10-08 13:38:43,544 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-08 13:38:47,045 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 13:54:39,646 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-08 13:54:39,646 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:54:39,646 - INFO - MX Configuration (fp8_e5m2): {'w_elem_format': 'fp8_e5m2', 'a_elem_format': 'fp8_e5m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:54:39,646 - INFO - MX Configuration (fp6_e3m2): {'w_elem_format': 'fp6_e3m2', 'a_elem_format': 'fp6_e3m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:54:39,646 - INFO - MX Configuration (fp6_e2m3): {'w_elem_format': 'fp6_e2m3', 'a_elem_format': 'fp6_e2m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:54:39,647 - INFO - MX Configuration (fp4_e2m1): {'w_elem_format': 'fp4_e2m1', 'a_elem_format': 'fp4_e2m1', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 13:54:39,647 - INFO - Loading evaluation data...
+2025-10-08 13:54:39,647 - INFO - Loading 128 samples from The Pile (train split)...
+2025-10-08 13:54:43,950 - INFO - Loaded 128 samples from The Pile
+2025-10-08 13:54:43,950 - INFO - ================================================================================
+2025-10-08 13:54:43,950 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-08 13:54:43,950 - INFO - ================================================================================
+2025-10-08 13:54:43,950 - INFO - 
+================================================================================
+2025-10-08 13:54:43,950 - INFO - Evaluating: deepseek-llm-67b-base
+2025-10-08 13:54:43,950 - INFO - ================================================================================
+2025-10-08 13:54:43,950 - INFO - Using batch size override 1 for deepseek-llm-67b-base
+2025-10-08 13:54:43,950 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-08 13:54:45,663 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+2025-10-08 16:36:24,627 - INFO - Tier B selected. Will replace modules matching: ['q_proj', 'k_proj', 'v_proj', 'o_proj', 'c_attn', 'c_proj', 'query', 'key', 'value', 'dense', 'Wqkv', 'out_proj', 'gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-08 16:36:24,627 - INFO - MX Configuration (fp8_e4m3): {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 16:36:24,627 - INFO - MX Configuration (fp8_e5m2): {'w_elem_format': 'fp8_e5m2', 'a_elem_format': 'fp8_e5m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 16:36:24,627 - INFO - MX Configuration (fp6_e3m2): {'w_elem_format': 'fp6_e3m2', 'a_elem_format': 'fp6_e3m2', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 16:36:24,627 - INFO - MX Configuration (fp6_e2m3): {'w_elem_format': 'fp6_e2m3', 'a_elem_format': 'fp6_e2m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 16:36:24,627 - INFO - MX Configuration (fp4_e2m1): {'w_elem_format': 'fp4_e2m1', 'a_elem_format': 'fp4_e2m1', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even'}
+2025-10-08 16:36:24,628 - INFO - Loading evaluation data...
+2025-10-08 16:36:24,628 - INFO - Loading 128 samples from The Pile (train split)...
+2025-10-08 16:36:29,602 - INFO - Loaded 128 samples from The Pile
+2025-10-08 16:36:29,603 - INFO - ================================================================================
+2025-10-08 16:36:29,603 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-08 16:36:29,603 - INFO - ================================================================================
+2025-10-08 16:36:29,603 - INFO - 
+================================================================================
+2025-10-08 16:36:29,603 - INFO - Evaluating: deepseek-llm-67b-base
+2025-10-08 16:36:29,603 - INFO - ================================================================================
+2025-10-08 16:36:29,603 - INFO - Using batch size override 1 for deepseek-llm-67b-base
+2025-10-08 16:36:29,603 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-08 16:36:31,305 - INFO - Baseline         Using GPUs: [1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device

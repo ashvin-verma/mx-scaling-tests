@@ -1,0 +1,138 @@
+nohup: ignoring input
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/handlers/checkpoint.py:16: DeprecationWarning: `TorchScript` support for functional optimizers is deprecated and will be removed in a future PyTorch release. Consider using the `torch.compile` optimizer instead.
+  from torch.distributed.optim import ZeroRedundancyOptimizer
+2025-10-03 01:17:30,716 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 01:17:31,915 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 01:17:31,915 - INFO - Loading evaluation data...
+2025-10-03 01:17:31,915 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 01:17:35,106 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 01:17:35,107 - INFO - ================================================================================
+2025-10-03 01:17:35,107 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 01:17:35,107 - INFO - ================================================================================
+2025-10-03 01:17:35,107 - INFO - 
+================================================================================
+2025-10-03 01:17:35,107 - INFO - Evaluating: qwen2.5-7b
+2025-10-03 01:17:35,107 - INFO - ================================================================================
+2025-10-03 01:17:35,107 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:17:36,988 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 50.83it/s]
+2025-10-03 01:19:39,144 - INFO - qwen2.5-7b                      Baseline         PPL 2.87  Xent 1.0552  Entr 2.8286
+2025-10-03 01:20:00,909 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 01:20:00,954 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 42.41it/s]
+2025-10-03 01:20:02,123 - INFO - Applying MX quantization to Qwen/Qwen2.5-7B
+2025-10-03 01:20:02,125 - INFO - Replaced 84 Linear layers with MxLinear
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py:1965: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+2025-10-03 01:22:48,107 - INFO - qwen2.5-7b-MX                   MX-Selective     PPL 2.87  Xent 1.0546  Entr 2.8399
+2025-10-03 01:23:09,981 - INFO - 
+================================================================================
+2025-10-03 01:23:09,981 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 01:23:09,982 - INFO - ================================================================================
+2025-10-03 01:23:09,982 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 01:23:09,984 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 3995.33 MB. The target location /home/eecs/ashvin.verma/.cache/huggingface/hub/models--Qwen--Qwen2.5-14B/blobs only has 1525.22 MB free disk space.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 3979.61 MB. The target location /home/eecs/ashvin.verma/.cache/huggingface/hub/models--Qwen--Qwen2.5-14B/blobs only has 1525.22 MB free disk space.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 3995.35 MB. The target location /home/eecs/ashvin.verma/.cache/huggingface/hub/models--Qwen--Qwen2.5-14B/blobs only has 1525.22 MB free disk space.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 3885.13 MB. The target location /home/eecs/ashvin.verma/.cache/huggingface/hub/models--Qwen--Qwen2.5-14B/blobs only has 1525.22 MB free disk space.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py:801: UserWarning: Not enough free disk space to download the file. The expected file size is: 1698.72 MB. The target location /home/eecs/ashvin.verma/.cache/huggingface/hub/models--Qwen--Qwen2.5-14B/blobs only has 1525.22 MB free disk space.
+  warnings.warn(
+Fetching 8 files:   0%|          | 0/8 [00:56<?, ?it/s]
+Traceback (most recent call last):
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1723, in _download_to_tmp_and_move
+    xet_get(
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 629, in xet_get
+    download_files(
+RuntimeError: Data processing error: CAS service error : IO Error: No space left on device (os error 28)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 609, in <module>
+    main()
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 571, in main
+    run_eval(
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 387, in run_eval
+    fut.result()
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 365, in worker
+    model, tok = build_fn(target_device)
+                 ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/mx_lm_selective.py", line 162, in factory
+    model = AutoModelForCausalLM.from_pretrained(model_id, **load_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 288, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 5030, in from_pretrained
+    checkpoint_files, sharded_metadata = _get_resolved_checkpoint_files(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/modeling_utils.py", line 1308, in _get_resolved_checkpoint_files
+    checkpoint_files, sharded_metadata = get_checkpoint_shard_files(
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/hub.py", line 1119, in get_checkpoint_shard_files
+    cached_filenames = cached_files(
+                       ^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/hub.py", line 566, in cached_files
+    raise e
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/hub.py", line 493, in cached_files
+    snapshot_download(
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 332, in snapshot_download
+    thread_map(
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/tqdm/contrib/concurrent.py", line 69, in thread_map
+    return _executor_map(ThreadPoolExecutor, fn, *iterables, **tqdm_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/tqdm/contrib/concurrent.py", line 51, in _executor_map
+    return list(tqdm_class(ex.map(fn, *iterables, chunksize=chunksize), **kwargs))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/_snapshot_download.py", line 306, in _inner_hf_hub_download
+    return hf_hub_download(
+           ^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1010, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1171, in _hf_hub_download_to_cache_dir
+    _download_to_tmp_and_move(
+  File "/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/huggingface_hub/file_download.py", line 1709, in _download_to_tmp_and_move
+    with incomplete_path.open("ab") as f:
+OSError: [Errno 28] No space left on device

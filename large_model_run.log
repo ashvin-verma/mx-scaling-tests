@@ -1,0 +1,55 @@
+nohup: ignoring input
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/ignite/handlers/checkpoint.py:16: DeprecationWarning: `TorchScript` support for functional optimizers is deprecated and will be removed in a future PyTorch release. Consider using the `torch.compile` optimizer instead.
+  from torch.distributed.optim import ZeroRedundancyOptimizer
+2025-10-03 10:18:07,578 - INFO - Will replace only MLP modules (Tier-A): ['gate_proj', 'up_proj', 'down_proj', 'fc1', 'fc2', 'w1', 'w2', 'w3', 'dense_h_to_4h', 'dense_4h_to_h', 'mlp.c_fc', 'mlp.c_proj']
+2025-10-03 10:18:08,638 - INFO - MX Configuration: {'w_elem_format': 'fp8_e4m3', 'a_elem_format': 'fp8_e4m3', 'scale_bits': 8, 'block_size': 32, 'custom_cuda': True, 'quantize_backprop': False, 'round': 'even', 'w_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp': 'fp8_e4m3', 'a_elem_format_bp_os': 'fp8_e4m3', 'a_elem_format_bp_ex': 'fp8_e4m3', 'round_m': 'even', 'round_output': 'even', 'round_grad_weight': 'even', 'round_grad_input': 'even', 'round_weight': 'even', 'round_mx_output': 'even', 'round_mx_input_grad_input': 'even', 'round_mx_weight_grad_input': 'even', 'round_mx_grad_output_grad_input': 'even', 'round_mx_input_grad_weight': 'even', 'round_mx_grad_output_grad_weight': 'even'}
+2025-10-03 10:18:08,639 - INFO - Loading evaluation data...
+2025-10-03 10:18:08,639 - INFO - Loading 1000 samples from The Pile (train split)...
+2025-10-03 10:18:11,850 - INFO - Loaded 1000 samples from The Pile
+2025-10-03 10:18:11,850 - INFO - ================================================================================
+2025-10-03 10:18:11,850 - INFO - SELECTIVE MX GEMM REPLACEMENT BENCHMARK
+2025-10-03 10:18:11,850 - INFO - ================================================================================
+2025-10-03 10:18:11,850 - INFO - 
+================================================================================
+2025-10-03 10:18:11,850 - INFO - Evaluating: llama-3.1-8b
+2025-10-03 10:18:11,850 - INFO - ================================================================================
+2025-10-03 10:18:11,851 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 10:18:13,783 - INFO - Baseline         Using GPUs: [0, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 65.10it/s]
+2025-10-03 10:20:22,045 - INFO - llama-3.1-8b                    Baseline         PPL 1.73  Xent 0.5484  Entr 1.5210
+2025-10-03 10:20:44,127 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 10:20:44,182 - INFO - MX-Selective     Using GPUs: [0, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 62.50it/s]
+2025-10-03 10:20:45,819 - INFO - Applying MX quantization to meta-llama/Meta-Llama-3.1-8B
+2025-10-03 10:20:45,822 - INFO - Replaced 96 Linear layers with MxLinear
+/scratch/ashvin/mx-scaling-tests/.venv/lib/python3.12/site-packages/torch/utils/cpp_extension.py:1965: UserWarning: TORCH_CUDA_ARCH_LIST is not set, all archs for visible cards are included for compilation. 
+If this is not desired, please set os.environ['TORCH_CUDA_ARCH_LIST'].
+  warnings.warn(
+2025-10-03 10:23:17,393 - INFO - llama-3.1-8b-MX                 MX-Selective     PPL 1.75  Xent 0.5609  Entr 1.5969
+2025-10-03 10:23:39,275 - INFO - 
+================================================================================
+2025-10-03 10:23:39,276 - INFO - Evaluating: qwen2.5-14b
+2025-10-03 10:23:39,276 - INFO - ================================================================================
+2025-10-03 10:23:39,276 - INFO - Using batch size override 1 for qwen2.5-14b
+2025-10-03 10:23:39,276 - INFO - 
+--- Baseline (FP32/BF16) ---
+2025-10-03 10:23:39,282 - INFO - Baseline         Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:07,  1.13s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:02<00:06,  1.15s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:03<00:05,  1.18s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:04<00:04,  1.19s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:05<00:03,  1.17s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:06<00:02,  1.13s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:08<00:01,  1.16s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:08<00:00,  1.05it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:08<00:00,  1.08s/it]
+2025-10-03 10:23:49,465 - INFO - Loaded Qwen/Qwen2.5-14B across devices: ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5', 'cuda:6', 'cuda:7']
+2025-10-03 10:28:12,828 - INFO - qwen2.5-14b                     Baseline         PPL 2.38  Xent 0.8682  Entr 2.2031
+2025-10-03 10:28:23,304 - INFO - 
+--- MX (Selective GEMM) ---
+2025-10-03 10:28:23,306 - INFO - MX-Selective     Using GPUs: [0, 1, 2, 3, 4, 5, 6, 7] with 1 worker(s)/device
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:01<00:07,  1.10s/it]Loading checkpoint shards:  25%|██▌       | 2/8 [00:02<00:06,  1.14s/it]Loading checkpoint shards:  38%|███▊      | 3/8 [00:03<00:05,  1.16s/it]Loading checkpoint shards:  50%|█████     | 4/8 [00:04<00:04,  1.16s/it]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:05<00:03,  1.14s/it]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:06<00:02,  1.12s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:08<00:01,  1.15s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:08<00:00,  1.06it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:08<00:00,  1.06s/it]
+2025-10-03 10:28:34,548 - INFO - Loaded Qwen/Qwen2.5-14B across devices: ['cuda:0', 'cuda:1', 'cuda:2', 'cuda:3', 'cuda:4', 'cuda:5', 'cuda:6', 'cuda:7']
+2025-10-03 10:28:34,550 - INFO - Applying MX quantization to Qwen/Qwen2.5-14B
+2025-10-03 10:28:34,554 - INFO - Replaced 144 Linear layers with MxLinear
+2025-10-03 10:37:34,833 - INFO - qwen2.5-14b-MX                  MX-Selective     PPL 2.36  Xent 0.8566  Entr 2.1757
+2025-10-03 10:37:45,250 - INFO - 
+================================================================================
+2025-10-03 10:37:45,250 - INFO - BENCHMARK COMPLETE
+2025-10-03 10:37:45,250 - INFO - ================================================================================
